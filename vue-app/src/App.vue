@@ -241,72 +241,139 @@ const avatarSizes = ['sm', 'md', 'lg', 'xl'] as const;
       </section>
 
       <!-- BaseBadge Showcase -->
-      <section class="showcase-section">
+     <section class="showcase-section">
         <h2>Atome: BaseBadge</h2>
 
         <div class="doc-box">
           <h3>Documentation</h3>
-          <p>Indicateur de statut compact. Utilise les tokens (couleurs, spacing, radius).</p>
+          <p>Indicateur de statut, labels ou tags.</p>
           <table class="doc-table">
             <thead>
               <tr>
                 <th>Prop</th>
-                <th>Type</th>
                 <th>Défaut</th>
-                <th>Valeurs possibles</th>
+                <th>Valeurs</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><code>variant</code></td>
-                <td>String</td>
                 <td>'neutral'</td>
                 <td>'neutral', 'success', 'warning', 'error', 'info'</td>
               </tr>
               <tr>
                 <td><code>size</code></td>
-                <td>String</td>
                 <td>'md'</td>
-                <td>'sm', 'md'</td>
+                <td>'sm' (petit), 'md' (standard)</td>
               </tr>
               <tr>
                 <td><code>shape</code></td>
-                <td>String</td>
                 <td>'rounded'</td>
-                <td>'rounded', 'pill'</td>
-              </tr>
-              <tr>
-                <td><code>Slots</code></td>
-                <td>-</td>
-                <td>-</td>
-                <td>default (texte), icon</td>
+                <td>'rounded' (coins 4px), 'pill' (capsule)</td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <h3>1. Variantes</h3>
-        <div class="btn-row">
-          <BaseBadge v-for="v in badgeVariants" :key="v" :variant="v">
-            {{ v }}
-          </BaseBadge>
-          <BaseBadge variant="success">
-            <template #icon>
-              <BaseIcon name="check" size="sm" />
-            </template>
-            Avec icône
-          </BaseBadge>
-        </div>
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-8);">
 
-        <h3>2. Tailles</h3>
-        <div class="btn-row">
-          <BaseBadge v-for="s in badgeSizes" :key="s" :size="s" variant="info">Size {{ s }}</BaseBadge>
-        </div>
+          <div>
+            <h3>1. Variantes (Couleurs Sémantiques)</h3>
+            <p class="section-desc">Test des différentes couleurs d'état.</p>
+            <div style="display: flex; gap: var(--spacing-2); flex-wrap: wrap;">
+              <BaseBadge variant="neutral">Neutral</BaseBadge>
+              <BaseBadge variant="success">Success</BaseBadge>
+              <BaseBadge variant="warning">Warning</BaseBadge>
+              <BaseBadge variant="error">Error</BaseBadge>
+              <BaseBadge variant="info">Info</BaseBadge>
+            </div>
+          </div>
 
-        <h3>3. Formes</h3>
-        <div class="btn-row">
-          <BaseBadge variant="warning" shape="rounded">Rounded</BaseBadge>
-          <BaseBadge variant="warning" shape="pill">Pill</BaseBadge>
+          <hr style="border: 0; border-top: 1px dashed var(--color-border-default);" />
+
+          <div>
+            <h3>2. Formes (Shapes)</h3>
+            <p class="section-desc">Comparaison entre le style standard et le style "capsule".</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-4); max-width: 500px;">
+
+              <div style="display: flex; flex-direction: column; gap: var(--spacing-2);">
+                <span style="font-size: 12px; font-weight: 600; color: var(--color-text-secondary);">Rounded
+                  (Défaut)</span>
+                <div style="display: flex; gap: var(--spacing-2);">
+                  <BaseBadge shape="rounded" variant="neutral">Tag #1</BaseBadge>
+                  <BaseBadge shape="rounded" variant="info">v1.0.2</BaseBadge>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: var(--spacing-2);">
+                <span style="font-size: 12px; font-weight: 600; color: var(--color-text-secondary);">Pill
+                  (Capsule)</span>
+                <div style="display: flex; gap: var(--spacing-2);">
+                  <BaseBadge shape="pill" variant="neutral">Tag #1</BaseBadge>
+                  <BaseBadge shape="pill" variant="info">v1.0.2</BaseBadge>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px dashed var(--color-border-default);" />
+
+          <div>
+            <h3>3. Tailles (Sizes)</h3>
+            <p class="section-desc">Comparaison de l'échelle Small vs Medium.</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-4); max-width: 500px;">
+
+              <div style="display: flex; flex-direction: column; gap: var(--spacing-2);">
+                <span style="font-size: 12px; font-weight: 600; color: var(--color-text-secondary);">Small (sm)</span>
+                <div>
+                  <BaseBadge size="sm" variant="success">Payé</BaseBadge>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: var(--spacing-2);">
+                <span style="font-size: 12px; font-weight: 600; color: var(--color-text-secondary);">Medium (md)</span>
+                <div>
+                  <BaseBadge size="md" variant="success">Payé</BaseBadge>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px dashed var(--color-border-default);" />
+
+          <div>
+            <h3>4. Composition avec Icône</h3>
+            <p class="section-desc">Exemples contextuels.</p>
+            <div style="display: flex; gap: var(--spacing-4); align-items: flex-start;">
+
+              <BaseBadge variant="success" size="sm">
+                <template #icon>
+                  <BaseIcon name="check" size="sm" />
+                </template>
+                Succès
+              </BaseBadge>
+
+              <BaseBadge variant="warning" shape="pill" size="md">
+                <template #icon>
+                  <BaseIcon name="warning" size="sm" />
+                </template>
+                Attention requise
+              </BaseBadge>
+
+              <BaseBadge variant="error" shape="rounded">
+                <template #icon>
+                  <BaseIcon name="trash" size="sm" />
+                </template>
+                Supprimé
+              </BaseBadge>
+
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -316,14 +383,14 @@ const avatarSizes = ['sm', 'md', 'lg', 'xl'] as const;
 
         <div class="doc-box">
           <h3>Documentation</h3>
-          <p>Affiche l'identité d'un utilisateur (image, fallback initiales). Respecte l'accessibilité.</p>
+          <p>Composant d'affichage de photo de profil (toujours circulaire).</p>
           <table class="doc-table">
             <thead>
               <tr>
                 <th>Prop</th>
                 <th>Type</th>
                 <th>Défaut</th>
-                <th>Valeurs possibles / Description</th>
+                <th>Description</th>
               </tr>
             </thead>
             <tbody>
@@ -331,61 +398,64 @@ const avatarSizes = ['sm', 'md', 'lg', 'xl'] as const;
                 <td><code>src</code></td>
                 <td>String</td>
                 <td>-</td>
-                <td>URL image (optionnel)</td>
+                <td>URL de l'image. Fallback auto si erreur.</td>
               </tr>
               <tr>
                 <td><code>alt</code></td>
                 <td>String</td>
-                <td>-</td>
-                <td>Nom complet (obligatoire sauf si <code>decorative</code>)</td>
+                <td>(Requis)</td>
+                <td>Texte alternatif.</td>
               </tr>
               <tr>
                 <td><code>initials</code></td>
                 <td>String</td>
                 <td>-</td>
-                <td>Texte fallback si l'image échoue</td>
+                <td>Force les initiales.</td>
               </tr>
               <tr>
                 <td><code>size</code></td>
                 <td>String</td>
                 <td>'md'</td>
-                <td>'sm', 'md', 'lg', 'xl'</td>
-              </tr>
-              <tr>
-                <td><code>shape</code></td>
-                <td>String</td>
-                <td>'circle'</td>
-                <td>'circle', 'square'</td>
+                <td>'sm', 'md', 'lg'</td>
               </tr>
               <tr>
                 <td><code>decorative</code></td>
                 <td>Boolean</td>
                 <td>false</td>
-                <td>Si vrai: <code>alt=""</code> et <code>aria-hidden="true"</code></td>
+                <td>Ignorer par les lecteurs d'écran.</td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <h3>1. Tailles (avec image)</h3>
-        <div class="btn-row">
-          <BaseAvatar v-for="s in avatarSizes" :key="s" :size="s" src="/vite.svg" alt="Jane Doe" />
-        </div>
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-6); max-width: 600px;">
 
-        <h3>2. Fallback Initiales</h3>
-        <div class="btn-row">
-          <BaseAvatar v-for="s in avatarSizes" :key="'i-' + s" :size="s" initials="JD" alt="Jane Doe" />
-        </div>
+          <div>
+            <h3>1. Tailles</h3>
+            <div style="display: flex; align-items: center; gap: var(--spacing-4);">
+              <BaseAvatar src="https://i.pravatar.cc/150?img=1" alt="User 1" size="sm" />
+              <BaseAvatar src="https://i.pravatar.cc/150?img=2" alt="User 2" size="md" />
+              <BaseAvatar src="https://i.pravatar.cc/150?img=3" alt="User 3" size="lg" />
+            </div>
+          </div>
 
-        <h3>3. Formes</h3>
-        <div class="btn-row">
-          <BaseAvatar src="/vite.svg" alt="John Doe" shape="circle" />
-          <BaseAvatar src="/vite.svg" alt="John Doe" shape="square" />
-        </div>
+          <div>
+            <h3>2. Fallback (Initials)</h3>
+            <div style="display: flex; gap: var(--spacing-6);">
 
-        <h3>4. Décoratif</h3>
-        <div class="btn-row">
-          <BaseAvatar src="/vite.svg" alt="" :decorative="true" />
+              <div style="text-align: center;">
+                <BaseAvatar src="error.jpg" alt="Jean Dupont" size="lg" />
+                <p style="font-size: 12px; margin-top: 8px; color: var(--color-text-secondary);">Image HS</p>
+              </div>
+
+              <div style="text-align: center;">
+                <BaseAvatar alt="Entreprise Acme" initials="AC" size="lg" />
+                <p style="font-size: 12px; margin-top: 8px; color: var(--color-text-secondary);">Sans Src</p>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </section>
 

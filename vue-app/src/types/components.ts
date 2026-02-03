@@ -44,14 +44,12 @@ export interface BaseBadgeProps {
 }
 
 // Avatar
-export type AvatarSize = "sm" | "md" | "lg" | "xl";
-export type AvatarShape = "circle" | "square";
+export type AvatarSize = "sm" | "md" | "lg";
 
 export interface BaseAvatarProps {
   src?: string;
   alt: string; // requis (sauf si décoratif)
   initials?: string; // fallback
   size?: AvatarSize;
-  shape?: AvatarShape;
   decorative?: boolean; // aria-hidden si décoratif
 }

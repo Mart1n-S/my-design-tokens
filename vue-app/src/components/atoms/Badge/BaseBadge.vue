@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed, useSlots } from 'vue';
 import type { BaseBadgeProps } from '../../../types/components';
 
 const props = withDefaults(defineProps<BaseBadgeProps>(), {
@@ -6,24 +7,32 @@ const props = withDefaults(defineProps<BaseBadgeProps>(), {
   size: 'md',
   shape: 'rounded'
 });
+
+const slots = useSlots();
+
+// Classes dynamiques
+const classes = computed(() => [
+  'badge',
+  `badge--${props.variant}`,
+  `badge--${props.size}`,
+  `badge--${props.shape}`
+]);
+
+// On vérifie si le slot icon est utilisé pour ne pas afficher le span vide
+const hasIcon = computed(() => !!slots.icon);
 </script>
 
 <template>
-  <span
-    class="badge"
-    :class="[
-      `badge--${props.variant}`,
-      `badge--${props.size}`,
-      `badge--${props.shape}`
-    ]"
-    role="status"
-  >
-    <span class="badge__icon" aria-hidden="true">
+  <span :class="classes" role="status">
+
+    <span v-if="hasIcon" class="badge__icon">
       <slot name="icon" />
     </span>
+
     <span class="badge__label">
       <slot />
     </span>
+
   </span>
 </template>
 
@@ -31,59 +40,73 @@ const props = withDefaults(defineProps<BaseBadgeProps>(), {
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-2);
-  border-radius: var(--radius-md);
+  justify-content: center;
+  gap: var(--spacing-1);
   border: 1px solid transparent;
   font-family: var(--font-family-body);
   font-weight: var(--font-weight-medium);
   line-height: 1;
+  white-space: nowrap;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
 /* Sizes */
 .badge--sm {
   padding: 2px var(--spacing-2);
   font-size: var(--font-size-xs);
+  height: 20px;
 }
 
 .badge--md {
-  padding: 4px var(--spacing-3);
+  padding: 3px var(--spacing-3);
   font-size: var(--font-size-sm);
+  height: 24px;
 }
 
-/* Shape */
-.badge--rounded { border-radius: var(--radius-md); }
-.badge--pill { border-radius: 9999px; }
+/* Shapes */
+.badge--rounded {
+  border-radius: var(--radius-xs);
+}
 
-.badge__icon:empty { display: none; }
+/* Pill : Rond parfait */
+.badge--pill {
+  border-radius: var(--radius-full);
+}
 
-/* Variants (fond/texte/bordure) */
+/* Variants */
 .badge--neutral {
-  background-color: var(--color-gray-100);
-  color: var(--color-gray-700);
-  border-color: var(--color-gray-200);
+  background-color: var(--color-badge-neutral-background);
+  color: var(--color-badge-neutral-text);
+  border-color: var(--color-badge-neutral-border);
 }
 
 .badge--success {
-  background-color: var(--color-green-50);
-  color: var(--color-green-700);
-  border-color: var(--color-green-200);
+  background-color: var(--color-badge-success-background);
+  color: var(--color-badge-success-text);
+  border-color: var(--color-badge-success-border);
 }
 
 .badge--warning {
-  background-color: var(--color-orange-50);
-  color: var(--color-orange-800);
-  border-color: var(--color-orange-200);
+  background-color: var(--color-badge-warning-background);
+  color: var(--color-badge-warning-text);
+  border-color: var(--color-badge-warning-border);
 }
 
 .badge--error {
-  background-color: var(--color-red-50);
-  color: var(--color-red-700);
-  border-color: var(--color-red-200);
+  background-color: var(--color-badge-error-background);
+  color: var(--color-badge-error-text);
+  border-color: var(--color-badge-error-border);
 }
 
 .badge--info {
-  background-color: var(--color-blue-50);
-  color: var(--color-blue-700);
-  border-color: var(--color-blue-200);
+  background-color: var(--color-badge-info-background);
+  color: var(--color-badge-info-text);
+  border-color: var(--color-badge-info-border);
+}
+
+/* Ajustement de l'icône */
+.badge__icon {
+  display: flex;
+  align-items: center;
 }
 </style>
