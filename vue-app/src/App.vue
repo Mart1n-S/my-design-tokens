@@ -2,6 +2,8 @@
 import { ref, watchEffect } from 'vue';
 import BaseButton from './components/atoms/Button/BaseButton.vue';
 import BaseIcon from './components/atoms/Icon/BaseIcon.vue';
+import FormField from './components/molecules/FormField/FormField.vue';
+import BaseTextarea from './components/atoms/Textarea/BaseTextarea.vue';
 
 // Gestion du thème (clair/sombre)
 // On lit la préférence système ou le localStorage
@@ -28,6 +30,13 @@ const allIcons = [
   'menu', 'chevron-down', 'arrow-right', 'logout',
   'sun', 'moon'
 ];
+
+// Data pour la démos des Textareas
+const textBio = ref('');
+const textError = ref('');
+const textLimit = ref('');
+const textDisabled = ref('Ce contenu ne peut pas être modifié.');
+const textReadonly = ref('ID-12345-X89 (Lecture seule, mais copiable)');
 </script>
 
 <template>
@@ -208,9 +217,17 @@ const allIcons = [
 
         <h3>4. États de Chargement (Loading)</h3>
         <div class="btn-row">
-          <BaseButton loading>Loading...</BaseButton>
-          <BaseButton variant="secondary" loading>Saving...</BaseButton>
-          <BaseButton variant="danger" loading>Deleting...</BaseButton>
+          <BaseButton loading aria-label="Chargement en cours...">
+            Loading...
+          </BaseButton>
+
+          <BaseButton variant="secondary" loading aria-label="Sauvegarde en cours">
+            Saving...
+          </BaseButton>
+
+          <BaseButton variant="danger" loading aria-label="Suppression en cours">
+            Deleting...
+          </BaseButton>
         </div>
 
         <h3>5. Composition avec Icones</h3>
@@ -233,6 +250,198 @@ const allIcons = [
 
       </section>
 
+      <section class="showcase-section">
+        <h2>Molécule: FormField + Atome: BaseTextarea</h2>
+
+        <div class="doc-box">
+          <h3>Documentation</h3>
+          <p>Architecture atomique : <code>FormField</code> gère le layout (Label, Messages, Compteur),
+            <code>BaseTextarea</code> gère le champ.</p>
+
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Composant</th>
+                <th>Prop</th>
+                <th>Type</th>
+                <th>Défaut</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>BaseTextarea</strong></td>
+                <td><code>modelValue</code></td>
+                <td>String</td>
+                <td>''</td>
+                <td>Valeur du champ (v-model)</td>
+              </tr>
+              <tr>
+                <td><strong>BaseTextarea</strong></td>
+                <td><code>rows</code></td>
+                <td>Number | String</td>
+                <td>3</td>
+                <td>Nombre de lignes visibles initialement</td>
+              </tr>
+              <tr>
+                <td><strong>BaseTextarea</strong></td>
+                <td><code>resize</code></td>
+                <td>String</td>
+                <td>'vertical'</td>
+                <td>'none', 'vertical', 'horizontal', 'both'</td>
+              </tr>
+              <tr>
+                <td><strong>BaseTextarea</strong></td>
+                <td><code>placeholder</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>Texte indicatif temporaire</td>
+              </tr>
+              <tr>
+                <td><strong>BaseTextarea</strong></td>
+                <td><code>maxlength</code></td>
+                <td>Number</td>
+                <td>-</td>
+                <td>Limite native de caractères (bloque la saisie)</td>
+              </tr>
+              <tr>
+                <td><strong>BaseTextarea</strong></td>
+                <td><code>readonly</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>Lecture seule (focus et copie possibles)</td>
+              </tr>
+              <tr>
+                <td><strong>BaseTextarea</strong></td>
+                <td><code>disabled</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>Désactivé (ni clic, ni focus)</td>
+              </tr>
+              <tr>
+                <td><strong>BaseTextarea</strong></td>
+                <td><code>error</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>Affiche la bordure en rouge</td>
+              </tr>
+              <tr>
+                <td><strong>BaseTextarea</strong></td>
+                <td><code>required</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>Ajoute l'attribut natif requis</td>
+              </tr>
+
+              <tr>
+                <td><strong>FormField</strong></td>
+                <td><code>id</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>ID unique pour lier Label et Input (Requis)</td>
+              </tr>
+              <tr>
+                <td><strong>FormField</strong></td>
+                <td><code>label</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>Libellé du champ (Requis)</td>
+              </tr>
+              <tr>
+                <td><strong>FormField</strong></td>
+                <td><code>helpText</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>Texte d'aide affiché sous le champ (gris)</td>
+              </tr>
+              <tr>
+                <td><strong>FormField</strong></td>
+                <td><code>errorMessage</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>Message d'erreur affiché sous le champ (rouge)</td>
+              </tr>
+              <tr>
+                <td><strong>FormField</strong></td>
+                <td><code>error</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>Bascule le label et le message en rouge</td>
+              </tr>
+              <tr>
+                <td><strong>FormField</strong></td>
+                <td><code>showCount</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>Affiche le compteur de caractères</td>
+              </tr>
+              <tr>
+                <td><strong>FormField</strong></td>
+                <td><code>maxLength</code></td>
+                <td>Number</td>
+                <td>-</td>
+                <td>Valeur max pour l'affichage du compteur (ex: 10/100)</td>
+              </tr>
+              <tr>
+                <td><strong>FormField</strong></td>
+                <td><code>currentLength</code></td>
+                <td>Number</td>
+                <td>-</td>
+                <td>Longueur actuelle du texte (v-model.length)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-6); max-width: 600px;">
+
+          <div>
+            <h3>1. Standard (Resize Vertical)</h3>
+            <FormField id="bio" label="Biographie" help-text="Sera visible sur votre profil public.">
+              <BaseTextarea id="bio" v-model="textBio" placeholder="Racontez votre histoire..." />
+            </FormField>
+          </div>
+
+          <div>
+            <h3>2. Avec Compteur & Limite</h3>
+            <FormField id="tweet" label="Message court" show-count :max-length="100" :current-length="textLimit.length">
+              <BaseTextarea id="tweet" v-model="textLimit" :maxlength="100" rows="2"
+                placeholder="Écrivez ici (max 100)..." />
+            </FormField>
+          </div>
+
+          <div>
+            <h3>3. État Erreur</h3>
+            <FormField id="comment-error" label="Feedback" error error-message="Ce champ est requis pour soumettre."
+              required>
+              <template #default="{ describedBy }">
+                <BaseTextarea id="comment-error" v-model="textError" error required :aria-describedby="describedBy" />
+              </template>
+            </FormField>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-4);">
+
+            <div>
+              <h3>4. Disabled</h3>
+              <p class="section-desc">Label grisé, pas d'interaction.</p>
+              <FormField id="disabled-demo" label="Archives" disabled>
+                <BaseTextarea id="disabled-demo" v-model="textDisabled" disabled resize="none" />
+              </FormField>
+            </div>
+
+            <div>
+              <h3>5. Readonly</h3>
+              <p class="section-desc">Fond teinté, focus & copie ok.</p>
+              <FormField id="readonly-demo" label="Clé API">
+                <BaseTextarea id="readonly-demo" v-model="textReadonly" readonly resize="none" />
+              </FormField>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
     </main>
   </div>
 </template>

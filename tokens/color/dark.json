@@ -8,7 +8,8 @@
     "text": {
       "primary": { "value": "{color.gray.50}" },
       "secondary": { "value": "{color.gray.300}" },
-      "inverse": { "value": "{color.gray.950}" }
+      "inverse": { "value": "{color.gray.950}" },
+      "placeholder": { "value": "{color.gray.300}" }
     },
     "primary": {
       "default": { "value": "{color.green.500}" },

@@ -9,6 +9,7 @@
   --color-text-primary: var(--color-gray-50);
   --color-text-secondary: var(--color-gray-300);
   --color-text-inverse: var(--color-gray-950);
+  --color-text-placeholder: var(--color-gray-300);
   --color-primary-default: var(--color-green-500);
   --color-primary-hover: var(--color-green-400);
   --color-primary-active: var(--color-green-300);

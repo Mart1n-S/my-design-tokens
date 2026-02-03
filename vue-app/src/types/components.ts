@@ -31,3 +31,35 @@ export interface BaseIconProps {
   size?: Size;
   color?: string;
 }
+
+export type ResizeOption = "none" | "vertical" | "horizontal" | "both";
+
+export interface BaseTextareaProps {
+  id?: string;
+  modelValue: string;
+  rows?: number | string;
+  resize?: ResizeOption;
+  placeholder?: string;
+  maxlength?: number;
+
+  // États visuels
+  error?: boolean;
+  disabled?: boolean;
+  readonly?: boolean;
+  required?: boolean;
+}
+
+export interface FormFieldProps {
+  id: string;
+  label: string;
+
+  helpText?: string;
+  errorMessage?: string;
+  error?: boolean;
+  required?: boolean;
+  disabled?: boolean;
+
+  showCount?: boolean;
+  maxLength?: number;
+  currentLength?: number;
+}

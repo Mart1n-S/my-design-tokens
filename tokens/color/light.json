@@ -8,7 +8,8 @@
     "text": {
       "primary": { "value": "{color.gray.900}" },
       "secondary": { "value": "{color.gray.600}" },
-      "inverse": { "value": "{color.white}" }
+      "inverse": { "value": "{color.white}" },
+      "placeholder": { "value": "{color.gray.400}" }
     },
     "primary": {
       "default": { "value": "{color.green.800}" },
@@ -37,7 +38,7 @@
       "info": { "value": "{color.blue.600}" },
       "success": { "value": "{color.green.600}" },
       "warning": { "value": "{color.orange.600}" },
-      "error": { "value": "{color.red.600}" }
+      "error": { "value": "{color.red.700}" }
     },
     "border": {
       "default": { "value": "{color.gray.200}" }
