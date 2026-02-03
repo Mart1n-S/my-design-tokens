@@ -49,20 +49,23 @@ const hasRightIcon = computed(() => (props.icon && props.iconPosition === 'right
         <span class="btn__content" :class="{ 'btn__content--hidden': loading }">
 
             <template v-if="iconOnly">
-                <BaseIcon v-if="icon" :name="icon" :size="size" />
-                <slot v-else />
+                <slot name="icon-left">
+                    <BaseIcon v-if="icon" :name="icon" :size="size" />
+                </slot>
             </template>
 
             <template v-else>
-                <span v-if="hasLeftIcon" class="btn__icon btn__icon--left">
+                <span v-if="hasLeftIcon" class="btn__icon-wrapper">
                     <slot name="icon-left">
                         <BaseIcon v-if="icon" :name="icon" :size="size" />
                     </slot>
                 </span>
 
-                <slot />
+                <span class="btn__text">
+                    <slot />
+                </span>
 
-                <span v-if="hasRightIcon" class="btn__icon btn__icon--right">
+                <span v-if="hasRightIcon" class="btn__icon-wrapper">
                     <slot name="icon-right">
                         <BaseIcon v-if="icon" :name="icon" :size="size" />
                     </slot>
@@ -82,13 +85,14 @@ const hasRightIcon = computed(() => (props.icon && props.iconPosition === 'right
     position: relative;
     font-family: var(--font-family-body);
     font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+    line-height: 1;
     white-space: nowrap;
-    border-radius: var(--radius-md);
     border: 1px solid transparent;
+    border-radius: var(--radius-md);
     cursor: pointer;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
     text-decoration: none;
+    box-sizing: border-box;
 }
 
 .btn--full-width {
@@ -96,17 +100,37 @@ const hasRightIcon = computed(() => (props.icon && props.iconPosition === 'right
     display: flex;
 }
 
-/* Focus */
-.btn:focus-visible {
-    outline: 2px solid var(--color-action-focus);
-    outline-offset: 2px;
-    z-index: 10;
+.btn__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: var(--spacing-2);
 }
 
+.btn__icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+.btn__text {
+    display: flex;
+    align-items: center;
+}
+
+
 /* Sizes */
+
 .btn--sm {
     padding: var(--spacing-1) var(--spacing-3);
     font-size: var(--font-size-sm);
+    height: 32px;
+}
+
+.btn--sm .btn__content {
     gap: var(--spacing-1);
 }
 
@@ -114,12 +138,14 @@ const hasRightIcon = computed(() => (props.icon && props.iconPosition === 'right
     padding: var(--spacing-2) var(--spacing-4);
     font-size: var(--font-size-base);
     gap: var(--spacing-2);
+    height: 40px;
 }
 
 .btn--lg {
     padding: var(--spacing-3) var(--spacing-6);
     font-size: var(--font-size-lg);
     gap: var(--spacing-2);
+    height: 48px;
 }
 
 /* Button icon */
@@ -148,80 +174,94 @@ const hasRightIcon = computed(() => (props.icon && props.iconPosition === 'right
     height: var(--spacing-12);
 }
 
+/* Focus Visible */
+.btn:focus-visible {
+    outline: 2px solid var(--color-action-focus);
+    outline-offset: 2px;
+    z-index: 10;
+}
+
 
 /** Variants */
 
 /* Primary */
 .btn--primary {
-    background-color: var(--color-primary-default);
-    color: var(--color-text-inverse);
-    border-color: var(--color-primary-default);
+    background-color: var(--color-button-primary-background);
+    color: var(--color-button-primary-text);
+    border-color: var(--color-button-primary-border);
 }
 
 .btn--primary:hover:not(:disabled) {
-    background-color: var(--color-primary-hover);
-    border-color: var(--color-primary-hover);
+    background-color: var(--color-button-primary-hover-background);
+    color: var(--color-button-primary-hover-text);
+    border-color: var(--color-button-primary-hover-border);
 }
 
 .btn--primary:active:not(:disabled) {
-    background-color: var(--color-primary-active);
-    border-color: var(--color-primary-active);
+    background-color: var(--color-button-primary-active-background);
+    color: var(--color-button-primary-active-text);
+    border-color: var(--color-button-primary-active-border);
 }
 
 /* Secondary */
 .btn--secondary {
-    background-color: var(--color-white);
-    color: var(--color-primary-constant);
-    border-color: var(--color-primary-constant);
+    background-color: var(--color-button-secondary-background);
+    color: var(--color-button-secondary-text);
+    border-color: var(--color-button-secondary-border);
 }
 
 .btn--secondary:hover:not(:disabled) {
-    background-color: var(--color-primary-surface-hover);
-    color: var(--color-primary-hover);
-    border-color: var(--color-primary-hover);
+    background-color: var(--color-button-secondary-hover-background);
+    color: var(--color-button-secondary-hover-text);
+    border-color: var(--color-button-secondary-hover-border);
 }
 
 .btn--secondary:active:not(:disabled) {
-    background-color: var(--color-primary-surface-active);
-    color: var(--color-primary-active);
-    border-color: var(--color-primary-active);
+    background-color: var(--color-button-secondary-active-background);
+    color: var(--color-button-secondary-active-text);
+    border-color: var(--color-button-secondary-active-border);
 }
 
 /* Tertiary */
 .btn--tertiary {
-    background-color: transparent;
-    color: var(--color-primary-default);
+    background-color: var(--color-button-tertiary-background);
+    color: var(--color-button-tertiary-text);
+    border-color: var(--color-button-tertiary-border);
 }
 
 .btn--tertiary:hover:not(:disabled) {
-    background-color: var(--color-primary-surface-hover);
-    color: var(--color-primary-hover);
+    background-color: var(--color-button-tertiary-hover-background);
+    color: var(--color-button-tertiary-hover-text);
+    border-color: var(--color-button-tertiary-hover-border);
 }
 
 .btn--tertiary:active:not(:disabled) {
-    background-color: var(--color-primary-surface-active);
-    color: var(--color-primary-active);
+    background-color: var(--color-button-tertiary-active-background);
+    color: var(--color-button-tertiary-active-text);
+    border-color: var(--color-button-tertiary-active-border);
 }
 
 /* Danger */
 .btn--danger {
-    background-color: var(--color-danger-default);
-    color: var(--color-white);
-    border-color: var(--color-danger-default);
+    background-color: var(--color-button-danger-background);
+    color: var(--color-button-danger-text);
+    border-color: var(--color-button-danger-border);
 }
 
 .btn--danger:hover:not(:disabled) {
-    background-color: var(--color-danger-hover);
-    border-color: var(--color-danger-hover);
+    background-color: var(--color-button-danger-hover-background);
+    color: var(--color-button-danger-hover-text);
+    border-color: var(--color-button-danger-hover-border);
 }
 
 .btn--danger:active:not(:disabled) {
-    background-color: var(--color-danger-active);
-    border-color: var(--color-danger-active);
+    background-color: var(--color-button-danger-active-background);
+    color: var(--color-button-danger-active-text);
+    border-color: var(--color-button-danger-active-border);
 }
 
 .btn--danger:focus-visible {
-    outline-color: var(--color-danger-focus);
+    outline-color: var(--color-button-danger-background);
 }
 
 /* Etats globaux */
@@ -237,7 +277,7 @@ const hasRightIcon = computed(() => (props.icon && props.iconPosition === 'right
     box-shadow: none;
 }
 
-/* Exception pour Secondary/Tertiary disabled (éviter le pavé gris) */
+/* Exception pour Secondary/Tertiary disabled */
 .btn--secondary:disabled,
 .btn--tertiary:disabled {
     background-color: transparent;
@@ -267,19 +307,6 @@ const hasRightIcon = computed(() => (props.icon && props.iconPosition === 'right
     width: 1.2em;
     height: 1.2em;
     animation: spin 1s linear infinite;
-}
-
-/* Utilities */
-.btn__icon--left {
-    margin-right: 0.5em;
-}
-
-.btn__icon--right {
-    margin-left: 0.5em;
-}
-
-.btn__content:empty+.btn__icon {
-    margin: 0;
 }
 
 @keyframes spin {

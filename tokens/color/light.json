@@ -47,6 +47,68 @@
     "border": {
       "default": { "value": "{color.gray.200}" }
     },
+    "button": {
+      "primary": {
+        "background": { "value": "{color.primary.default}" },
+        "text": { "value": "{color.white}" },
+        "border": { "value": "transparent" },
+        "hover": {
+          "background": { "value": "{color.primary.hover}" },
+          "text": { "value": "{color.white}" },
+          "border": { "value": "transparent" }
+        },
+        "active": {
+          "background": { "value": "{color.primary.active}" },
+          "text": { "value": "{color.white}" },
+          "border": { "value": "transparent" }
+        }
+      },
+      "secondary": {
+        "background": { "value": "{color.white}" },
+        "text": { "value": "{color.primary.constant}" },
+        "border": { "value": "{color.primary.constant}" },
+        "hover": {
+          "background": { "value": "{color.primary.surface.hover}" },
+          "text": { "value": "{color.primary.hover}" },
+          "border": { "value": "{color.primary.hover}" }
+        },
+        "active": {
+          "background": { "value": "{color.primary.surface.active}" },
+          "text": { "value": "{color.primary.active}" },
+          "border": { "value": "{color.primary.active}" }
+        }
+      },
+      "tertiary": {
+        "background": { "value": "transparent" },
+        "text": { "value": "{color.primary.constant}" },
+        "border": { "value": "transparent" },
+        "hover": {
+          "background": { "value": "{color.primary.surface.hover}" },
+          "text": { "value": "{color.primary.hover}" },
+          "border": { "value": "transparent" }
+        },
+        "active": {
+          "background": { "value": "{color.primary.surface.active}" },
+          "text": { "value": "{color.primary.active}" },
+          "border": { "value": "transparent" }
+        }
+      },
+      "danger": {
+        "background": { "value": "{color.danger.default}" },
+        "text": { "value": "{color.white}" },
+        "border": { "value": "transparent" },
+        "hover": {
+          "background": { "value": "{color.danger.hover}" },
+          "text": { "value": "{color.white}" },
+          "border": { "value": "transparent" }
+        },
+        "active": {
+          "background": { "value": "{color.danger.active}" },
+          "text": { "value": "{color.white}" },
+          "border": { "value": "transparent" }
+        }
+      }
+    },
     "badge": {
       "neutral": {
         "background": { "value": "{color.gray.100}" },
