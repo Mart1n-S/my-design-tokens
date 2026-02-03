@@ -135,6 +135,19 @@
         "text": { "value": "{color.blue.200}" },
         "border": { "value": "{color.blue.900}" }
       }
+    },
+    "switch": {
+      "track": {
+        "off": {
+          "value": "{color.gray.400}"
+        },
+        "on": {
+          "value": "{color.primary.default}"
+        }
+      },
+      "knob": {
+        "value": "{color.gray.950}"
+      }
     }
   }
 }

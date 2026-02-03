@@ -62,6 +62,8 @@
   --color-badge-info-background: var(--color-blue-950);
   --color-badge-info-text: var(--color-blue-200);
   --color-badge-info-border: var(--color-blue-900);
+  --color-switch-track-off: var(--color-gray-400);
+  --color-switch-knob: var(--color-gray-950);
   --color-button-primary-background: var(--color-primary-default);
   --color-button-primary-hover-background: var(--color-primary-hover);
   --color-button-primary-active-background: var(--color-primary-active);
@@ -81,4 +83,5 @@
   --color-button-danger-background: var(--color-danger-default);
   --color-button-danger-hover-background: var(--color-danger-hover);
   --color-button-danger-active-background: var(--color-danger-active);
+  --color-switch-track-on: var(--color-primary-default);
 }

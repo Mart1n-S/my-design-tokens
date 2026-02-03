@@ -7,6 +7,7 @@ import BaseTextarea from './components/atoms/Textarea/BaseTextarea.vue';
 import BaseInput from './components/atoms/Input/BaseInput.vue';
 import BaseBadge from './components/atoms/Badge/BaseBadge.vue';
 import BaseAvatar from './components/atoms/Avatar/BaseAvatar.vue';
+import BaseSwitch from './components/atoms/Switch/BaseSwitch.vue';
 
 // Gestion du thème (clair/sombre)
 // On lit la préférence système ou le localStorage
@@ -49,10 +50,10 @@ const inputEmail = ref('jean.dupont@');
 const inputDisabled = ref('admin_user');
 const inputReadonly = ref('pk_live_51MzT8');
 
-// Badges & Avatars datasets
-const badgeVariants = ['neutral', 'success', 'warning', 'error', 'info'] as const;
-const badgeSizes = ['sm', 'md'] as const;
-const avatarSizes = ['sm', 'md', 'lg'] as const;
+// Variables pour BaseSwitch
+const switchVal1 = ref(false);
+const switchVal2 = ref(true);
+const switchVal3 = ref(false);
 </script>
 
 <template>
@@ -847,6 +848,105 @@ const avatarSizes = ['sm', 'md', 'lg'] as const;
         </div>
       </section>
       
+      <section class="showcase-section">
+        <h2>Atome: BaseSwitch</h2>
+
+        <div class="doc-box">
+          <h3>Documentation</h3>
+          <p>Bascule binaire (On/Off) utilisant un input checkbox natif avec <code>role="switch"</code>.</p>
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Prop</th>
+                <th>Type</th>
+                <th>Défaut</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>modelValue</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>État du switch (v-model).</td>
+              </tr>
+              <tr>
+                <td><code>label</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>Texte affiché à côté du switch.</td>
+              </tr>
+              <tr>
+                <td><code>disabled</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>Rend le switch inactif (visuellement et fonctionnellement).</td>
+              </tr>
+              <tr>
+                <td><code>id</code></td>
+                <td>String</td>
+                <td>(Auto)</td>
+                <td>Identifiant unique (utile pour l'accessibilité si pas de label visuel).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-8);">
+
+          <div>
+            <h3>1. États Interactifs</h3>
+            <p class="section-desc">Cliquez pour tester l'animation et le v-model.</p>
+
+            <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+
+              <div style="display: flex; align-items: center; justify-content: space-between; max-width: 300px;">
+                <BaseSwitch v-model="switchVal1" label="Notifications Push" />
+                <span style="font-size: 12px; color: var(--color-text-secondary);">
+                  Valeur : <strong>{{ switchVal1 }}</strong>
+                </span>
+              </div>
+
+              <div style="display: flex; align-items: center; justify-content: space-between; max-width: 300px;">
+                <BaseSwitch v-model="switchVal2" label="Mode Sombre" />
+                <span style="font-size: 12px; color: var(--color-text-secondary);">
+                  Valeur : <strong>{{ switchVal2 }}</strong>
+                </span>
+              </div>
+
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px dashed var(--color-border-default);" />
+
+          <div>
+            <h3>2. États Désactivés (Disabled)</h3>
+            <p class="section-desc">Le curseur change et l'opacité est réduite.</p>
+
+            <div style="display: flex; gap: var(--spacing-8);">
+              <BaseSwitch :model-value="false" label="Option indisponible (Off)" disabled />
+
+              <BaseSwitch :model-value="true" label="Option forcée (On)" disabled />
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px dashed var(--color-border-default);" />
+
+          <div>
+            <h3>3. Sans Label Visuel</h3>
+            <p class="section-desc">Utile dans les tableaux ou en-têtes. Utilisez <code>aria-label</code>.</p>
+
+            <div style="display: flex; align-items: center; gap: var(--spacing-4);">
+              <span>Wi-Fi :</span>
+              <BaseSwitch v-model="switchVal3" aria-label="Activer le Wi-Fi" />
+              <span style="font-size: 12px; color: var(--color-text-secondary);">
+                {{ switchVal3 ? 'Activé' : 'Désactivé' }}
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </section>
     </main>
   </div>
 </template>

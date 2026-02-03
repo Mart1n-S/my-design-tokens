@@ -13,7 +13,7 @@ export interface BaseButtonProps {
   icon?: string; // Nom de l'icône
   iconPosition?: "left" | "right"; // Position par rapport au texte
   iconOnly?: boolean;
-  
+
   // États
   disabled?: boolean;
   loading?: boolean;
@@ -102,4 +102,11 @@ export interface BaseAvatarProps {
   initials?: string; // fallback
   size?: AvatarSize;
   decorative?: boolean; // aria-hidden si décoratif
+}
+
+export interface BaseSwitchProps {
+  id?: string;
+  modelValue: boolean;
+  label?: string;
+  disabled?: boolean;
 }
