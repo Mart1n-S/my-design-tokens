@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { BaseIconProps } from '../../types/components';
+import type { BaseIconProps } from '../../../types/components';
 
 // Import des tokens générés
-import { Spacing4, Spacing6, Spacing8 } from '../../styles/tokens';
+import { Spacing4, Spacing6, Spacing8 } from '../../../styles/tokens';
 
 // Import des icônes de la librairie Lucide
 // On utilise des alias (as IconName) pour garder un code cohérent

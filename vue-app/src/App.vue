@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
-import BaseButton from './components/atoms/BaseButton.vue';
-import BaseIcon from './components/atoms/BaseIcon.vue';
+import BaseButton from './components/atoms/Button/BaseButton.vue';
+import BaseIcon from './components/atoms/Icon/BaseIcon.vue';
 
 // Gestion du thème (clair/sombre)
 // On lit la préférence système ou le localStorage
