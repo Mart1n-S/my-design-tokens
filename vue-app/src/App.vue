@@ -5,6 +5,9 @@ import BaseIcon from './components/atoms/Icon/BaseIcon.vue';
 import FormField from './components/molecules/FormField/FormField.vue';
 import BaseTextarea from './components/atoms/Textarea/BaseTextarea.vue';
 import BaseInput from './components/atoms/Input/BaseInput.vue';
+import BaseBadge from './components/atoms/Badge/BaseBadge.vue';
+import BaseAvatar from './components/atoms/Avatar/BaseAvatar.vue';
+
 // Gestion du thème (clair/sombre)
 // On lit la préférence système ou le localStorage
 const theme = ref(localStorage.getItem('theme') || 'light');
@@ -45,6 +48,11 @@ const showPassword = ref(false);
 const inputEmail = ref('jean.dupont@');
 const inputDisabled = ref('admin_user');
 const inputReadonly = ref('pk_live_51MzT8');
+
+// Badges & Avatars datasets
+const badgeVariants = ['neutral', 'success', 'warning', 'error', 'info'] as const;
+const badgeSizes = ['sm', 'md'] as const;
+const avatarSizes = ['sm', 'md', 'lg'] as const;
 </script>
 
 <template>
@@ -264,7 +272,8 @@ const inputReadonly = ref('pk_live_51MzT8');
 
         <h3>7. Boutons Icones (Icon Only)</h3>
         <p class="section-desc">Boutons carrés ou ronds. <strong>Note :</strong> Toujours fournir un
-          <code>aria-label</code>.</p>
+          <code>aria-label</code>.
+        </p>
 
         <div class="btn-row">
           <BaseButton size="md" icon="search" icon-only aria-label="Rechercher" />
@@ -287,7 +296,8 @@ const inputReadonly = ref('pk_live_51MzT8');
         <div class="doc-box">
           <h3>Documentation</h3>
           <p>Architecture atomique : <code>FormField</code> gère le layout (Label, Messages, Compteur),
-            <code>BaseTextarea</code> gère le champ.</p>
+            <code>BaseTextarea</code> gère le champ.
+          </p>
 
           <table class="doc-table">
             <thead>
@@ -593,8 +603,8 @@ const inputReadonly = ref('pk_live_51MzT8');
             <h3>3. Validation / Erreur</h3>
             <FormField id="email-demo" label="Email professionnel" error
               error-message="Veuillez entrer une adresse email valide." required>
-              <BaseInput id="email-demo" type="email" v-model="inputEmail" icon-left="mail" icon-right="warning" error icon-size="md"
-                required />
+              <BaseInput id="email-demo" type="email" v-model="inputEmail" icon-left="mail" icon-right="warning" error
+                icon-size="md" required />
             </FormField>
           </div>
 
@@ -610,7 +620,7 @@ const inputReadonly = ref('pk_live_51MzT8');
             <div>
               <h3>5. Readonly</h3>
               <FormField id="readonly-input" label="Clé API Publique">
-                <BaseInput id="readonly-input" v-model="inputReadonly" readonly icon-size="md"/>
+                <BaseInput id="readonly-input" v-model="inputReadonly" readonly icon-size="md" />
               </FormField>
             </div>
 
@@ -618,6 +628,225 @@ const inputReadonly = ref('pk_live_51MzT8');
 
         </div>
       </section>
+
+      <section class="showcase-section">
+        <h2>Atome: BaseBadge</h2>
+
+        <div class="doc-box">
+          <h3>Documentation</h3>
+          <p>Indicateur de statut, labels ou tags.</p>
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Prop</th>
+                <th>Défaut</th>
+                <th>Valeurs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>variant</code></td>
+                <td>'neutral'</td>
+                <td>'neutral', 'success', 'warning', 'error', 'info'</td>
+              </tr>
+              <tr>
+                <td><code>size</code></td>
+                <td>'md'</td>
+                <td>'sm' (petit), 'md' (standard)</td>
+              </tr>
+              <tr>
+                <td><code>shape</code></td>
+                <td>'rounded'</td>
+                <td>'rounded' (coins 4px), 'pill' (capsule)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-8);">
+
+          <div>
+            <h3>1. Variantes (Couleurs Sémantiques)</h3>
+            <p class="section-desc">Test des différentes couleurs d'état.</p>
+            <div style="display: flex; gap: var(--spacing-2); flex-wrap: wrap;">
+              <BaseBadge variant="neutral">Neutral</BaseBadge>
+              <BaseBadge variant="success">Success</BaseBadge>
+              <BaseBadge variant="warning">Warning</BaseBadge>
+              <BaseBadge variant="error">Error</BaseBadge>
+              <BaseBadge variant="info">Info</BaseBadge>
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px dashed var(--color-border-default);" />
+
+          <div>
+            <h3>2. Formes (Shapes)</h3>
+            <p class="section-desc">Comparaison entre le style standard et le style "capsule".</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-4); max-width: 500px;">
+
+              <div style="display: flex; flex-direction: column; gap: var(--spacing-2);">
+                <span style="font-size: 12px; font-weight: 600; color: var(--color-text-secondary);">Rounded
+                  (Défaut)</span>
+                <div style="display: flex; gap: var(--spacing-2);">
+                  <BaseBadge shape="rounded" variant="neutral">Tag #1</BaseBadge>
+                  <BaseBadge shape="rounded" variant="info">v1.0.2</BaseBadge>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: var(--spacing-2);">
+                <span style="font-size: 12px; font-weight: 600; color: var(--color-text-secondary);">Pill
+                  (Capsule)</span>
+                <div style="display: flex; gap: var(--spacing-2);">
+                  <BaseBadge shape="pill" variant="neutral">Tag #1</BaseBadge>
+                  <BaseBadge shape="pill" variant="info">v1.0.2</BaseBadge>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px dashed var(--color-border-default);" />
+
+          <div>
+            <h3>3. Tailles (Sizes)</h3>
+            <p class="section-desc">Comparaison de l'échelle Small vs Medium.</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-4); max-width: 500px;">
+
+              <div style="display: flex; flex-direction: column; gap: var(--spacing-2);">
+                <span style="font-size: 12px; font-weight: 600; color: var(--color-text-secondary);">Small (sm)</span>
+                <div>
+                  <BaseBadge size="sm" variant="success">Payé</BaseBadge>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: var(--spacing-2);">
+                <span style="font-size: 12px; font-weight: 600; color: var(--color-text-secondary);">Medium (md)</span>
+                <div>
+                  <BaseBadge size="md" variant="success">Payé</BaseBadge>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px dashed var(--color-border-default);" />
+
+          <div>
+            <h3>4. Composition avec Icône</h3>
+            <p class="section-desc">Exemples contextuels.</p>
+            <div style="display: flex; gap: var(--spacing-4); align-items: flex-start;">
+
+              <BaseBadge variant="success" size="sm">
+                <template #icon>
+                  <BaseIcon name="check" size="sm" />
+                </template>
+                Succès
+              </BaseBadge>
+
+              <BaseBadge variant="warning" shape="pill" size="md">
+                <template #icon>
+                  <BaseIcon name="warning" size="sm" />
+                </template>
+                Attention requise
+              </BaseBadge>
+
+              <BaseBadge variant="error" shape="rounded">
+                <template #icon>
+                  <BaseIcon name="trash" size="sm" />
+                </template>
+                Supprimé
+              </BaseBadge>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- BaseAvatar Showcase -->
+      <section class="showcase-section">
+        <h2>Atome: BaseAvatar</h2>
+
+        <div class="doc-box">
+          <h3>Documentation</h3>
+          <p>Composant d'affichage de photo de profil (toujours circulaire).</p>
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Prop</th>
+                <th>Type</th>
+                <th>Défaut</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>src</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>URL de l'image. Fallback auto si erreur.</td>
+              </tr>
+              <tr>
+                <td><code>alt</code></td>
+                <td>String</td>
+                <td>(Requis)</td>
+                <td>Texte alternatif.</td>
+              </tr>
+              <tr>
+                <td><code>initials</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>Force les initiales.</td>
+              </tr>
+              <tr>
+                <td><code>size</code></td>
+                <td>String</td>
+                <td>'md'</td>
+                <td>'sm', 'md', 'lg'</td>
+              </tr>
+              <tr>
+                <td><code>decorative</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>Ignorer par les lecteurs d'écran.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-6); max-width: 600px;">
+
+          <div>
+            <h3>1. Tailles</h3>
+            <div style="display: flex; align-items: center; gap: var(--spacing-4);">
+              <BaseAvatar src="https://i.pravatar.cc/150?img=1" alt="User 1" size="sm" />
+              <BaseAvatar src="https://i.pravatar.cc/150?img=2" alt="User 2" size="md" />
+              <BaseAvatar src="https://i.pravatar.cc/150?img=3" alt="User 3" size="lg" />
+            </div>
+          </div>
+
+          <div>
+            <h3>2. Fallback (Initials)</h3>
+            <div style="display: flex; gap: var(--spacing-6);">
+
+              <div style="text-align: center;">
+                <BaseAvatar src="error.jpg" alt="Jean Dupont" size="lg" />
+                <p style="font-size: 12px; margin-top: 8px; color: var(--color-text-secondary);">Image HS</p>
+              </div>
+
+              <div style="text-align: center;">
+                <BaseAvatar alt="Entreprise Acme" initials="AC" size="lg" />
+                <p style="font-size: 12px; margin-top: 8px; color: var(--color-text-secondary);">Sans Src</p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+      
     </main>
   </div>
 </template>

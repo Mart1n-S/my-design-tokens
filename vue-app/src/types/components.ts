@@ -81,3 +81,25 @@ export interface FormFieldProps {
   maxLength?: number;
   currentLength?: number;
 }
+
+// Badge
+export type BadgeVariant = "neutral" | "success" | "warning" | "error" | "info";
+export type BadgeSize = "sm" | "md";
+export type BadgeShape = "rounded" | "pill";
+
+export interface BaseBadgeProps {
+  variant?: BadgeVariant;
+  size?: BadgeSize;
+  shape?: BadgeShape;
+}
+
+// Avatar
+export type AvatarSize = "sm" | "md" | "lg";
+
+export interface BaseAvatarProps {
+  src?: string;
+  alt: string; // requis (sauf si décoratif)
+  initials?: string; // fallback
+  size?: AvatarSize;
+  decorative?: boolean; // aria-hidden si décoratif
+}

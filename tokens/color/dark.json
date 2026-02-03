@@ -11,6 +11,10 @@
       "inverse": { "value": "{color.gray.950}" },
       "placeholder": { "value": "{color.gray.300}" }
     },
+    "avatar": {
+      "background": { "value": "{color.gray.100}" },
+      "text": { "value": "{color.gray.700}" }
+    },
     "primary": {
       "default": { "value": "{color.green.500}" },
       "hover": { "value": "{color.green.400}" },
@@ -36,6 +40,33 @@
     },
     "border": {
       "default": { "value": "{color.gray.700}" }
+    },
+    "badge": {
+      "neutral": {
+        "background": { "value": "{color.gray.800}" },
+        "text": { "value": "{color.gray.200}" },
+        "border": { "value": "{color.gray.700}" }
+      },
+      "success": {
+        "background": { "value": "{color.green.950}" },
+        "text": { "value": "{color.green.200}" },
+        "border": { "value": "{color.green.900}" }
+      },
+      "warning": {
+        "background": { "value": "{color.orange.950}" },
+        "text": { "value": "{color.orange.200}" },
+        "border": { "value": "{color.orange.900}" }
+      },
+      "error": {
+        "background": { "value": "{color.red.950}" },
+        "text": { "value": "{color.red.200}" },
+        "border": { "value": "{color.red.900}" }
+      },
+      "info": {
+        "background": { "value": "{color.blue.950}" },
+        "text": { "value": "{color.blue.200}" },
+        "border": { "value": "{color.blue.900}" }
+      }
     }
   }
 }
