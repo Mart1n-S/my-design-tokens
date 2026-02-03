@@ -2,6 +2,8 @@
 import { ref, watchEffect } from 'vue';
 import BaseButton from './components/atoms/Button/BaseButton.vue';
 import BaseIcon from './components/atoms/Icon/BaseIcon.vue';
+import BaseBadge from './components/atoms/Badge/BaseBadge.vue';
+import BaseAvatar from './components/atoms/Avatar/BaseAvatar.vue';
 
 // Gestion du thème (clair/sombre)
 // On lit la préférence système ou le localStorage
@@ -28,6 +30,11 @@ const allIcons = [
   'menu', 'chevron-down', 'arrow-right', 'logout',
   'sun', 'moon'
 ];
+
+// Badges & Avatars datasets
+const badgeVariants = ['neutral', 'success', 'warning', 'error', 'info'] as const;
+const badgeSizes = ['sm', 'md'] as const;
+const avatarSizes = ['sm', 'md', 'lg', 'xl'] as const;
 </script>
 
 <template>
@@ -231,6 +238,155 @@ const allIcons = [
           <BaseButton fullWidth>Bouton Block</BaseButton>
         </div>
 
+      </section>
+
+      <!-- BaseBadge Showcase -->
+      <section class="showcase-section">
+        <h2>Atome: BaseBadge</h2>
+
+        <div class="doc-box">
+          <h3>Documentation</h3>
+          <p>Indicateur de statut compact. Utilise les tokens (couleurs, spacing, radius).</p>
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Prop</th>
+                <th>Type</th>
+                <th>Défaut</th>
+                <th>Valeurs possibles</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>variant</code></td>
+                <td>String</td>
+                <td>'neutral'</td>
+                <td>'neutral', 'success', 'warning', 'error', 'info'</td>
+              </tr>
+              <tr>
+                <td><code>size</code></td>
+                <td>String</td>
+                <td>'md'</td>
+                <td>'sm', 'md'</td>
+              </tr>
+              <tr>
+                <td><code>shape</code></td>
+                <td>String</td>
+                <td>'rounded'</td>
+                <td>'rounded', 'pill'</td>
+              </tr>
+              <tr>
+                <td><code>Slots</code></td>
+                <td>-</td>
+                <td>-</td>
+                <td>default (texte), icon</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>1. Variantes</h3>
+        <div class="btn-row">
+          <BaseBadge v-for="v in badgeVariants" :key="v" :variant="v">
+            {{ v }}
+          </BaseBadge>
+          <BaseBadge variant="success">
+            <template #icon>
+              <BaseIcon name="check" size="sm" />
+            </template>
+            Avec icône
+          </BaseBadge>
+        </div>
+
+        <h3>2. Tailles</h3>
+        <div class="btn-row">
+          <BaseBadge v-for="s in badgeSizes" :key="s" :size="s" variant="info">Size {{ s }}</BaseBadge>
+        </div>
+
+        <h3>3. Formes</h3>
+        <div class="btn-row">
+          <BaseBadge variant="warning" shape="rounded">Rounded</BaseBadge>
+          <BaseBadge variant="warning" shape="pill">Pill</BaseBadge>
+        </div>
+      </section>
+
+      <!-- BaseAvatar Showcase -->
+      <section class="showcase-section">
+        <h2>Atome: BaseAvatar</h2>
+
+        <div class="doc-box">
+          <h3>Documentation</h3>
+          <p>Affiche l'identité d'un utilisateur (image, fallback initiales). Respecte l'accessibilité.</p>
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Prop</th>
+                <th>Type</th>
+                <th>Défaut</th>
+                <th>Valeurs possibles / Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>src</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>URL image (optionnel)</td>
+              </tr>
+              <tr>
+                <td><code>alt</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>Nom complet (obligatoire sauf si <code>decorative</code>)</td>
+              </tr>
+              <tr>
+                <td><code>initials</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>Texte fallback si l'image échoue</td>
+              </tr>
+              <tr>
+                <td><code>size</code></td>
+                <td>String</td>
+                <td>'md'</td>
+                <td>'sm', 'md', 'lg', 'xl'</td>
+              </tr>
+              <tr>
+                <td><code>shape</code></td>
+                <td>String</td>
+                <td>'circle'</td>
+                <td>'circle', 'square'</td>
+              </tr>
+              <tr>
+                <td><code>decorative</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>Si vrai: <code>alt=""</code> et <code>aria-hidden="true"</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>1. Tailles (avec image)</h3>
+        <div class="btn-row">
+          <BaseAvatar v-for="s in avatarSizes" :key="s" :size="s" src="/vite.svg" alt="Jane Doe" />
+        </div>
+
+        <h3>2. Fallback Initiales</h3>
+        <div class="btn-row">
+          <BaseAvatar v-for="s in avatarSizes" :key="'i-' + s" :size="s" initials="JD" alt="Jane Doe" />
+        </div>
+
+        <h3>3. Formes</h3>
+        <div class="btn-row">
+          <BaseAvatar src="/vite.svg" alt="John Doe" shape="circle" />
+          <BaseAvatar src="/vite.svg" alt="John Doe" shape="square" />
+        </div>
+
+        <h3>4. Décoratif</h3>
+        <div class="btn-row">
+          <BaseAvatar src="/vite.svg" alt="" :decorative="true" />
+        </div>
       </section>
 
     </main>
