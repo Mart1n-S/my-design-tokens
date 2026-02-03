@@ -1,0 +1,26 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+[data-theme="dark"] {
+  --color-background-primary: var(--color-gray-950);
+  --color-background-secondary: var(--color-gray-900);
+  --color-background-tertiary: var(--color-gray-800);
+  --color-text-primary: var(--color-gray-50);
+  --color-text-secondary: var(--color-gray-300);
+  --color-text-inverse: var(--color-gray-950);
+  --color-primary-default: var(--color-green-500);
+  --color-primary-hover: var(--color-green-400);
+  --color-primary-active: var(--color-green-300);
+  --color-primary-surface-hover: var(--color-green-950);
+  --color-primary-surface-active: var(--color-green-900);
+  --color-primary-constant: var(--color-green-800);
+  --color-disabled-background: var(--color-gray-500);
+  --color-disabled-text: var(--color-gray-50);
+  --color-action-focus: var(--color-blue-400);
+  --color-status-info: var(--color-blue-400);
+  --color-status-success: var(--color-green-400);
+  --color-status-warning: var(--color-orange-400);
+  --color-status-error: var(--color-red-400);
+  --color-border-default: var(--color-gray-700);
+}
