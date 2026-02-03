@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import type { BaseIconProps } from '../../../types/components';
 
 // Import des tokens générés
-import { Spacing4, Spacing6, Spacing8 } from '../../../styles/tokens';
+import { Spacing3, Spacing4, Spacing6 } from '../../../styles/tokens';
 
 // Import des icônes de la librairie Lucide
 // On utilise des alias (as IconName) pour garder un code cohérent
@@ -16,6 +16,7 @@ import {
     Edit2 as IconEdit,
     Search as IconSearch,
     Settings as IconSettings,
+    Copy as IconCopy,
 
     // Feedback / Status
     Loader2 as IconLoading,
@@ -32,11 +33,12 @@ import {
     ChevronDown as IconChevronDown,
     ArrowRight as IconArrowRight,
     LogOut as IconLogOut,
+    Eye as IconEye,
+    EyeOff as IconEyeOff,
 
     // Theme
     Moon as IconMoon,
     Sun as IconSun,
-    Eye as IconEye
 
 } from 'lucide-vue-next';
 
@@ -55,6 +57,7 @@ const iconMap: Record<string, any> = {
     'edit': IconEdit,
     'search': IconSearch,
     'settings': IconSettings,
+    'copy': IconCopy,
 
     // Feedback
     'loading': IconLoading,
@@ -72,6 +75,7 @@ const iconMap: Record<string, any> = {
     'arrow-right': IconArrowRight,
     'logout': IconLogOut,
     'eye': IconEye,
+    'eye-off': IconEyeOff,
 
     // Theme
     'moon': IconMoon,
@@ -85,9 +89,9 @@ const iconComponent = computed(() => iconMap[props.name] || IconInfo);
 const sizePx = computed(() => {
     const parse = (token: string) => parseInt(token, 10);
     switch (props.size) {
-        case 'sm': return parse(Spacing4);
-        case 'md': return parse(Spacing6);
-        case 'lg': return parse(Spacing8);
+        case 'sm': return parse(Spacing3);
+        case 'md': return parse(Spacing4);
+        case 'lg': return parse(Spacing6);
         default: return parse(Spacing6);
     }
 });

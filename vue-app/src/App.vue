@@ -4,7 +4,7 @@ import BaseButton from './components/atoms/Button/BaseButton.vue';
 import BaseIcon from './components/atoms/Icon/BaseIcon.vue';
 import FormField from './components/molecules/FormField/FormField.vue';
 import BaseTextarea from './components/atoms/Textarea/BaseTextarea.vue';
-
+import BaseInput from './components/atoms/Input/BaseInput.vue';
 // Gestion du thème (clair/sombre)
 // On lit la préférence système ou le localStorage
 const theme = ref(localStorage.getItem('theme') || 'light');
@@ -37,6 +37,14 @@ const textError = ref('');
 const textLimit = ref('');
 const textDisabled = ref('Ce contenu ne peut pas être modifié.');
 const textReadonly = ref('ID-12345-X89 (Lecture seule, mais copiable)');
+
+// DATA POUR BASE INPUT
+const inputSearch = ref('');
+const inputPassword = ref('SuperSecret123');
+const showPassword = ref(false);
+const inputEmail = ref('jean.dupont@');
+const inputDisabled = ref('admin_user');
+const inputReadonly = ref('pk_live_51MzT8');
 </script>
 
 <template>
@@ -108,8 +116,8 @@ const textReadonly = ref('ID-12345-X89 (Lecture seule, mais copiable)');
 
         <div class="doc-box">
           <h3>Documentation</h3>
-          <p>Composant bouton principal. Supporte le polymorphisme (balise <code>button</code> ou <code>a</code>), les
-            icônes et les états de chargement.</p>
+          <p>Composant bouton principal. Supporte le polymorphisme, les icônes, le mode "icon-only" et les états de
+            chargement.</p>
           <table class="doc-table">
             <thead>
               <tr>
@@ -131,6 +139,12 @@ const textReadonly = ref('ID-12345-X89 (Lecture seule, mais copiable)');
                 <td>String</td>
                 <td>'md'</td>
                 <td>'sm', 'md', 'lg'</td>
+              </tr>
+              <tr>
+                <td><code>iconOnly</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>Bouton rond contenant uniquement l'icône</td>
               </tr>
               <tr>
                 <td><code>disabled</code></td>
@@ -246,6 +260,23 @@ const textReadonly = ref('ID-12345-X89 (Lecture seule, mais copiable)');
         <h3>6. Pleine largeur (Full Width)</h3>
         <div style="max-width: 400px; border: 1px dashed var(--color-border-default); padding: 1rem;">
           <BaseButton fullWidth>Bouton Block</BaseButton>
+        </div>
+
+        <h3>7. Boutons Icones (Icon Only)</h3>
+        <p class="section-desc">Boutons carrés ou ronds. <strong>Note :</strong> Toujours fournir un
+          <code>aria-label</code>.</p>
+
+        <div class="btn-row">
+          <BaseButton size="md" icon="search" icon-only aria-label="Rechercher" />
+          <BaseButton size="md" variant="secondary" icon="edit" icon-only aria-label="Éditer" />
+          <BaseButton size="md" variant="tertiary" icon="close" icon-only aria-label="Fermer" />
+          <BaseButton size="md" variant="danger" icon="trash" icon-only aria-label="Supprimer" />
+        </div>
+
+        <div class="btn-row">
+          <BaseButton size="sm" icon="plus" icon-only aria-label="Ajouter (Small)" />
+          <BaseButton size="md" icon="plus" icon-only aria-label="Ajouter (Medium)" />
+          <BaseButton size="lg" icon="plus" icon-only aria-label="Ajouter (Large)" />
         </div>
 
       </section>
@@ -435,6 +466,151 @@ const textReadonly = ref('ID-12345-X89 (Lecture seule, mais copiable)');
               <p class="section-desc">Fond teinté, focus & copie ok.</p>
               <FormField id="readonly-demo" label="Clé API">
                 <BaseTextarea id="readonly-demo" v-model="textReadonly" readonly resize="none" />
+              </FormField>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <section class="showcase-section">
+        <h2>Molécule: FormField + Atome: BaseInput</h2>
+
+        <div class="doc-box">
+          <h3>Documentation</h3>
+          <p>Champ de saisie texte (input) avec gestion d'icônes, états et accessibilité.</p>
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Prop / Slot</th>
+                <th>Type</th>
+                <th>Défaut</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>modelValue</code></td>
+                <td>String | Number</td>
+                <td>-</td>
+                <td>Valeur du champ (v-model)</td>
+              </tr>
+              <tr>
+                <td><code>type</code></td>
+                <td>String</td>
+                <td>'text'</td>
+                <td>'text', 'password', 'email', 'search', etc.</td>
+              </tr>
+              <tr>
+                <td><code>placeholder</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>Texte fantôme (utilise le token text.placeholder)</td>
+              </tr>
+              <tr>
+                <td><code>iconLeft</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>Nom de l'icône décorative à gauche</td>
+              </tr>
+              <tr>
+                <td><code>iconRight</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>Nom de l'icône décorative à droite</td>
+              </tr>
+              <tr>
+                <td><code>iconSize</code></td>
+                <td>String</td>
+                <td>'sm'</td>
+                <td>Taille des icônes ('sm', 'md'...). Affecte aussi les slots.</td>
+              </tr>
+              <tr>
+                <td><code>#icon-right</code><br><code>#icon-left</code></td>
+                <td>Slot</td>
+                <td>-</td>
+                <td>Pour insérer du contenu complexe (ex: <code>BaseButton</code>)</td>
+              </tr>
+              <tr>
+                <td><code>error</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>Affiche la bordure en rouge</td>
+              </tr>
+              <tr>
+                <td><code>disabled</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>Désactivé (ni clic, ni focus)</td>
+              </tr>
+              <tr>
+                <td><code>readonly</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>Lecture seule (focus et copie possibles)</td>
+              </tr>
+              <tr>
+                <td><code>required</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>Ajoute l'attribut natif requis</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-6); max-width: 600px;">
+
+          <div>
+            <h3>1. Standard & Recherche</h3>
+            <FormField id="search-demo" label="Recherche utilisateur">
+              <BaseInput id="search-demo" v-model="inputSearch" type="search" icon-left="search" icon-size="md"
+                placeholder="Tapez un nom..." />
+            </FormField>
+          </div>
+
+          <div>
+            <h3>2. Mot de passe (Toggle Visibility)</h3>
+            <p class="section-desc">Cliquez sur l'œil pour changer le type de l'input.</p>
+
+            <FormField id="pass-demo" label="Mot de passe">
+
+              <BaseInput id="pass-demo" v-model="inputPassword" :type="showPassword ? 'text' : 'password'"
+                placeholder="Votre mot de passe">
+                <template #icon-right>
+                  <BaseButton variant="tertiary" size="md" :icon="showPassword ? 'eye-off' : 'eye'" icon-only
+                    aria-label="Afficher/Masquer le mot de passe" @click="showPassword = !showPassword" />
+                </template>
+
+              </BaseInput>
+
+            </FormField>
+
+          </div>
+
+          <div>
+            <h3>3. Validation / Erreur</h3>
+            <FormField id="email-demo" label="Email professionnel" error
+              error-message="Veuillez entrer une adresse email valide." required>
+              <BaseInput id="email-demo" type="email" v-model="inputEmail" icon-left="mail" icon-right="warning" error icon-size="md"
+                required />
+            </FormField>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-4);">
+
+            <div>
+              <h3>4. Disabled</h3>
+              <FormField id="disabled-input" label="Identifiant" disabled>
+                <BaseInput id="disabled-input" v-model="inputDisabled" icon-left="user" icon-size="md" disabled />
+              </FormField>
+            </div>
+
+            <div>
+              <h3>5. Readonly</h3>
+              <FormField id="readonly-input" label="Clé API Publique">
+                <BaseInput id="readonly-input" v-model="inputReadonly" readonly icon-size="md"/>
               </FormField>
             </div>
 

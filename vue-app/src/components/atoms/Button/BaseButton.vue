@@ -11,7 +11,8 @@ const props = withDefaults(defineProps<BaseButtonProps>(), {
     disabled: false,
     loading: false,
     fullWidth: false,
-    iconPosition: 'left'
+    iconPosition: 'left',
+    iconOnly: false
 });
 
 const classes = computed(() => [
@@ -21,7 +22,8 @@ const classes = computed(() => [
     {
         'btn--full-width': props.fullWidth,
         'btn--loading': props.loading,
-        'btn--disabled': props.disabled && props.as !== 'button'
+        'btn--disabled': props.disabled && props.as !== 'button',
+        'btn--icon-only': props.iconOnly
     }
 ]);
 
@@ -45,17 +47,28 @@ const hasRightIcon = computed(() => (props.icon && props.iconPosition === 'right
         </span>
 
         <span class="btn__content" :class="{ 'btn__content--hidden': loading }">
-            <span v-if="hasLeftIcon" class="btn__icon btn__icon--left">
-                <slot name="icon-left">
-                    <BaseIcon v-if="icon" :name="icon" :size="size" />
-                </slot>
-            </span>
-            <slot />
-            <span v-if="hasRightIcon" class="btn__icon btn__icon--right">
-                <slot name="icon-right">
-                    <BaseIcon v-if="icon" :name="icon" :size="size" />
-                </slot>
-            </span>
+
+            <template v-if="iconOnly">
+                <BaseIcon v-if="icon" :name="icon" :size="size" />
+                <slot v-else />
+            </template>
+
+            <template v-else>
+                <span v-if="hasLeftIcon" class="btn__icon btn__icon--left">
+                    <slot name="icon-left">
+                        <BaseIcon v-if="icon" :name="icon" :size="size" />
+                    </slot>
+                </span>
+
+                <slot />
+
+                <span v-if="hasRightIcon" class="btn__icon btn__icon--right">
+                    <slot name="icon-right">
+                        <BaseIcon v-if="icon" :name="icon" :size="size" />
+                    </slot>
+                </span>
+            </template>
+
         </span>
     </component>
 </template>
@@ -108,6 +121,33 @@ const hasRightIcon = computed(() => (props.icon && props.iconPosition === 'right
     font-size: var(--font-size-lg);
     gap: var(--spacing-2);
 }
+
+/* Button icon */
+.btn--icon-only {
+    padding: 0;
+    aspect-ratio: 1;
+    border-radius: var(--radius-full);
+}
+
+/* Tailles fixes pour les boutons icônes */
+/* Small (24px) */
+.btn--sm.btn--icon-only {
+    width: var(--spacing-6);
+    height: var(--spacing-6);
+}
+
+/* Medium (32px) */
+.btn--md.btn--icon-only {
+    width: var(--spacing-8);
+    height: var(--spacing-8);
+}
+
+/* Large (48px) */
+.btn--lg.btn--icon-only {
+    width: var(--spacing-12);
+    height: var(--spacing-12);
+}
+
 
 /** Variants */
 
