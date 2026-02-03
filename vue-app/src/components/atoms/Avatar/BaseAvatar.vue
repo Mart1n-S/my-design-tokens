@@ -88,6 +88,13 @@ const onError = () => {
   font-size: var(--font-size-base);
 }
 
+/* Extra Large (64px) */
+.avatar--xl {
+  width: var(--spacing-16);
+  height: var(--spacing-16);
+  font-size: var(--font-size-lg);
+}
+
 /* Contenu */
 .avatar__img {
   width: 100%;

@@ -162,6 +162,7 @@ export const Spacing4 = "16px";
 export const Spacing6 = "24px";
 export const Spacing8 = "32px";
 export const Spacing12 = "48px";
+export const Spacing16 = "64px";
 export const FontFamilyHeading = "'Montserrat', Helvetica, sans-serif";
 export const FontFamilyBody = "'Open Sans', Arial, sans-serif";
 export const FontFamilyMono = "ui-monospace, SFMono-Regular, monospace";

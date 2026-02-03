@@ -8,7 +8,11 @@ import BaseInput from './components/atoms/Input/BaseInput.vue';
 import BaseBadge from './components/atoms/Badge/BaseBadge.vue';
 import BaseAvatar from './components/atoms/Avatar/BaseAvatar.vue';
 import BaseSwitch from './components/atoms/Switch/BaseSwitch.vue';
+import ProfileCard from './components/molecules/ProfileCard/ProfileCard.vue';
 
+const handleFollow = (name: string) => {
+  alert(`Action ${name}`);
+};
 // Gestion du thème (clair/sombre)
 // On lit la préférence système ou le localStorage
 const theme = ref(localStorage.getItem('theme') || 'light');
@@ -805,7 +809,7 @@ const switchVal3 = ref(false);
                 <td><code>size</code></td>
                 <td>String</td>
                 <td>'md'</td>
-                <td>'sm', 'md', 'lg'</td>
+                <td>'sm', 'md', 'lg', 'xl'</td>
               </tr>
               <tr>
                 <td><code>decorative</code></td>
@@ -825,6 +829,7 @@ const switchVal3 = ref(false);
               <BaseAvatar src="https://i.pravatar.cc/150?img=1" alt="User 1" size="sm" />
               <BaseAvatar src="https://i.pravatar.cc/150?img=2" alt="User 2" size="md" />
               <BaseAvatar src="https://i.pravatar.cc/150?img=3" alt="User 3" size="lg" />
+              <BaseAvatar src="https://i.pravatar.cc/150?img=4" alt="User 4" size="xl" />
             </div>
           </div>
 
@@ -833,12 +838,22 @@ const switchVal3 = ref(false);
             <div style="display: flex; gap: var(--spacing-6);">
 
               <div style="text-align: center;">
+                <BaseAvatar src="error.jpg" alt="Jean Dupont" size="sm" />
+                <p style="font-size: 12px; margin-top: 8px; color: var(--color-text-secondary);">Image HS</p>
+              </div>
+
+              <div style="text-align: center;">
+                <BaseAvatar src="error.jpg" alt="Jean Dupont" size="md" />
+                <p style="font-size: 12px; margin-top: 8px; color: var(--color-text-secondary);">Image HS</p>
+              </div>
+
+              <div style="text-align: center;">
                 <BaseAvatar src="error.jpg" alt="Jean Dupont" size="lg" />
                 <p style="font-size: 12px; margin-top: 8px; color: var(--color-text-secondary);">Image HS</p>
               </div>
 
               <div style="text-align: center;">
-                <BaseAvatar alt="Entreprise Acme" initials="AC" size="lg" />
+                <BaseAvatar alt="Entreprise Acme" initials="AC" size="xl" />
                 <p style="font-size: 12px; margin-top: 8px; color: var(--color-text-secondary);">Sans Src</p>
               </div>
 
@@ -943,6 +958,125 @@ const switchVal3 = ref(false);
                 {{ switchVal3 ? 'Activé' : 'Désactivé' }}
               </span>
             </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="showcase-section">
+        <h2>Molécule: ProfileCard</h2>
+
+        <div class="doc-box">
+          <h3>Documentation</h3>
+          <p>
+            Combine Avatar, Badge et Actions.
+            <strong>Responsive :</strong> Colonne centrée sur mobile, Ligne sur desktop (sauf si <code>centered</code>).
+          </p>
+
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Prop</th>
+                <th>Type</th>
+                <th>Défaut</th>
+                <th>Description / Valeurs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>name</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>Nom de l'utilisateur (Requis).</td>
+              </tr>
+              <tr>
+                <td><code>jobTitle</code></td>
+                <td>String</td>
+                <td>''</td>
+                <td>Titre du poste ou description courte.</td>
+              </tr>
+              <tr>
+                <td><code>role</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>Texte du badge (ex: Admin, Pro).</td>
+              </tr>
+              <tr>
+                <td><code>roleVariant</code></td>
+                <td>String</td>
+                <td>'neutral'</td>
+                <td>Couleur du badge ('success', 'info', etc.).</td>
+              </tr>
+              <tr>
+                <td><code>avatarSrc</code></td>
+                <td>String</td>
+                <td>-</td>
+                <td>URL de l'image. Fallback sur initiales si vide.</td>
+              </tr>
+              <tr>
+                <td><code>avatarSize</code></td>
+                <td>String</td>
+                <td>'lg'</td>
+                <td>Taille de l'avatar : 'sm', 'md', 'lg', 'xl'.</td>
+              </tr>
+              <tr>
+                <td><code>badgeSize</code></td>
+                <td>String</td>
+                <td>'sm'</td>
+                <td>Taille du badge : 'sm', 'md'.</td>
+              </tr>
+              <tr>
+                <td><code>badgeShape</code></td>
+                <td>String</td>
+                <td>'pill'</td>
+                <td>Forme du badge : 'rounded', 'pill'.</td>
+              </tr>
+              <tr>
+                <td><code>buttonSize</code></td>
+                <td>String</td>
+                <td>'sm'</td>
+                <td>Taille du bouton d'action : 'sm', 'md', 'lg'.</td>
+              </tr>
+              <tr>
+                <td><code>centered</code></td>
+                <td>Boolean</td>
+                <td>false</td>
+                <td>Force l'alignement centré même sur Desktop.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-8);">
+
+          <div>
+            <h3>1. Standard (Responsive)</h3>
+            <p class="section-desc">Passe de colonne (mobile) à ligne (desktop).</p>
+            <ProfileCard name="Sophie Martin" job-title="Lead Developer" role="Admin" role-variant="info"
+              avatar-src="https://i.pravatar.cc/150?u=sophie" @action="handleFollow('Sophie')" />
+          </div>
+
+          <div>
+            <h3>2. Style "Carte de contact" (Force Centered)</h3>
+            <p class="section-desc">Idéal pour les grilles d'équipe.</p>
+            <div style="max-width: 320px;">
+              <ProfileCard name="Julien Dupont" job-title="Product Designer" role="Pro" role-variant="info" centered
+                action-label="Contacter" @action="handleFollow('Julien')" />
+            </div>
+          </div>
+
+          <div>
+            <h3>3. Personnalisation des Tailles (Large/VIP)</h3>
+            <p class="section-desc">Avatar XL, Badge Medium Rounded, Bouton Medium.</p>
+            <ProfileCard name="Directeur Général" job-title="Management" role="VIP" role-variant="warning"
+              badge-size="md" badge-shape="rounded" avatar-size="xl" button-size="md" action-label="Prendre RDV"
+              avatar-src="https://i.pravatar.cc/150?u=director" />
+          </div>
+
+          <div>
+            <h3>4. Minimal (Fallback Avatar & Sans Rôle)</h3>
+            <ProfileCard name="Marc Lavoine" job-title="Marketing Intern" avatar-size="md"
+              action-label="Envoyer email" />
           </div>
 
         </div>

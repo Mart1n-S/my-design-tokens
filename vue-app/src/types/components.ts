@@ -94,7 +94,7 @@ export interface BaseBadgeProps {
 }
 
 // Avatar
-export type AvatarSize = "sm" | "md" | "lg";
+export type AvatarSize = "sm" | "md" | "lg" | "xl";
 
 export interface BaseAvatarProps {
   src?: string;
@@ -109,4 +109,19 @@ export interface BaseSwitchProps {
   modelValue: boolean;
   label?: string;
   disabled?: boolean;
+}
+
+export interface ProfileCardProps {
+  name: string;
+  jobTitle?: string;
+  avatarSrc?: string;
+  avatarAlt?: string;
+  role?: string;
+  roleVariant?: BadgeVariant;
+  badgeSize?: BadgeSize;
+  badgeShape?: BadgeShape;
+  avatarSize?: AvatarSize;
+  actionLabel?: string;
+  buttonSize?: Size;
+  centered?: boolean;
 }
