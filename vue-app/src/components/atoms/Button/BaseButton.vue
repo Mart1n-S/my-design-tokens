@@ -300,7 +300,6 @@ const hasRightIcon = computed(() => (props.icon && props.iconPosition === 'right
 
 .btn__content--hidden {
     opacity: 0;
-    visibility: hidden;
 }
 
 .btn__spinner {

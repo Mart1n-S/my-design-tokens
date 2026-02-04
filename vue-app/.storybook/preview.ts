@@ -28,7 +28,6 @@ const preview: Preview = {
     },
     a11y: {
       test: "todo",
-      element: "#storybook-root",
     },
     backgrounds: {
       disable: true,
