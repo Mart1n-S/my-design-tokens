@@ -43,7 +43,7 @@ const handleClose = () => {
         </div>
 
         <div v-if="closable" class="alert__close">
-            <BaseButton variant="tertiary" size="sm" icon="close" icon-only aria-label="Fermer" @click="handleClose"
+            <BaseButton variant="tertiary" size="md" icon="close" icon-only aria-label="Fermer" @click="handleClose"
                 class="close-btn" />
         </div>
     </div>

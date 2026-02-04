@@ -17,3 +17,4 @@ export * from "./molecules/profile-card";
 export * from "./molecules/review-card";
 export * from "./molecules/alert";
 export * from "./molecules/stat-card";
+export * from "./molecules/modal";

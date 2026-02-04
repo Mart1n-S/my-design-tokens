@@ -12,6 +12,8 @@ import ProfileCard from './components/molecules/ProfileCard/ProfileCard.vue';
 import ReviewCard from './components/molecules/ReviewCard/ReviewCard.vue';
 import AlertToast from './components/molecules/AlertToast/AlertToast.vue';
 import StatCard from './components/molecules/StatCard/StatCard.vue';
+import Modal from './components/molecules/Modal/Modal.vue';
+import type { ModalSize } from './types';
 
 const handleFollow = (name: string) => {
   alert(`Action ${name}`);
@@ -97,6 +99,15 @@ const resetAlert = () => {
   }, 200);
 };
 
+// Demo Modal
+const isModalOpen = ref(false);
+const activeModalSize = ref<ModalSize>('md');
+
+const openModal = (size: ModalSize) => {
+  activeModalSize.value = size;
+  isModalOpen.value = true;
+};
+
 const toc = [
   {
     category: 'ATOMES',
@@ -119,6 +130,7 @@ const toc = [
       { label: 'ReviewCard', id: 'mol-review' },
       { label: 'AlertToast', id: 'mol-alert' },
       { label: 'StatCard', id: 'mol-stat' },
+      { label: 'Modal', id: 'mol-modal' }
     ]
   }
 ];
@@ -1773,6 +1785,131 @@ const scrollToSection = (id: string) => {
 
           </div>
         </section>
+
+        <section id="mol-modal" class="showcase-section">
+          <h2>Molécule: Modal</h2>
+
+          <div class="doc-box">
+            <h3>Documentation</h3>
+            <p>
+              Fenêtre de dialogue superposée. Utilise <code>Teleport</code> pour s'afficher au niveau du body.
+              Gère la fermeture via la croix, le clic extérieur ou la touche Echap.
+            </p>
+
+            <table class="doc-table">
+              <thead>
+                <tr>
+                  <th>Prop</th>
+                  <th>Type</th>
+                  <th>Défaut</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>isOpen</code></td>
+                  <td>Boolean</td>
+                  <td>false</td>
+                  <td>Contrôle la visibilité.</td>
+                </tr>
+                <tr>
+                  <td><code>title</code></td>
+                  <td>String</td>
+                  <td>-</td>
+                  <td>Titre de la fenêtre.</td>
+                </tr>
+                <tr>
+                  <td><code>size</code></td>
+                  <td>String</td>
+                  <td>'md'</td>
+                  <td>Largeur : 'sm' (400px), 'md' (600px), 'lg' (900px).</td>
+                </tr>
+                <tr>
+                  <td><code>inline</code></td>
+                  <td>Boolean</td>
+                  <td>false</td>
+                  <td>(Dev only) Affiche la modal dans le flux sans overlay.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="margin-bottom: var(--spacing-8);">
+            <h3>1. Variantes de tailles (Visuel Statique)</h3>
+            <p class="section-desc">Voici à quoi elles ressemblent (mode <code>inline</code> activé pour la doc).</p>
+
+            <div
+              style="display: flex; flex-direction: column; gap: var(--spacing-6); background: var(--color-background-tertiary); padding: var(--spacing-6); border-radius: var(--radius-lg);">
+
+              <div>
+                <strong style="display:block; margin-bottom: 8px;">Small (sm)</strong>
+                <Modal :is-open="true" title="Confirmation" size="sm" inline>
+                  <p>Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.</p>
+                  <template #footer>
+                    <BaseButton variant="secondary" size="sm">Annuler</BaseButton>
+                    <BaseButton variant="danger" size="sm">Supprimer</BaseButton>
+                  </template>
+                </Modal>
+              </div>
+
+              <div>
+                <strong style="display:block; margin-bottom: 8px;">Medium (md)</strong>
+                <Modal :is-open="true" title="Éditer le profil" size="md" inline>
+                  <p>Modifiez vos informations personnelles ci-dessous.</p>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div class="skeleton" style="height: 60px; border-radius: var(--radius-sm);"></div>
+                  </div>
+                  <template #footer>
+                    <BaseButton variant="tertiary" size="md">Annuler</BaseButton>
+                    <BaseButton variant="primary" size="md">Enregistrer</BaseButton>
+                  </template>
+                </Modal>
+              </div>
+
+              <div>
+                <strong style="display:block; margin-bottom: 8px;">Large (lg)</strong>
+                <Modal :is-open="true" title="Rapport détaillé" size="lg" inline>
+                  <p>Voici l'aperçu complet des statistiques pour l'année en cours.</p>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                      <div class="skeleton" style="height: 100px; border-radius: var(--radius-sm);"></div>
+                      <div class="skeleton" style="height: 100px; border-radius: var(--radius-sm);"></div>
+                    </div>
+                  </div>
+                </Modal>
+              </div>
+
+            </div>
+          </div>
+
+          <div>
+            <h3>2. Démo Interactive</h3>
+            <p class="section-desc">Cliquez pour ouvrir une vraie modal (avec overlay).</p>
+
+            <div style="display: flex; gap: var(--spacing-4);">
+              <BaseButton @click="openModal('sm')">Ouvrir Small</BaseButton>
+              <BaseButton variant="secondary" @click="openModal('md')">Ouvrir Medium</BaseButton>
+              <BaseButton variant="tertiary" @click="openModal('lg')">Ouvrir Large</BaseButton>
+            </div>
+          </div>
+
+          <Modal :is-open="isModalOpen" :title="`Exemple Modal (${activeModalSize})`" :size="activeModalSize"
+            @close="isModalOpen = false">
+            <p>
+              Ceci est une vraie fenêtre modale. Le reste de la page est obscurci et inaccessible.
+              Essayez d'appuyer sur <strong>Echap</strong> ou de cliquer sur la croix pour fermer.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.
+            </p>
+
+            <template #footer>
+              <BaseButton variant="secondary" @click="isModalOpen = false">Fermer</BaseButton>
+              <BaseButton variant="primary" @click="isModalOpen = false">Confirmer</BaseButton>
+            </template>
+          </Modal>
+
+        </section>
       </main>
     </div>
   </div>
@@ -1980,5 +2117,25 @@ h3 {
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
   font-family: var(--font-family-mono);
+}
+
+.skeleton {
+  background-color: var(--color-background-secondary);
+  background-image: linear-gradient(90deg,
+      var(--color-background-secondary) 0px,
+      var(--color-background-tertiary) 50%,
+      var(--color-background-secondary) 100%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite linear;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 </style>
