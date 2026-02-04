@@ -224,19 +224,23 @@ const hasRightIcon = computed(() => (props.icon && props.iconPosition === 'right
 
 /* Tertiary */
 .btn--tertiary {
-    background-color: var(--color-button-tertiary-background);
-    color: var(--color-button-tertiary-text);
+    --btn-color: var(--color-button-tertiary-text);
+    --btn-hover-bg: var(--color-button-tertiary-hover-background);
+    --btn-active-bg: var(--color-button-tertiary-active-background);
+
+    background-color: transparent;
+    color: var(--btn-color);
     border-color: var(--color-button-tertiary-border);
 }
 
 .btn--tertiary:hover:not(:disabled) {
-    background-color: var(--color-button-tertiary-hover-background);
+    background-color: var(--btn-hover-bg);
     color: var(--color-button-tertiary-hover-text);
     border-color: var(--color-button-tertiary-hover-border);
 }
 
 .btn--tertiary:active:not(:disabled) {
-    background-color: var(--color-button-tertiary-active-background);
+    background-color: var(--btn-active-bg);
     color: var(--color-button-tertiary-active-text);
     border-color: var(--color-button-tertiary-active-border);
 }

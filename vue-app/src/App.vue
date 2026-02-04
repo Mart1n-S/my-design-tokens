@@ -10,6 +10,7 @@ import BaseAvatar from './components/atoms/Avatar/BaseAvatar.vue';
 import BaseSwitch from './components/atoms/Switch/BaseSwitch.vue';
 import ProfileCard from './components/molecules/ProfileCard/ProfileCard.vue';
 import ReviewCard from './components/molecules/ReviewCard/ReviewCard.vue';
+import AlertToast from './components/molecules/AlertToast/AlertToast.vue';
 
 const handleFollow = (name: string) => {
   alert(`Action ${name}`);
@@ -86,6 +87,15 @@ const submitReview = () => {
   }, 2000);
 };
 
+// Demo alert toast
+const showAlertDemo = ref(true);
+const resetAlert = () => {
+  showAlertDemo.value = false;
+  setTimeout(() => {
+    showAlertDemo.value = true;
+  }, 200);
+};
+
 const toc = [
   {
     category: 'ATOMES',
@@ -106,6 +116,7 @@ const toc = [
       { label: 'FormField (Input)', id: 'mol-formfield-input' },
       { label: 'ProfileCard', id: 'mol-profile' },
       { label: 'ReviewCard', id: 'mol-review' },
+      { label: 'AlertToast', id: 'mol-alert' },
     ]
   }
 ];
@@ -1574,6 +1585,117 @@ const scrollToSection = (id: string) => {
 
               <ReviewCard v-model="reviewLimit" user-name="Twitter Fan" label="Tweet rapide" button-label="Tweeter"
                 placeholder="Quoi de neuf ? (Max 140 caractères)" show-count :max-length="140" />
+            </div>
+
+          </div>
+        </section>
+
+        <section id="mol-alert" class="showcase-section">
+          <h2>Molécule: Alert</h2>
+
+          <div class="doc-box">
+            <h3>Documentation</h3>
+            <p>
+              Composant de feedback pour afficher des statuts (Succès, Erreur, Info, Attention).
+              Combine <code>BaseIcon</code> pour l'identité visuelle et <code>BaseButton</code> pour l'action de
+              fermeture.
+            </p>
+
+            <table class="doc-table">
+              <thead>
+                <tr>
+                  <th>Prop</th>
+                  <th>Type</th>
+                  <th>Défaut</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>title</code></td>
+                  <td>String</td>
+                  <td>-</td>
+                  <td>Titre principal du message (Gras).</td>
+                </tr>
+                <tr>
+                  <td><code>description</code></td>
+                  <td>String</td>
+                  <td>-</td>
+                  <td>Détails supplémentaires (Optionnel).</td>
+                </tr>
+                <tr>
+                  <td><code>variant</code></td>
+                  <td>String</td>
+                  <td>'info'</td>
+                  <td>'info', 'success', 'warning', 'error'. Définit la couleur et l'icône par défaut.</td>
+                </tr>
+                <tr>
+                  <td><code>closable</code></td>
+                  <td>Boolean</td>
+                  <td>false</td>
+                  <td>Affiche une croix pour fermer l'alerte.</td>
+                </tr>
+                <tr>
+                  <td><code>icon</code></td>
+                  <td>String</td>
+                  <td>(Auto)</td>
+                  <td>Permet de surcharger l'icône par défaut du variant.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--spacing-6); max-width: 800px;">
+
+            <div>
+              <h3>1. Variantes Sémantiques</h3>
+              <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+
+                <AlertToast variant="info" title="Nouvelle version disponible"
+                  description="La version 2.0 inclut de nouvelles fonctionnalités de dashboard." />
+
+                <AlertToast variant="success" title="Paiement validé"
+                  description="Votre transaction #89023 a été traitée avec succès." />
+
+                <AlertToast variant="warning" title="Maintenance programmée"
+                  description="Le service sera indisponible ce soir entre 22h et 23h." />
+
+                <AlertToast variant="error" title="Échec de connexion"
+                  description="Impossible de joindre le serveur. Vérifiez votre connexion internet." />
+              </div>
+            </div>
+
+            <div>
+              <h3>2. Styles Alternatifs (Sans description / Icone Custom)</h3>
+              <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+
+                <AlertToast variant="error" icon="close" title="Une erreur inconnue est survenue (Titre seul)." />
+                <AlertToast variant="info" icon="info" title="Notification système"
+                  description="Ici on force l'icône 'info'." />
+
+              </div>
+            </div>
+
+            <div>
+              <h3>3. Fermeture (Closable)</h3>
+              <p class="section-desc">Écoute l'événement <code>@close</code> pour masquer l'élément.</p>
+
+              <div style="min-height: 100px;">
+                <transition name="fade">
+                  <AlertToast v-if="showAlertDemo" variant="warning" icon="warning" title="Alerte Dismissible"
+                    description="Cliquez sur la croix à droite pour me fermer." closable
+                    @close="showAlertDemo = false" />
+                </transition>
+
+                <div v-if="!showAlertDemo"
+                  style="padding: 20px; text-align: center; background: var(--color-background-tertiary); border-radius: var(--radius-md);">
+                  <p style="margin-bottom: 10px; font-size: 14px; color: var(--color-text-secondary);">L'alerte a été
+                    fermée.</p>
+                  <BaseButton size="sm" variant="secondary" icon="check" @click="resetAlert">
+                    Réinitialiser
+                  </BaseButton>
+                </div>
+              </div>
             </div>
 
           </div>

@@ -144,6 +144,44 @@
       "knob": {
         "value": "{color.white}"
       }
+    },
+    "alert": {
+      "info": {
+        "background": { "value": "{color.blue.50}" },
+        "text": { "value": "{color.blue.800}" },
+        "border": { "value": "{color.blue.200}" },
+        "button": {
+          "hover": { "value": "{color.blue.100}" },
+          "active": { "value": "{color.blue.200}" }
+        }
+      },
+      "success": {
+        "background": { "value": "{color.green.50}" },
+        "text": { "value": "{color.green.800}" },
+        "border": { "value": "{color.green.200}" },
+        "button": {
+          "hover": { "value": "{color.green.100}" },
+          "active": { "value": "{color.green.200}" }
+        }
+      },
+      "warning": {
+        "background": { "value": "{color.orange.50}" },
+        "text": { "value": "{color.orange.800}" },
+        "border": { "value": "{color.orange.200}" },
+        "button": {
+          "hover": { "value": "{color.orange.100}" },
+          "active": { "value": "{color.orange.200}" }
+        }
+      },
+      "error": {
+        "background": { "value": "{color.red.50}" },
+        "text": { "value": "{color.red.800}" },
+        "border": { "value": "{color.red.200}" },
+        "button": {
+          "hover": { "value": "{color.red.100}" },
+          "active": { "value": "{color.red.200}" }
+        }
+      }
     }
   }
 }
