@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, useSlots, ref } from 'vue';
-import type { BaseInputProps } from '../../../types/components';
+import type { BaseInputProps } from '../../../types';
 import BaseIcon from '../Icon/BaseIcon.vue';
 
 defineOptions({ inheritAttrs: false });

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import type { AlertProps } from '../../../types/components';
+import type { AlertProps } from '../../../types';
 import BaseIcon from '../../atoms/Icon/BaseIcon.vue';
 import BaseButton from '../../atoms/Button/BaseButton.vue';
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { BaseIconProps } from '../../../types/components';
+import type { BaseIconProps } from '../../../types';
 
 // Import des tokens générés
 import { Spacing3, Spacing4, Spacing6 } from '../../../styles/tokens';

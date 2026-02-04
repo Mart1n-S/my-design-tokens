@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
-import type { BaseButtonProps } from '../../../types/components';
+import type { BaseButtonProps } from '../../../types';
 import BaseIcon from '../Icon/BaseIcon.vue';
 
 const props = withDefaults(defineProps<BaseButtonProps>(), {

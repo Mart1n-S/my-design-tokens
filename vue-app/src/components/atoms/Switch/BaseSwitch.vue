@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { BaseSwitchProps } from '../../../types/components';
+import type { BaseSwitchProps } from '../../../types';
 
 const props = withDefaults(defineProps<BaseSwitchProps>(), {
     modelValue: false,

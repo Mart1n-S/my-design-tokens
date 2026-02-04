@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { StatCardProps } from '../../../types/components';
+import type { StatCardProps } from '../../../types';
 import BaseIcon from '../../atoms/Icon/BaseIcon.vue';
 import BaseBadge from '../../atoms/Badge/BaseBadge.vue';
 

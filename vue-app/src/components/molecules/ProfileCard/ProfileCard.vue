@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ProfileCardProps } from '../../../types/components';
+import type { ProfileCardProps } from '../../../types';
 import BaseAvatar from '../../atoms/Avatar/BaseAvatar.vue';
 import BaseBadge from '../../atoms/Badge/BaseBadge.vue';
 import BaseButton from '../../atoms/Button/BaseButton.vue';

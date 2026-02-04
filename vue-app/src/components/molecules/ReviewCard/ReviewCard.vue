@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { ReviewCardProps } from '../../../types/components';
+import type { ReviewCardProps } from '../../../types';
 import BaseAvatar from '../../atoms/Avatar/BaseAvatar.vue';
 import BaseButton from '../../atoms/Button/BaseButton.vue';
 import BaseTextarea from '../../atoms/Textarea/BaseTextarea.vue';

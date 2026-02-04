@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
-import type { BaseBadgeProps } from '../../../types/components';
+import type { BaseBadgeProps } from '../../../types';
 
 const props = withDefaults(defineProps<BaseBadgeProps>(), {
   variant: 'neutral',

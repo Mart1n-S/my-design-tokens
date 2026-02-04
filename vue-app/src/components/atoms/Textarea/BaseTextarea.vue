@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { BaseTextareaProps } from '../../../types/components';
+import type { BaseTextareaProps } from '../../../types';
 
 defineOptions({ inheritAttrs: false });
 

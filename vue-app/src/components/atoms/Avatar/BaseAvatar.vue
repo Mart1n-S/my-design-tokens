@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
-import type { BaseAvatarProps } from '../../../types/components';
+import type { BaseAvatarProps } from '../../../types';
 
 const props = withDefaults(defineProps<BaseAvatarProps>(), {
   size: 'md',
