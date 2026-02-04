@@ -149,3 +149,11 @@ export interface AlertProps {
   closable?: boolean;
   icon?: string;
 }
+
+export interface StatCardProps {
+  label: string;
+  value: string;
+  icon?: string;
+  trend?: string;
+  trendType?: BadgeVariant;
+}

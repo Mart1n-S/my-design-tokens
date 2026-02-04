@@ -11,6 +11,7 @@ import BaseSwitch from './components/atoms/Switch/BaseSwitch.vue';
 import ProfileCard from './components/molecules/ProfileCard/ProfileCard.vue';
 import ReviewCard from './components/molecules/ReviewCard/ReviewCard.vue';
 import AlertToast from './components/molecules/AlertToast/AlertToast.vue';
+import StatCard from './components/molecules/StatCard/StatCard.vue';
 
 const handleFollow = (name: string) => {
   alert(`Action ${name}`);
@@ -117,6 +118,7 @@ const toc = [
       { label: 'ProfileCard', id: 'mol-profile' },
       { label: 'ReviewCard', id: 'mol-review' },
       { label: 'AlertToast', id: 'mol-alert' },
+      { label: 'StatCard', id: 'mol-stat' },
     ]
   }
 ];
@@ -1697,6 +1699,77 @@ const scrollToSection = (id: string) => {
                 </div>
               </div>
             </div>
+
+          </div>
+        </section>
+
+        <section id="mol-stat" class="showcase-section">
+          <h2>Molécule: StatCard</h2>
+
+          <div class="doc-box">
+            <h3>Documentation</h3>
+            <p>
+              Carte utilisée pour les tableaux de bord (Dashboard). Affiche une métrique clé (KPI) accompagnée d'une
+              tendance visuelle.
+            </p>
+
+            <table class="doc-table">
+              <thead>
+                <tr>
+                  <th>Prop</th>
+                  <th>Type</th>
+                  <th>Défaut</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>label</code></td>
+                  <td>String</td>
+                  <td>-</td>
+                  <td>Le titre du KPI (ex: "Revenu").</td>
+                </tr>
+                <tr>
+                  <td><code>value</code></td>
+                  <td>String</td>
+                  <td>-</td>
+                  <td>La donnée chiffrée (ex: "42k €").</td>
+                </tr>
+                <tr>
+                  <td><code>trend</code></td>
+                  <td>String</td>
+                  <td>-</td>
+                  <td>Texte du badge de variation (ex: "+12%").</td>
+                </tr>
+                <tr>
+                  <td><code>trendType</code></td>
+                  <td>String</td>
+                  <td>'neutral'</td>
+                  <td>Type de badge : <code>success</code>, <code>warning</code>, <code>error</code>, <code>info</code>,
+                    <code>neutral</code>.</td>
+                </tr>
+                <tr>
+                  <td><code>icon</code></td>
+                  <td>String</td>
+                  <td>-</td>
+                  <td>Nom de l'icône à afficher en haut à droite.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--spacing-6);">
+
+            <StatCard label="Nouveaux Utilisateurs" value="1,240" icon="user" trend="+18%" trend-type="success" />
+
+            <StatCard label="Taux d'engagement" value="52.4%" icon="heart" trend="-2.1%" trend-type="warning" />
+
+            <StatCard label="Erreurs Serveur" value="12" icon="warning" trend="+4" trend-type="error" />
+
+            <StatCard label="Mails Envoyés" value="8,543" icon="mail" trend="Stable" trend-type="info" />
+
+            <StatCard label="Version App" value="v2.1.0" icon="settings" />
 
           </div>
         </section>
