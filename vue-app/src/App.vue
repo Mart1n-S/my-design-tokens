@@ -9,6 +9,7 @@ import BaseBadge from './components/atoms/Badge/BaseBadge.vue';
 import BaseAvatar from './components/atoms/Avatar/BaseAvatar.vue';
 import BaseSwitch from './components/atoms/Switch/BaseSwitch.vue';
 import ProfileCard from './components/molecules/ProfileCard/ProfileCard.vue';
+import ReviewCard from './components/molecules/ReviewCard/ReviewCard.vue';
 
 const handleFollow = (name: string) => {
   alert(`Action ${name}`);
@@ -69,6 +70,22 @@ const switchVal1 = ref(false);
 const switchVal2 = ref(true);
 const switchVal3 = ref(false);
 
+// Demo ReviewCard
+const reviewText = ref('');
+const reviewTextNoAvatar = ref('');
+const isSubmittingReview = ref(false);
+const reviewLimit = ref('');
+
+const submitReview = () => {
+  isSubmittingReview.value = true;
+  // Simulation d'appel API
+  setTimeout(() => {
+    isSubmittingReview.value = false;
+    alert(`Avis envoyé : "${reviewText.value}"`);
+    reviewText.value = '';
+  }, 2000);
+};
+
 const toc = [
   {
     category: 'ATOMES',
@@ -88,6 +105,7 @@ const toc = [
       { label: 'FormField (Textarea)', id: 'mol-formfield-textarea' },
       { label: 'FormField (Input)', id: 'mol-formfield-input' },
       { label: 'ProfileCard', id: 'mol-profile' },
+      { label: 'ReviewCard', id: 'mol-review' },
     ]
   }
 ];
@@ -1406,6 +1424,156 @@ const scrollToSection = (id: string) => {
               <h3>4. Minimal (Fallback Avatar & Sans Rôle)</h3>
               <ProfileCard name="Marc Lavoine" job-title="Marketing Intern" avatar-size="md"
                 action-label="Envoyer email" />
+            </div>
+
+          </div>
+        </section>
+
+        <section id="mol-review" class="showcase-section">
+          <h2>Molécule: ReviewCard</h2>
+
+          <div class="doc-box">
+            <h3>Documentation Technique</h3>
+            <p>
+              Formulaire complet d'avis ou de commentaire.
+              Combine <code>BaseAvatar</code>, <code>FormField</code>, <code>BaseTextarea</code> et
+              <code>BaseButton</code>.
+              Gère automatiquement l'état désactivé si le champ est vide.
+            </p>
+
+            <table class="doc-table">
+              <thead>
+                <tr>
+                  <th>Prop</th>
+                  <th>Type</th>
+                  <th>Défaut</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>modelValue</code></td>
+                  <td>String</td>
+                  <td>-</td>
+                  <td>Contenu du texte (v-model).</td>
+                </tr>
+                <tr>
+                  <td><code>userName</code></td>
+                  <td>String</td>
+                  <td>'?'</td>
+                  <td>Nom de l'utilisateur (utilisé pour les initiales si pas d'image).</td>
+                </tr>
+                <tr>
+                  <td><code>avatarSrc</code></td>
+                  <td>String</td>
+                  <td>-</td>
+                  <td>URL de l'image de profil.</td>
+                </tr>
+                <tr>
+                  <td><code>avatarAlt</code></td>
+                  <td>String</td>
+                  <td>-</td>
+                  <td>Texte alternatif pour l'avatar (Accessibilité).</td>
+                </tr>
+                <tr>
+                  <td><code>label</code></td>
+                  <td>String</td>
+                  <td>'Votre avis'</td>
+                  <td>Label au-dessus du champ texte.</td>
+                </tr>
+                <tr>
+                  <td><code>placeholder</code></td>
+                  <td>String</td>
+                  <td>'Partagez...'</td>
+                  <td>Texte indicatif dans le champ.</td>
+                </tr>
+                <tr>
+                  <td><code>buttonLabel</code></td>
+                  <td>String</td>
+                  <td>'Envoyer'</td>
+                  <td>Texte du bouton d'action.</td>
+                </tr>
+                <tr>
+                  <td><code>loading</code></td>
+                  <td>Boolean</td>
+                  <td>false</td>
+                  <td>Affiche le spinner sur le bouton et désactive le champ.</td>
+                </tr>
+                <tr>
+                  <td><code>id</code></td>
+                  <td>String</td>
+                  <td>(Auto)</td>
+                  <td>ID unique pour lier label et input.</td>
+                </tr>
+                <tr>
+                  <td><code>showCount</code></td>
+                  <td>Boolean</td>
+                  <td>false</td>
+                  <td>Affiche le compteur "X / Max".</td>
+                </tr>
+                <tr>
+                  <td><code>maxLength</code></td>
+                  <td>Number</td>
+                  <td>-</td>
+                  <td>Limite native de caractères.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--spacing-8); max-width: 700px;">
+
+            <div>
+              <h3>1. Standard (Avec Photo)</h3>
+              <p class="section-desc">Configuration classique pour un fil de commentaires.</p>
+
+              <ReviewCard v-model="reviewText" user-name="John Doe" avatar-src="https://i.pravatar.cc/150?u=john"
+                label="Laisser un commentaire" placeholder="Dites-nous ce que vous avez pensé du produit..."
+                :loading="isSubmittingReview" @submit="submitReview" />
+
+              <div
+                style="margin-top: 10px; padding: 10px; background: var(--color-background-tertiary); border-radius: var(--radius-md); border: 1px dashed var(--color-border-default);">
+                <p
+                  style="margin: 0; font-size: 12px; color: var(--color-text-secondary); font-family: var(--font-family-mono);">
+                  v-model: "{{ reviewText }}"
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h3>2. Variante : Sans Photo (Initiales)</h3>
+              <p class="section-desc">Si <code>avatarSrc</code> est absent, les initiales de <code>userName</code> sont
+                utilisées.</p>
+
+              <ReviewCard v-model="reviewTextNoAvatar" user-name="Marie Curie" label="Posez une question"
+                button-label="Publier la question" placeholder="Votre question ici..." />
+            </div>
+
+            <div>
+              <h3>3. États Visuels</h3>
+              <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+
+                <div style="opacity: 0.7; pointer-events: none;">
+                  <p class="section-desc" style="margin-bottom: 5px;">État Vide (Bouton désactivé par défaut)</p>
+                  <ReviewCard model-value="" user-name="Test" placeholder="Essayez de cliquer sur envoyer..." />
+                </div>
+
+                <div style="opacity: 0.7; pointer-events: none;">
+                  <p class="section-desc" style="margin-bottom: 5px;">État Loading (Interaction bloquée)</p>
+                  <ReviewCard model-value="Envoi en cours..." user-name="Bot" loading />
+                </div>
+
+              </div>
+            </div>
+
+            <div>
+              <h3>4. Variante : Avec Limite (Max Length)</h3>
+              <p class="section-desc">
+                Limite la saisie à 140 caractères et affiche le compteur via <code>FormField</code>.
+              </p>
+
+              <ReviewCard v-model="reviewLimit" user-name="Twitter Fan" label="Tweet rapide" button-label="Tweeter"
+                placeholder="Quoi de neuf ? (Max 140 caractères)" show-count :max-length="140" />
             </div>
 
           </div>
