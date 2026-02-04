@@ -51,7 +51,7 @@ const classes = computed(() => [
     border-radius: var(--radius-md);
     background-color: var(--color-background-primary);
     color: var(--color-text-primary);
-    font-family: inherit;
+    font-family: var(--font-family-body);
     font-size: var(--font-size-base);
     box-shadow: var(--shadow-sm);
     transition: border-color 0.2s, outline 0.2s, outline-offset 0.2s;

@@ -14,6 +14,9 @@ const iconList = [
   "calendar",
   "phone",
   "map-pin",
+  "check",
+  "warning",
+  "crosshair",
 ];
 
 const meta = {
@@ -38,16 +41,16 @@ const meta = {
       description: "Texte indicatif (placeholder)",
     },
 
-    // --- ICONES (Props directes) ---
+    // --- ICONES ---
     iconLeft: {
       control: "select",
       options: iconList,
-      description: 'Nom de l\'icône à gauche (ex: "mail")',
+      description: "Nom de l'icône à gauche",
     },
     iconRight: {
       control: "select",
       options: iconList,
-      description: 'Nom de l\'icône à droite (ex: "eye")',
+      description: "Nom de l'icône à droite",
     },
     iconSize: {
       control: "radio",
@@ -73,7 +76,7 @@ const meta = {
     },
     required: {
       control: "boolean",
-      description: "Marque le champ comme requis (attribut HTML)",
+      description: "Marque le champ comme requis",
     },
 
     // --- EVENTS ---
@@ -99,22 +102,18 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// --- 1. PLAYGROUND (Interactif) ---
+// --- 1. PLAYGROUND ---
 export const Playground: Story = {
   render: (args) => ({
     components: { BaseInput },
     setup() {
-      // On crée une ref locale pour que l'input réagisse quand on tape dedans
       const textValue = ref(args.modelValue);
-
-      // Si on change la valeur depuis les contrôles Storybook, on met à jour l'input
       watch(
         () => args.modelValue,
         (newVal) => {
           textValue.value = newVal;
         },
       );
-
       return { args, textValue };
     },
     template: `
@@ -122,6 +121,7 @@ export const Playground: Story = {
         <BaseInput 
           v-bind="args" 
           v-model="textValue" 
+          aria-label="Input playground"
         />
         <p style="margin-top: 1rem; font-size: 12px; color: var(--color-text-secondary); font-family: var(--font-family-body);">
           Valeur actuelle : "{{ textValue }}"
@@ -131,31 +131,33 @@ export const Playground: Story = {
   }),
 };
 
-// --- 2. ÉTATS (States) ---
-export const States: Story = {
+// --- 2. BASIQUE & ICONES  ---
+export const BasiqueEtIcones: Story = {
   render: () => ({
     components: { BaseInput },
     template: `
-      <div style="display: grid; gap: var(--spacing-4); max-width: 400px;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-4); max-width: 700px;">
         
         <div>
-          <label style="font-size: 12px; font-weight: bold; display: block; margin-bottom: 4px; font-family: var(--font-family-body);">Normal</label>
-          <BaseInput placeholder="Champ classique" aria-label="Champ normal" />
+          <p style="font-size: 12px; color: var(--color-text-secondary); margin-bottom: 8px; font-family: var(--font-family-body);">
+            Standard (Placeholder)
+          </p>
+          <BaseInput 
+            placeholder="Saisie simple..." 
+            aria-label="Saisie simple"
+          />
         </div>
 
         <div>
-          <label style="font-size: 12px; font-weight: bold; display: block; margin-bottom: 4px; font-family: var(--font-family-body);">Erreur</label>
-          <BaseInput error modelValue="Mauvaise valeur" aria-label="Champ en erreur" />
-        </div>
-
-        <div>
-          <label style="font-size: 12px; font-weight: bold; display: block; margin-bottom: 4px; font-family: var(--font-family-body);">Désactivé</label>
-          <BaseInput disabled placeholder="Ne peut pas écrire ici" aria-label="Champ désactivé" />
-        </div>
-
-        <div>
-          <label style="font-size: 12px; font-weight: bold; display: block; margin-bottom: 4px; font-family: var(--font-family-body);">Readonly</label>
-          <BaseInput readonly modelValue="Lecture seule (copiable)" aria-label="Champ en lecture seule" />
+           <p style="font-size: 12px; color: var(--color-text-secondary); margin-bottom: 8px; font-family: var(--font-family-body);">
+            Icônes (Props)
+          </p>
+          <BaseInput 
+            icon-left="user" 
+            icon-right="check"
+            placeholder="Nom d'utilisateur" 
+            aria-label="Avec icones"
+          />
         </div>
 
       </div>
@@ -163,54 +165,47 @@ export const States: Story = {
   }),
 };
 
-// --- 3. AVEC ICONES (Addons) ---
-export const WithIcons: Story = {
+// --- 3. ÉTATS VISUELS  ---
+export const EtatsVisuels: Story = {
   render: () => ({
     components: { BaseInput },
     template: `
-      <div style="display: grid; gap: var(--spacing-4); max-width: 400px;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--spacing-4);">
         
-        <BaseInput iconLeft="mail" placeholder="Email" type="email" />
-        
-        <BaseInput iconLeft="search" placeholder="Rechercher..." />
-        
-        <BaseInput iconRight="lock" placeholder="Mot de passe" type="password" />
+        <div>
+          <p style="font-size: 12px; color: var(--color-text-secondary); margin-bottom: 8px; font-family: var(--font-family-body);">
+            Error (Invalide)
+          </p>
+          <BaseInput 
+            error 
+            modelValue="Mauvaise valeur" 
+            icon-right="warning" 
+            aria-label="Erreur"
+          />
+        </div>
 
-        <BaseInput iconLeft="map-pin" iconRight="crosshair" placeholder="Localisation" />
+        <div>
+          <p style="font-size: 12px; color: var(--color-text-secondary); margin-bottom: 8px; font-family: var(--font-family-body);">
+            Disabled (Désactivé)
+          </p>
+          <BaseInput 
+            disabled 
+            icon-left="lock" 
+            modelValue="Désactivé" 
+            aria-label="Désactivé"
+          />
+        </div>
 
-      </div>
-    `,
-  }),
-};
-
-// --- 4. EXEMPLES CONCRETS ---
-
-export const LoginForm: Story = {
-  render: () => ({
-    components: { BaseInput },
-    template: `
-      <div style="
-        display: flex; 
-        flex-direction: column; 
-        gap: var(--spacing-4); 
-        max-width: 320px; 
-        padding: var(--spacing-6); 
-        border: 1px solid var(--color-border-default);
-        border-radius: var(--radius-lg);
-      ">
-        <h3 style="margin: 0; font-family: var(--font-family-body);">Connexion</h3>
-        
-        <BaseInput 
-          iconLeft="user" 
-          placeholder="Nom d'utilisateur" 
-        />
-        
-        <BaseInput 
-          iconLeft="lock" 
-          iconRight="eye" 
-          type="password" 
-          placeholder="Mot de passe" 
-        />
+        <div>
+          <p style="font-size: 12px; color: var(--color-text-secondary); margin-bottom: 8px; font-family: var(--font-family-body);">
+            Readonly (Lecture)
+          </p>
+          <BaseInput 
+            readonly 
+            modelValue="ID: 123456" 
+            aria-label="Lecture seule"
+          />
+        </div>
 
       </div>
     `,
