@@ -83,7 +83,7 @@ const wrapperClasses = computed(() => [
     background: transparent;
     outline: none;
     padding: var(--spacing-2) var(--spacing-3);
-    font-family: inherit;
+    font-family: var(--font-family-body);
     font-size: var(--font-size-base);
     color: var(--color-text-primary);
     width: 100%;
