@@ -14,7 +14,6 @@ const iconList = [
 const meta = {
   title: "Molecules/AlertToast",
   component: AlertToast,
-  tags: ["autodocs"],
   argTypes: {
     // --- PROPS ---
     variant: {

@@ -1,0 +1,143 @@
+import { Canvas, Meta, Controls, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as AlertStories from './AlertToast.stories';
+
+<Meta of={AlertStories} />
+
+# AlertToast 🔔
+
+La molécule `AlertToast` est utilisée pour communiquer des messages système importants à l'utilisateur.  
+Elle combine une icône sémantique, un titre, une description et une action de fermeture optionnelle.
+
+---
+
+### Playground
+
+Utilisez le contrôleur pour simuler différents types de messages. Le bouton "Réafficher" permet de tester la fermeture.
+
+<Canvas of={AlertStories.Playground} />
+<Controls of={AlertStories.Playground} />
+
+---
+
+### Variantes Sémantiques
+
+Le composant propose 4 variantes standardisées qui changent automatiquement la couleur et l'icône associée :
+
+1.  **Info** : Information neutre (Mise à jour, Note).
+2.  **Success** : Action réussie (Enregistrement, Paiement).
+3.  **Warning** : Avertissement non bloquant (Maintenance, Session bientôt expirée).
+4.  **Error** : Problème critique (Serveur HS, Formulaire invalide).
+
+<Canvas of={AlertStories.VariantesSemantiques} />
+
+---
+
+### Styles Alternatifs (Contenu)
+
+L'alerte est flexible : elle peut ne contenir qu'un titre, ou voir son icône surchargée manuellement.
+
+<Canvas of={AlertStories.StylesAlternatifs} />
+
+---
+
+### Comportement de Fermeture
+
+Si la prop `closable` est active, une croix s'affiche. L'événement `@close` est émis lors du clic, permettant au parent de masquer le composant (souvent via un `v-if`).
+
+<Canvas of={AlertStories.Fermeture} />
+
+---
+
+### API (Props & Events)
+
+<ArgTypes of={AlertStories} />
+
+---
+
+### Do's & Don'ts
+
+#### 1. Usage & Pertinence
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Utiliser pour des retours d'actions asynchrones (ex: "Sauvegarde réussie").</li>
+      <li>Placer en haut de page (contexte global) ou près de l'élément concerné (contexte local).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<AlertToast 
+  variant="success" 
+  title="Profil mis à jour" 
+/>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas utiliser pour des erreurs de validation de champ (utiliser le message d'erreur sous l'input).</li>
+      <li>Ne pas abuser des alertes "Info" qui polluent l'interface.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<AlertToast title="Bienvenue sur le site" />`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+#### 2. Contenu & Rédaction
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Être concis : Un titre court et une description de 1 ou 2 phrases max.</li>
+      <li>Si l'erreur est technique, donner une piste de solution dans la description.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<AlertToast 
+  variant="error" 
+  title="Erreur serveur" 
+  description="Réessayez dans quelques minutes." 
+/>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas mettre de longs paragraphes.</li>
+      <li>Ne pas utiliser de jargon technique incompréhensible pour l'utilisateur.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<AlertToast 
+  title="NullPointerException" 
+  description="Error at com.api.Service line 42..." 
+/>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+---
+
+### Accessibilité
+
+* **Rôle ARIA** : Le composant utilise `role="alert"` (pour les erreurs) ou `role="status"` (pour info/succès) afin d'être annoncé immédiatement par les lecteurs d'écran.
+* **Focus** : Si l'alerte apparaît dynamiquement, le focus n'est pas forcé dessus (sauf cas critique), mais elle est annoncée vocalement.
+* **Contraste** : Les couleurs de fond et de texte respectent le ratio 4.5:1.
