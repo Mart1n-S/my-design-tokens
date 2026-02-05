@@ -14,6 +14,9 @@ const emit = defineEmits<{
     (e: 'close'): void;
 }>();
 
+// --- A11Y : Génération d'un ID unique pour lier le titre à la modale ---
+const titleId = `modal-title-${Math.random().toString(36).substr(2, 9)}`;
+
 const handleClose = () => {
     emit('close');
 };
@@ -34,21 +37,23 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown));
 
         <transition name="fade">
             <div v-if="isOpen" class="modal-backdrop" :class="{ 'modal-backdrop--inline': inline }" @click="handleClose"
-                role="dialog" aria-modal="true">
+                role="dialog" aria-modal="true" :aria-labelledby="titleId">
                 <div class="modal-container" :class="[`modal--${size}`]" @click.stop>
-                    <header class="modal__header">
-                        <h3 class="modal__title">{{ title }}</h3>
+
+                    <div class="modal__header">
+                        <h3 :id="titleId" class="modal__title">{{ title }}</h3>
+
                         <BaseButton variant="tertiary" size="md" icon="close" icon-only aria-label="Fermer"
                             @click="handleClose" />
-                    </header>
+                    </div>
 
                     <div class="modal__content">
                         <slot />
                     </div>
 
-                    <footer v-if="$slots.footer" class="modal__footer">
+                    <div v-if="$slots.footer" class="modal__footer">
                         <slot name="footer" />
-                    </footer>
+                    </div>
                 </div>
             </div>
         </transition>
