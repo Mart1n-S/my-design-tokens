@@ -1,0 +1,154 @@
+import { Canvas, Meta, Controls, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as ModalStories from './Modal.stories';
+
+<Meta of={ModalStories} />
+
+# Modal 🪟
+
+La molécule `Modal` est une fenêtre de dialogue qui se superpose au contenu principal.  
+Elle capture l'attention de l'utilisateur pour une tâche critique, une confirmation ou un affichage d'information détaillée, tout en désactivant l'interaction avec l'arrière-plan (Backdrop).
+
+---
+
+### Playground
+
+Utilisez ce playground pour voir la structure de la modal.  
+*(Note : Pour des raisons de présentation dans cette doc, la modal est affichée "inline" ici, mais en production elle prend tout l'écran).*
+
+<Canvas of={ModalStories.Playground} />
+<Controls of={ModalStories.Playground} />
+
+---
+
+### Tailles Standardisées
+
+La modal propose 3 largeurs fixes pour s'adapter à la densité du contenu :
+
+1.  **Small (sm)** : Confirmations rapides, messages d'alerte simples.
+2.  **Medium (md)** : Formulaires courts, édition de profil (Standard).
+3.  **Large (lg)** : Tableaux de données, prévisualisation de documents.
+
+<Canvas of={ModalStories.VariantesTailles} />
+
+---
+
+### Démo Interactive (Live)
+
+Cliquez sur les boutons ci-dessous pour ouvrir une **vraie modal** qui se superpose à cette documentation.  
+Testez la fermeture via :
+* La croix en haut à droite.
+* Le bouton "Annuler".
+* La touche `Echap` (Clavier).
+* Le clic à l'extérieur (Backdrop).
+
+<Canvas of={ModalStories.DemoInteractive} />
+
+---
+
+### API (Props & Events)
+
+Le composant expose des props de configuration et un slot `#footer` pour standardiser l'alignement des boutons d'action.
+
+<ArgTypes of={ModalStories} />
+
+---
+### Do's & Don'ts
+
+#### 1. Usage & Contexte
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Utiliser pour des tâches courtes et focalisées (ex: "Confirmer la suppression").</li>
+      <li>Toujours fournir un titre explicite via la prop <code>title</code>.</li>
+      <li>Utiliser le slot <code>#footer</code> pour placer les boutons d'action.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<Modal title="Supprimer l'utilisateur ?" :is-open="isOpen">
+  <p>Cette action est irréversible.</p>
+  <template #footer>
+    <BaseButton variant="secondary" @click="close">Annuler</BaseButton>
+    <BaseButton variant="danger">Supprimer</BaseButton>
+  </template>
+</Modal>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas ouvrir une modal par-dessus une autre modal (Stacked Modals).</li>
+      <li>Ne pas utiliser pour des formulaires très longs (préférer une page dédiée).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<Modal :is-open="showParent">
+  <Modal :is-open="showChild">
+    Inception...
+  </Modal>
+</Modal>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+#### 2. Contenu & Ergonomie
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Proposer toujours un moyen clair de fermer (Bouton Annuler).</li>
+      <li>Adapter la taille (<code>size</code>) au contenu.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<Modal size="sm" title="Info">
+  <p>Action effectuée.</p>
+  <template #footer>
+    <BaseButton @click="close">OK</BaseButton>
+  </template>
+</Modal>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas masquer la croix ou empêcher la fermeture (Anti-pattern).</li>
+      <li>Ne pas mettre un contenu géant dans une petite modal.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<style>.close-button { display: none }</style>
+<Modal title="Publicité" :click-outside="false">
+   Vous ne pouvez pas partir...
+</Modal>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+---
+
+### Accessibilité
+
+Ce composant gère nativement les pré-requis WCAG pour les fenêtres modales :
+
+* **Focus Trap** : Lorsque la modal est ouverte, la navigation au clavier (`Tab`) reste confinée à l'intérieur de la fenêtre.
+* **Focus Management** : À l'ouverture, le focus est placé sur le premier élément interactif ou le conteneur. À la fermeture, il retourne sur le bouton qui a déclenché l'ouverture.
+* **Clavier** : La touche `Echap` ferme la fenêtre.
+* **ARIA** : Le rôle `dialog` et `aria-modal="true"` sont appliqués automatiquement.
+* **Body Scroll** : Le défilement de la page en arrière-plan est désactivé (`overflow: hidden` sur le body).

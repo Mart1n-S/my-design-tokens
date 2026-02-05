@@ -6,7 +6,6 @@ import BaseButton from "../../atoms/Button/BaseButton.vue";
 const meta = {
   title: "Molecules/Modal",
   component: Modal,
-  tags: ["autodocs"],
   argTypes: {
     // --- PROPS ---
     isOpen: {
