@@ -110,7 +110,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // --- 1. Playground (Zone de test interactive) ---
-export const Primary: Story = {
+export const Playground: Story = {
   args: {
     default: "Primary",
   },
