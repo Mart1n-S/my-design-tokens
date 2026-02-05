@@ -5,7 +5,6 @@ import BaseSwitch from "./BaseSwitch.vue";
 const meta = {
   title: "Atoms/BaseSwitch",
   component: BaseSwitch,
-  tags: ["autodocs"],
   argTypes: {
     // --- V-Model ---
     modelValue: {
