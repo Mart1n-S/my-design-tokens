@@ -1605,7 +1605,7 @@ const scrollToSection = (id: string) => {
         </section>
 
         <section id="mol-alert" class="showcase-section">
-          <h2>Molécule: Alert</h2>
+          <h2>Molécule: AlertToast</h2>
 
           <div class="doc-box">
             <h3>Documentation</h3>
