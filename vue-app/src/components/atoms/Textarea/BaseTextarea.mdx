@@ -47,26 +47,25 @@ Le composant s'intègre harmonieusement avec les formulaires grâce à ses état
 <ArgTypes of={TextareaStories} />
 
 ---
-
 ### Do's & Don'ts
+
+#### 1. Usage & Dimensions
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
   
   <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
     <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
     <ul>
-      <li>Toujours associer à un label explicite (via <code>FormField</code> ou <code>aria-label</code>).</li>
-      <li>Utiliser <code>resize="vertical"</code> pour éviter de casser la largeur de vos formulaires.</li>
-      <li>Définir un nombre de <code>rows</code> cohérent avec le contenu attendu (ex: 5 pour un message long).</li>
+      <li>Utiliser <code>resize="vertical"</code> (défaut) pour permettre l'agrandissement sans casser la mise en page.</li>
+      <li>Définir un nombre de <code>rows</code> initial adapté au contenu attendu (ex: 5 pour un message, 2 pour une adresse).</li>
     </ul>
     <div style={{ marginTop: '10px' }}>
         <strong>Bon exemple :</strong>
         <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
 {`<BaseTextarea 
-  rows="4" 
+  rows="5" 
   resize="vertical" 
-  placeholder="Décrivez votre problème..."
-  aria-label="Description"
+  placeholder="Racontez votre histoire..."
 />`}
         </pre>
     </div>
@@ -75,19 +74,58 @@ Le composant s'intègre harmonieusement avec les formulaires grâce à ses état
   <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
     <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
     <ul>
-      <li>Ne pas utiliser pour des textes courts d'une seule ligne (utiliser <code>BaseInput</code>).</li>
-      <li>Ne pas bloquer le redimensionnement (<code>resize="none"</code>) si le texte peut être long, cela frustre l'utilisateur.</li>
+      <li>Ne pas utiliser pour des données courtes (Email, Nom...) -> Utiliser <strong>BaseInput</strong>.</li>
+      <li>Ne pas utiliser <code>resize="both"</code> ou <code>horizontal</code> sauf si le design le prévoit spécifiquement.</li>
     </ul>
     <div style={{ marginTop: '10px' }}>
         <strong>Mauvais exemple :</strong>
         <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
-{`<BaseTextarea rows="1" placeholder="Nom" />`}
+{`<BaseTextarea resize="both" />`}
         </pre>
     </div>
   </div>
 
 </div>
 
+#### 2. Contraintes & Accessibilité
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Toujours associer à un label explicite (via <code>FormField</code> ou <code>aria-label</code>).</li>
+      <li>Utiliser l'attribut <code>maxlength</code> si la base de données a une limite stricte (ex: Bio Twitter).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseTextarea 
+  aria-label="Biographie" 
+  maxlength="280" 
+/>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas bloquer le redimensionnement (<code>resize="none"</code>) si le texte peut être long, cela frustre l'utilisateur.</li>
+      <li>Ne pas utiliser le placeholder comme seul moyen d'instruction.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseTextarea 
+  resize="none" 
+  placeholder="Tapez ici (sans label)" 
+/>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
 ---
 
 ### Accessibilité

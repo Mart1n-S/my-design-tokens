@@ -64,23 +64,22 @@ Les Switches sont souvent regroupés dans des panneaux de préférences.
 
 ### Do's & Don'ts
 
-Ce composant est souvent confondu avec la Checkbox. Voici comment choisir :
+#### 1. Usage : Switch vs Checkbox
 
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
   
   <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
     <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
     <ul>
-      <li>Utiliser pour des changements d'état <strong>immédiats</strong> (ex: Mode Avion).</li>
-      <li>Utiliser des labels courts et directs (ex: "Notifications").</li>
-      <li>Utiliser par défaut l'état "OFF" si l'option est intrusive.</li>
+      <li>Utiliser pour des actions à <strong>effet immédiat</strong> (ex: Activer le Wifi, Mode Sombre).</li>
+      <li>Utiliser pour une option binaire indépendante (On/Off).</li>
     </ul>
     <div style={{ marginTop: '10px' }}>
         <strong>Bon exemple :</strong>
         <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
 {`<BaseSwitch 
-  label="Mode Sombre" 
-  v-model="isDarkMode" 
+  label="Mode Avion" 
+  v-model="airplaneMode" 
 />`}
         </pre>
     </div>
@@ -89,14 +88,47 @@ Ce composant est souvent confondu avec la Checkbox. Voici comment choisir :
   <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
     <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
     <ul>
-      <li>Ne pas utiliser pour valider un formulaire (ex: "J'accepte les CGU" -> Utiliser une <strong>Checkbox</strong>).</li>
-      <li>Ne pas utiliser pour des choix multiples (ex: choisir 2 options parmi 5).</li>
-      <li>Ne pas écrire de labels ambigus (ex: "Pas d'emails" -> ON ou OFF ?).</li>
+      <li>Ne pas utiliser pour valider un formulaire ou des CGU (utiliser une <strong>Checkbox</strong>).</li>
+      <li>Ne pas utiliser pour sélectionner plusieurs éléments dans une liste (utiliser des Checkboxes).</li>
     </ul>
     <div style={{ marginTop: '10px' }}>
         <strong>Mauvais exemple :</strong>
         <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
-{`<BaseSwitch label="Accepter les conditions" />`}
+{`<BaseSwitch label="J'accepte les conditions" />`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+#### 2. Rédaction & Clarté
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Utiliser des labels <strong>positifs</strong> pour éviter la double négation.</li>
+      <li>Garder le label court (2-3 mots max).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseSwitch label="Recevoir la newsletter" />`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas utiliser de tournures négatives ("Ne pas déranger" -> Si ON, je suis dérangé ou pas ?).</li>
+      <li>Ne pas utiliser de questions ambiguës.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseSwitch label="Pas de publicité" />`}
         </pre>
     </div>
   </div>

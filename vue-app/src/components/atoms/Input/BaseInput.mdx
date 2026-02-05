@@ -47,14 +47,15 @@ Le composant communique clairement son état à l'utilisateur :
 
 ### Do's & Don'ts
 
+#### 1. Sémantique & UX (Clavier)
+
 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
   
   <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
     <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
     <ul>
-      <li>Toujours associer l'input à un label explicite (via le composant parent <code>FormField</code> ou <code>aria-label</code>).</li>
-      <li>Utiliser le bon type HTML (ex: <code>type="email"</code>) pour activer le clavier adapté sur mobile.</li>
-      <li>Utiliser l'état <code>readonly</code> pour les données que l'utilisateur doit voir mais pas modifier.</li>
+      <li>Utiliser le bon <code>type</code> HTML (email, tel, number) pour afficher le clavier adapté sur mobile.</li>
+      <li>Toujours associer l'input à un label visible ou un <code>aria-label</code>.</li>
     </ul>
     <div style={{ marginTop: '10px' }}>
         <strong>Bon exemple :</strong>
@@ -62,8 +63,7 @@ Le composant communique clairement son état à l'utilisateur :
 {`<BaseInput 
   type="tel" 
   icon-left="phone" 
-  placeholder="06 12 34 56 78" 
-  aria-label="Numéro de téléphone"
+  aria-label="Téléphone"
 />`}
         </pre>
     </div>
@@ -72,14 +72,51 @@ Le composant communique clairement son état à l'utilisateur :
   <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
     <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
     <ul>
-      <li>Ne pas utiliser le <code>placeholder</code> comme seul label (il disparaît lors de la saisie).</li>
-      <li>Ne pas utiliser <code>disabled</code> si l'utilisateur doit pouvoir copier le contenu (utiliser <code>readonly</code>).</li>
-      <li>Ne pas désactiver le copier/coller sur les champs password.</li>
+      <li>Ne pas utiliser <code>type="text"</code> pour tout.</li>
+      <li>Ne pas utiliser le <code>placeholder</code> comme seul label (il disparaît dès que l'utilisateur écrit).</li>
     </ul>
     <div style={{ marginTop: '10px' }}>
         <strong>Mauvais exemple :</strong>
         <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
-{`<BaseInput placeholder="Votre email" />`}
+{`<BaseInput placeholder="Entrez votre email..." />`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+#### 2. États & Interaction
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Utiliser <code>readonly</code> (lecture seule) si l'utilisateur doit pouvoir copier le contenu (ex: Clé API).</li>
+      <li>Utiliser <code>error</code> en combinaison avec un message d'aide explicatif sous le champ.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseInput 
+  model-value="API-KEY-12345" 
+  readonly 
+  icon-right="copy" 
+/>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas utiliser <code>disabled</code> si l'utilisateur a besoin de sélectionner/copier le texte.</li>
+      <li>Ne pas désactiver le copier/coller sur les champs, surtout pour les mots de passe (gestionnaires de MDP).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseInput model-value="Mon ID" disabled />`}
         </pre>
     </div>
   </div>
