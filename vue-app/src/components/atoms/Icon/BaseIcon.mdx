@@ -1,0 +1,112 @@
+import { Canvas, Meta, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as IconStories from './BaseIcon.stories';
+
+<Meta of={IconStories} />
+
+# BaseIcon 🎨
+
+L'atome `BaseIcon` est le composant unique pour l'affichage de graphiques vectoriels (SVG) dans l'application.  
+Il centralise la gestion des icônes pour garantir la cohérence visuelle (tailles, couleurs).
+
+---
+
+### Playground
+
+Testez les icônes dynamiquement avec le **Playground** ci-dessous.
+
+<Canvas of={IconStories.Playground} />
+<Controls of={IconStories.Playground} />
+
+---
+
+## Galerie d'icônes
+
+Toutes les icônes disponibles dans le système sont affichées ici.  
+Utilisez la prop `name` pour les sélectionner.
+
+<Canvas of={IconStories.AllIcons} />
+
+---
+
+### Tailles
+
+L'icône dispose de 3 tailles standardisées définies par nos Design Tokens d'espacement.
+
+<Canvas of={IconStories.Sizes} />
+
+---
+
+## Exemples spécifiques
+
+### Loading
+
+Affiche l'icône de chargement animée avec une couleur personnalisée.
+
+<Canvas of={IconStories.Loading} />
+
+### Custom Color
+
+Exemple d'icône avec une couleur forcée via la prop `color`.
+
+<Canvas of={IconStories.CustomColor} />
+
+---
+
+### API (Props)
+
+<ArgTypes of={IconStories} />
+
+---
+
+### Do's & Don'ts
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Utiliser `currentColor` (défaut) pour que l'icône s'adapte au thème (Dark/Light).</li>
+      <li>Utiliser les tailles standard (`sm`, `md`, `lg`) pour l'alignement.</li>
+      <li>Accompagner l'icône d'un texte ou d'un `aria-label` si elle est interactive.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+      <strong>Bon exemple :</strong>
+      <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<span style="color: var(--color-primary)">
+  <BaseIcon name="heart" /> 
+  Aimé
+</span>`}
+      </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas utiliser de styles inline pour redimensionner l'icône (utiliser la prop `size`).</li>
+      <li>Ne pas utiliser une icône seule sans contexte accessible.</li>
+      <li>Ne pas hardcoder des couleurs hexadécimales si une variable CSS existe.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+      <strong>Mauvais exemple :</strong>
+      <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseIcon name="search" style="width: 50px" />`}
+      </pre>
+    </div>
+  </div>
+
+</div>
+
+
+---
+
+## Accessibilité
+
+* **Rôle décoratif** : Par défaut, les icônes sont souvent décoratives. Assurez-vous que le composant `BaseIcon` possède `aria-hidden="true"` si le SVG ne contient pas de `title`.
+* **Boutons icônes** : Si l'icône est utilisée seule dans un bouton (ex: croix de fermeture), le bouton parent **DOIT** avoir un `aria-label="Fermer"`.
+
+---
+
+<div style={{ marginTop: '40px', paddingTop: '20px', borderTop: '1px solid #eaeaea', color: '#666', fontSize: '0.85rem' }}>
+Développé avec ❤️ - Vue 3 / Vite / Storybook / TypeScript
+</div>

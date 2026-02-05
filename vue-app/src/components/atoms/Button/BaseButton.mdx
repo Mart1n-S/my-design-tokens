@@ -1,0 +1,150 @@
+import { Canvas, Meta, Controls, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from './BaseButton.stories';
+
+<Meta of={ButtonStories} />
+
+# BaseButton
+
+Le composant `BaseButton` est l'élément d'interaction principal de l'application. 
+Il permet de déclencher des actions, de soumettre des formulaires ou de confirmer des décisions.
+
+---
+
+### Playground
+
+Utilisez le contrôleur ci-dessous pour tester toutes les props (taille, variante, icônes...).
+
+<Canvas of={ButtonStories.Playground} />
+<Controls of={ButtonStories.Playground} />
+
+---
+
+### Variantes Visuelles
+
+Le système propose 4 niveaux de hiérarchie pour guider l'utilisateur :
+
+1.  **Primary** (voir Playground) : L'action principale de la page.
+2.  **Secondary** : Actions alternatives (Annuler, Retour).
+3.  **Tertiary** : Actions discrètes ou contextuelles.
+4.  **Danger** : Actions destructrices ou irréversibles.
+
+<div style={{ display: 'flex', gap: '10px', overflowX: 'auto', padding: '20px 0' }}>
+  <Story of={ButtonStories.Secondary} />
+  <Story of={ButtonStories.Tertiary} />
+  <Story of={ButtonStories.Danger} />
+</div>
+
+---
+
+### Cas d'usage spécifiques
+
+#### Chargement & États
+Le bouton gère nativement l'état `loading`. Il désactive les clics et affiche un spinner.
+
+<Canvas of={ButtonStories.Loading} />
+
+#### Gestion des Icônes
+Les icônes peuvent être placées à gauche (défaut) ou à droite pour indiquer un mouvement (ex: Suivant).
+
+<Canvas of={ButtonStories.WithIconRight} />
+
+#### Bouton "Icon Only"
+Pour les barres d'outils ou les actions compactes.  
+⚠️ **Note :** Une `aria-label` est obligatoire dans ce cas pour l'accessibilité.
+
+<Canvas of={ButtonStories.IconOnly} />
+
+---
+
+### API (Props)
+
+<ArgTypes of={ButtonStories} />
+
+---
+
+### Do's & Don'ts
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Utiliser un seul bouton <code>primary</code> par écran (ou par section majeure).</li>
+      <li>Utiliser des verbes d'action précis (ex: "Publier" plutôt que "OK").</li>
+      <li>Utiliser la prop <code>loading</code> lors des appels API.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseButton variant="primary" :loading="isSaving">
+  Sauvegarder
+</BaseButton>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas utiliser un bouton pour naviguer vers une autre page (utiliser un lien).</li>
+      <li>Ne pas utiliser la variante <code>danger</code> pour une action non-destructrice.</li>
+      <li>Ne pas écrire de labels trop longs (> 3 mots).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseButton variant="danger">
+  Cliquez ici pour voir plus de détails
+</BaseButton>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Utiliser un seul bouton <code>primary</code> par écran.</li>
+      <li>Utiliser des verbes d'action précis.</li>
+      <li><strong>Ajouter une <code>aria-label</code> si le bouton ne contient que l'icône (Icon Only).</strong></li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseButton 
+  icon="search" 
+  icon-only 
+  aria-label="Rechercher" 
+/>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas utiliser un bouton pour naviguer (utiliser un lien).</li>
+      <li>Ne pas utiliser la variante <code>danger</code> sans raison.</li>
+      <li><strong>Ne jamais laisser un bouton vide sans label accessible.</strong></li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseButton icon="search" icon-only />`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+---
+
+### Accessibilité
+
+* **HTML sémantique** : Rendu via la balise `<button>`.
+* **États** : Gestion automatique de l'attribut `aria-disabled` et `aria-busy` (loading).
+* **Focus** : Outline visible pour la navigation au clavier.
+* **Icon Only** : Si `iconOnly` est `true`, assurez-vous de passer une prop `aria-label` ou un `title`.

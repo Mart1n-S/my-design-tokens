@@ -30,7 +30,6 @@ const iconList = [
 const meta = {
   title: "Atoms/BaseIcon",
   component: BaseIcon,
-  tags: ["autodocs"],
   argTypes: {
     // Liste déroulante pour choisir l'icône
     name: {

@@ -31,7 +31,6 @@ const iconOptions = [
 const meta = {
   title: "Atoms/BaseButton",
   component: BaseButton,
-  tags: ["autodocs"],
   argTypes: {
     // --- Apparence ---
     variant: {
