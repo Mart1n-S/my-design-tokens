@@ -1,0 +1,98 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# Design System Vue 3 🎨
+
+Bienvenue dans la documentation du Design System.  
+Ce projet scolaire regroupe des composants **Vue 3** créés avec **TypeScript** et **Vite**.
+
+---
+
+## 💎 Principes
+
+- **Atomicité** ⚛️ : Architecture Atomic Design (Atomes, Molécules).
+- **Style** 🎨 : Design Tokens gérés.
+- **Cohérence** ♾️ : Expérience uniforme
+- **Qualité** ✅ : Typage strict et accessibilité (A11y).
+
+---
+
+## 🚀 Démarrage du projet
+
+Ce projet n'est pas publié sur npm. Voici comment le lancer localement pour le développement ou l'évaluation :
+
+1. **Installation des dépendances**
+```bash
+npm install
+
+```
+
+2. **Génération des Design Tokens**
+```bash
+npm run build:tokens
+
+```
+
+3. **Lancer Storybook** (Documentation)
+```bash
+npm run storybook
+
+```
+
+
+4. **Lancer l'App de démo** (App.vue)
+```bash
+npm run dev
+
+```
+
+5. **Lancer les tests**
+Il faut que le storybook soit préalablement lancé
+```bash
+npm run test-storybook
+
+```
+
+---
+
+## 💻 Utilisation dans le projet
+
+Pour utiliser les composants dans l'application (`App.vue`), importez-les directement depuis leur dossier :
+
+```vue
+<script setup lang="ts">
+// Import via chemin relatif ou alias
+import BaseButton from './components/atoms/Button/BaseButton.vue';
+import BaseIcon from './components/atoms/Icon/BaseIcon.vue';
+</script>
+
+<template>
+  <div class="container">
+
+    <BaseButton variant="primary">
+        <template #icon-left>
+            <BaseIcon name="settings" />
+        </template>
+        Settings
+    </BaseButton>
+
+  </div>
+</template>
+
+```
+
+---
+
+## 📂 Structure
+
+* **Atoms** : `vue-app/src/components/atoms` (Boutons, Inputs...)
+* **Molecules** : `vue-app/src/components/molecules` (Cartes, Modales...)
+* **Tokens (Source)** : `/tokens` (Fichiers JSON éditables)
+* **Tokens (Build)** : `vue-app/src/styles` (Variables CSS + Objets TypeScript)
+*Offre la flexibilité d'utiliser les tokens via des variables CSS (`var(--...)`) pour le style, ou via des imports TypeScript pour la logique script.*
+---
+
+<div style={{ marginTop: '40px', paddingTop: '20px', borderTop: '1px solid #eaeaea', color: '#666', fontSize: '0.85rem' }}>
+Vue 3 / Vite / Storybook / TypeScript
+</div>
