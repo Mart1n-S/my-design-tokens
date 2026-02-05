@@ -19,7 +19,6 @@ const iconList = [
 const meta: Meta<any> = {
   title: "Molecules/FormField/Input",
   component: FormField,
-  tags: ["autodocs"],
   argTypes: {
     // --- PROPS FORMFIELD ---
     label: {

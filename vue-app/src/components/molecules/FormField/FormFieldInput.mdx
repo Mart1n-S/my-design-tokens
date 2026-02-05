@@ -1,0 +1,163 @@
+import { Canvas, Meta, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as InputStories from './FormFieldInput.stories';
+
+<Meta of={InputStories} />
+
+# FormField (Input) 📝
+
+La molécule `FormField` est le conteneur standard pour les champs de saisie textuels (`BaseInput`).  
+Elle assure l'accessibilité et la cohérence visuelle en gérant :
+- Le lien **Label / Input** (via l'ID).
+- L'affichage des **messages d'erreur**.
+- Le lien **Description / Input** (via `aria-describedby`).
+
+---
+
+### Playground
+
+Testez l'intégration du `BaseInput` dans le `FormField`.  
+Notez comment le label réagit aux états d'erreur et désactivés.
+
+<Canvas of={InputStories.Playground} />
+<Controls of={InputStories.Playground} />
+
+---
+
+### Cas d'usages
+
+#### 1. Recherche & Icônes
+Le FormField encadre parfaitement les inputs avec icônes (loupe, utilisateur, etc.).
+
+<Canvas of={InputStories.StandardRecherche} />
+
+#### 2. Mot de Passe
+Exemple d'interaction complexe (Toggle Visibility) à l'intérieur du wrapper. Le FormField reste passif et laisse l'input gérer la logique.
+
+<Canvas of={InputStories.MotDePasse} />
+
+#### 3. Validation & Erreur
+C'est le rôle principal du FormField : afficher l'erreur de manière uniforme.
+* Le label devient rouge.
+* Le message d'erreur apparaît sous le champ.
+* L'attribut `aria-describedby` lie l'erreur au champ pour les lecteurs d'écran.
+
+<Canvas of={InputStories.ValidationErreur} />
+
+#### 4. États Désactivés & Readonly
+L'état `disabled` sur le FormField grise le label pour indiquer que toute la zone est inactive.
+
+<Canvas of={InputStories.DisabledReadonly} />
+
+---
+
+### API (Props)
+
+<ArgTypes of={InputStories} />
+
+---
+
+### Do's & Don'ts
+
+#### 1. Structure & Liens
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li><strong>Impératif :</strong> Passer le même <code>id</code> au FormField et au BaseInput.</li>
+      <li>Utiliser le slot scope <code>describedBy</code> pour lier l'erreur ou l'aide à l'input.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple (Liaison complète) :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<FormField 
+  id="email" 
+  label="Email" 
+  help-text="Votre email pro"
+>
+  <template #default="{ describedBy }">
+    <BaseInput 
+      id="email" 
+      :aria-describedby="describedBy" 
+    />
+  </template>
+</FormField>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas oublier l'ID sur l'input (sinon cliquer sur le label ne donne pas le focus).</li>
+      <li>Ne pas utiliser ce composant pour une <code>Checkbox</code> ou un <code>Switch</code> (ils ont leur propre label).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<FormField id="nom" label="Nom">
+  <BaseInput /> 
+</FormField>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+#### 2. Validation & Feedback
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Utiliser la prop <code>error-message</code> plutôt que de changer manuellement la couleur du label.</li>
+      <li>Accompagner l'état d'erreur d'une icône dans l'input (ex: <code>icon-right="warning"</code>) pour les daltoniens.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<FormField 
+  error 
+  error-message="Champ requis"
+>
+  <BaseInput error icon-right="warning" />
+</FormField>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas afficher une erreur générique (ex: "Erreur") sans explication.</li>
+      <li>Ne pas compter uniquement sur la couleur rouge pour indiquer l'erreur (inaccessible).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<FormField error error-message="Erreur !">
+  <BaseInput error /> 
+</FormField>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+---
+
+### Accessibilité
+
+L'accessibilité est la raison d'être principale de ce composant wrapper. Voici comment il fonctionne :
+
+* **Association Label/Input (`for` & `id`)** : 
+  Le composant génère un `<label for="X">`. Il est **crucial** que l'input enfant ait `id="X"`. Cela permet aux lecteurs d'écran d'annoncer le nom du champ et permet aux utilisateurs de cliquer sur le label pour activer le champ.
+
+* **Description (`aria-describedby`)** : 
+  Les textes d'aide (`help-text`) et les messages d'erreur (`error-message`) reçoivent automatiquement des IDs uniques (ex: `field-demo-help`).
+  Le composant expose ces IDs via le slot scope `{ describedBy }`. Vous **devez** lier ces IDs à l'input via `:aria-describedby="describedBy"`. 
+  > *Résultat :* Quand l'utilisateur focus l'input, le lecteur d'écran lira : "Email, édition de texte. Votre email pro".
+
+* **Validation (`aria-invalid`)** :
+  Pensez à passer la prop `error` ou `aria-invalid="true"` à l'input enfant lorsque le FormField est en erreur.

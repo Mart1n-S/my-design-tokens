@@ -6,7 +6,6 @@ import BaseTextarea from "../../atoms/Textarea/BaseTextarea.vue";
 const meta: Meta<any> = {
   title: "Molecules/FormField/Textarea",
   component: FormField,
-  tags: ["autodocs"],
   argTypes: {
     // --- PROPS FORMFIELD (Conteneur) ---
     label: {

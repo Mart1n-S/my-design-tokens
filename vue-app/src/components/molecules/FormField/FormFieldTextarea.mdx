@@ -1,0 +1,151 @@
+import { Canvas, Meta, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TextareaStories from './FormFieldTextarea.stories';
+
+<Meta of={TextareaStories} />
+
+# FormField (Textarea) 📝
+
+La molécule `FormField` s'adapte parfaitement aux zones de texte multilignes (`BaseTextarea`).  
+En plus de la gestion standard (Label, Erreur), elle offre une fonctionnalité spécifique pour les textes longs : **l'affichage d'un compteur de caractères**.
+
+---
+
+### Playground
+
+Testez l'intégration du `BaseTextarea`. Essayez d'activer `showCount` et de définir un `maxLength` pour voir le compteur apparaître.
+
+<Canvas of={TextareaStories.Playground} />
+<Controls of={TextareaStories.Playground} />
+
+---
+
+### Cas d'usages
+
+#### 1. Standard
+Le label s'aligne au-dessus de la zone de texte. Le wrapper gère l'espacement vertical.
+
+<Canvas of={TextareaStories.Standard} />
+
+#### 2. Compteur de Caractères
+C'est la fonctionnalité clé pour les Textareas.
+* Activez la prop `show-count`.
+* Fournissez `max-length` (la limite) et `current-length` (la longueur actuelle du v-model).
+* Le compteur s'affiche discrètement en haut à droite du champ.
+
+<Canvas of={TextareaStories.AvecCompteur} />
+
+#### 3. Validation & Erreur
+Comme pour l'input, l'état `error` colore le label et la bordure. Le message d'erreur est particulièrement utile ici pour expliquer des règles de validation complexes (ex: "Votre message ne doit pas contenir de liens").
+
+<Canvas of={TextareaStories.EtatErreur} />
+
+#### 4. États Désactivés & Readonly
+L'état `disabled` grise le label. L'état `readonly` est souvent utilisé pour afficher des données brutes copiables (Logs, Clés RSA).
+
+<Canvas of={TextareaStories.DisabledReadonly} />
+
+---
+
+### API (Props)
+
+<ArgTypes of={TextareaStories} />
+
+---
+
+### Do's & Don'ts
+
+#### 1. Compteurs & Limites
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li><strong>Calculer la longueur :</strong> C'est au parent de calculer <code>v-model.length</code> et de le passer à la prop <code>current-length</code>.</li>
+      <li>Définir la prop <code>max-length</code> sur le FormField pour que le ratio (ex: 50/100) soit correct.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<FormField 
+  label="Tweet" 
+  show-count 
+  :max-length="280" 
+  :current-length="tweet.length"
+>
+  <BaseTextarea 
+    v-model="tweet" 
+    maxlength="280" 
+  />
+</FormField>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas utiliser le compteur sans définir de limite (l'utilisateur ne saura pas quand s'arrêter).</li>
+      <li>Ne pas oublier de mettre l'attribut natif <code>maxlength</code> sur le <code>BaseTextarea</code> (sinon on peut continuer à écrire indéfiniment).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<FormField show-count :current-length="10">
+  <BaseTextarea />
+</FormField>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+#### 2. Ergonomie & Layout
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Utiliser <code>resize="vertical"</code> (défaut) pour éviter que l'utilisateur ne casse la mise en page horizontale.</li>
+      <li>Définir un nombre de <code>rows</code> suffisant pour le contenu attendu.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<FormField label="Votre message">
+  <BaseTextarea 
+    rows="5" 
+    resize="vertical" 
+  />
+</FormField>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas utiliser <code>resize="both"</code> ou <code>horizontal</code> dans un formulaire contraint en largeur (risque de débordement).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<FormField label="Commentaire">
+  <BaseTextarea resize="both" />
+</FormField>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+---
+
+### Accessibilité
+
+Le `FormField` assure la conformité WCAG pour vos zones de texte :
+
+* **Liaison Label** : Comme pour l'input, l'attribut `for` du label doit correspondre à l'attribut `id` du `BaseTextarea`. C'est **obligatoire**.
+* **Instructions** : Les textes d'aide et messages d'erreur sont liés via `aria-describedby` (exposé par le slot scope).
+* **Compteur** : Le compteur visuel est informatif. Pour les lecteurs d'écran, assurez-vous que la limite est claire (l'attribut `maxlength` est annoncé nativement par la plupart des navigateurs/screen readers).
