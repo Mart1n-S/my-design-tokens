@@ -72,7 +72,7 @@ const wrapperClasses = computed(() => [
     border: 1px solid var(--color-border-default);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
-    min-height: 40px;
+    min-height: 44px;
     transition: border-color 0.2s, outline 0.2s, outline-offset 0.2s;
     cursor: text;
 }
