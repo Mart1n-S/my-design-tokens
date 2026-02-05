@@ -1,0 +1,97 @@
+import { Canvas, Meta, Controls, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as TextareaStories from './BaseTextarea.stories';
+
+<Meta of={TextareaStories} />
+
+# BaseTextarea 📝
+
+L'atome `BaseTextarea` permet la saisie de texte multiligne.  
+Il offre des options de redimensionnement et gère les mêmes états de validation que le `BaseInput`.
+
+---
+
+### Playground
+
+Utilisez le contrôleur ci-dessous pour tester le comportement de la zone de texte (lignes, redimensionnement...).
+
+<Canvas of={TextareaStories.Playground} />
+<Controls of={TextareaStories.Playground} />
+
+---
+
+### Redimensionnement
+
+Vous pouvez contrôler comment l'utilisateur peut redimensionner la zone :
+* **Vertical** (Défaut) : Permet d'ajuster la hauteur uniquement (recommandé).
+* **None** : Taille fixe définie par `rows`.
+* **Horizontal / Both** : Rarement utilisé car peut casser la mise en page.
+
+<Canvas of={TextareaStories.Redimensionnement} />
+
+---
+
+### États Visuels
+
+Le composant s'intègre harmonieusement avec les formulaires grâce à ses états standardisés :
+
+1.  **Error** : Bordure rouge pour indiquer une validation échouée.
+2.  **Disabled** : Grisé et non-interactif.
+3.  **Readonly** : Aspect standard mais non-modifiable (copie possible).
+
+<Canvas of={TextareaStories.Etats} />
+
+---
+
+### API (Props)
+
+<ArgTypes of={TextareaStories} />
+
+---
+
+### Do's & Don'ts
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Toujours associer à un label explicite (via <code>FormField</code> ou <code>aria-label</code>).</li>
+      <li>Utiliser <code>resize="vertical"</code> pour éviter de casser la largeur de vos formulaires.</li>
+      <li>Définir un nombre de <code>rows</code> cohérent avec le contenu attendu (ex: 5 pour un message long).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseTextarea 
+  rows="4" 
+  resize="vertical" 
+  placeholder="Décrivez votre problème..."
+  aria-label="Description"
+/>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas utiliser pour des textes courts d'une seule ligne (utiliser <code>BaseInput</code>).</li>
+      <li>Ne pas bloquer le redimensionnement (<code>resize="none"</code>) si le texte peut être long, cela frustre l'utilisateur.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseTextarea rows="1" placeholder="Nom" />`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+---
+
+### Accessibilité
+
+* **Labeling** : Comme pour l'input, ce composant nécessite un label externe ou un `aria-label` pour être accessible aux lecteurs d'écran.
+* **Focus** : Outline visible pour la navigation clavier.
+* **Redimensionnement** : La poignée de redimensionnement reste accessible à la souris.

@@ -5,7 +5,6 @@ import BaseTextarea from "./BaseTextarea.vue";
 const meta = {
   title: "Atoms/BaseTextarea",
   component: BaseTextarea,
-  tags: ["autodocs"],
   argTypes: {
     // --- V-MODEL ---
     modelValue: {

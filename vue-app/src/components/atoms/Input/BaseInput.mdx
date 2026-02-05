@@ -1,0 +1,95 @@
+import { Canvas, Meta, Controls, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as InputStories from './BaseInput.stories';
+
+<Meta of={InputStories} />
+
+# BaseInput ⌨️
+
+L'atome `BaseInput` est un champ de saisie texte unifié.  
+Il gère nativement les différents types HTML (`text`, `email`, `password`...), l'ajout d'icônes et les états de validation.
+
+---
+
+### Playground
+
+Utilisez le contrôleur ci-dessous pour tester le comportement du champ (saisie, icônes, erreur...).
+
+<Canvas of={InputStories.Playground} />
+<Controls of={InputStories.Playground} />
+
+---
+
+### Basique & Icônes
+
+Le champ peut être utilisé simplement avec un placeholder, ou enrichi avec des icônes à gauche (ex: user) et à droite (ex: check validation).
+
+<Canvas of={InputStories.BasiqueEtIcones} />
+
+---
+
+### États Visuels
+
+Le composant communique clairement son état à l'utilisateur :
+
+1.  **Error** : Bordure rouge et icône d'alerte. Indique une validation échouée.
+2.  **Disabled** : Grisé et non-interactif. Indique une action impossible.
+3.  **Readonly** : Aspect standard mais non-modifiable. Pour copier une valeur (ex: clé API, ID).
+
+<Canvas of={InputStories.EtatsVisuels} />
+
+---
+
+### API (Props)
+
+<ArgTypes of={InputStories} />
+
+---
+
+### Do's & Don'ts
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Toujours associer l'input à un label explicite (via le composant parent <code>FormField</code> ou <code>aria-label</code>).</li>
+      <li>Utiliser le bon type HTML (ex: <code>type="email"</code>) pour activer le clavier adapté sur mobile.</li>
+      <li>Utiliser l'état <code>readonly</code> pour les données que l'utilisateur doit voir mais pas modifier.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseInput 
+  type="tel" 
+  icon-left="phone" 
+  placeholder="06 12 34 56 78" 
+  aria-label="Numéro de téléphone"
+/>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas utiliser le <code>placeholder</code> comme seul label (il disparaît lors de la saisie).</li>
+      <li>Ne pas utiliser <code>disabled</code> si l'utilisateur doit pouvoir copier le contenu (utiliser <code>readonly</code>).</li>
+      <li>Ne pas désactiver le copier/coller sur les champs password.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseInput placeholder="Votre email" />`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+---
+
+### Accessibilité
+
+* **Focus** : Outline visible pour la navigation au clavier.
+* **États** : Si `disabled` ou `readonly`, l'attribut HTML correspondant est appliqué.
+* **Labeling** : Ce composant est "dumb" (bête). Il **doit** être utilisé dans un contexte qui lui fournit un label (comme `FormField`) ou avoir un attribut `aria-label`.

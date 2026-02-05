@@ -22,7 +22,6 @@ const iconList = [
 const meta = {
   title: "Atoms/BaseInput",
   component: BaseInput,
-  tags: ["autodocs"],
   argTypes: {
     // --- V-MODEL ---
     modelValue: {
