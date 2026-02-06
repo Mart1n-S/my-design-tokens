@@ -1,0 +1,203 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Colors" />
+
+# Couleurs & Design Tokens 🎨
+
+Notre système de couleurs est entièrement dynamique (Light/Dark mode) grâce à l'utilisation de **variables CSS**.
+Il est impératif d'utiliser les tokens sémantiques dans vos composants.
+
+---
+
+## 1. Tokens Sémantiques (Usage Quotidien)
+Ces variables s'adaptent automatiquement au thème (Clair/Sombre). C'est votre kit de travail principal.
+
+<ColorPalette>
+  
+  <ColorItem
+    title="Backgrounds"
+    subtitle="Fonds de page et surfaces"
+    colors={{
+      'Primary (Page)': 'var(--color-background-primary)',
+      'Secondary (Cards)': 'var(--color-background-secondary)',
+      'Tertiary (Hover/Box)': 'var(--color-background-tertiary)',
+      'Disabled': 'var(--color-disabled-background)',
+    }}
+  />
+
+  <ColorItem
+    title="Typography"
+    subtitle="Couleurs de texte"
+    colors={{
+      'Primary (Titres)': 'var(--color-text-primary)',
+      'Secondary (Corps)': 'var(--color-text-secondary)',
+      'Placeholder': 'var(--color-text-placeholder)',
+      'Inverse': 'var(--color-text-inverse)',
+      'Disabled': 'var(--color-disabled-text)',
+    }}
+  />
+
+  <ColorItem
+    title="Brand Actions"
+    subtitle="Couleurs d'interaction principale"
+    colors={{
+      'Default': 'var(--color-primary-default)',
+      'Hover': 'var(--color-primary-hover)',
+      'Active': 'var(--color-primary-active)',
+      'Surface (Light)': 'var(--color-primary-surface-hover)',
+    }}
+  />
+
+  <ColorItem
+    title="Status / Feedback"
+    subtitle="État du système"
+    colors={{
+      'Info (Blue)': 'var(--color-status-info)',
+      'Success (Green)': 'var(--color-status-success)',
+      'Warning (Orange)': 'var(--color-status-warning)',
+      'Error (Red)': 'var(--color-status-error)',
+    }}
+  />
+
+  <ColorItem
+    title="Borders"
+    subtitle="Séparations"
+    colors={{
+      'Default': 'var(--color-border-default)',
+      'Action Focus': 'var(--color-action-focus)',
+    }}
+  />
+
+</ColorPalette>
+
+---
+
+## 2. Palette Primitive (Base)
+Ces couleurs sont les "ingrédients" bruts. Elles ne doivent pas être utilisées directement dans les composants, sauf pour créer de nouveaux tokens sémantiques.
+
+<ColorPalette>
+  <ColorItem
+    title="Greens"
+    subtitle="Base de la marque et Success"
+    colors={{
+      '50': 'var(--color-green-50)',
+      '100': 'var(--color-green-100)',
+      '200': 'var(--color-green-200)',
+      '300': 'var(--color-green-300)',
+      '400': 'var(--color-green-400)',
+      '500': 'var(--color-green-500)',
+      '600': 'var(--color-green-600)',
+      '700': 'var(--color-green-700)',
+      '800': 'var(--color-green-800)',
+      '900': 'var(--color-green-900)',
+      '950': 'var(--color-green-950)',
+    }}
+  />
+  <ColorItem
+    title="Blues"
+    subtitle="Info & Focus"
+    colors={{
+      '50': 'var(--color-blue-50)',
+      '100': 'var(--color-blue-100)',
+      '200': 'var(--color-blue-200)',
+      '300': 'var(--color-blue-300)',
+      '400': 'var(--color-blue-400)',
+      '500': 'var(--color-blue-500)',
+      '600': 'var(--color-blue-600)',
+      '700': 'var(--color-blue-700)',
+      '800': 'var(--color-blue-800)',
+      '900': 'var(--color-blue-900)',
+      '950': 'var(--color-blue-950)',
+    }}
+  />
+  <ColorItem
+    title="Reds"
+    subtitle="Danger & Error"
+    colors={{
+      '50': 'var(--color-red-50)',
+      '100': 'var(--color-red-100)',
+      '200': 'var(--color-red-200)',
+      '300': 'var(--color-red-300)',
+      '400': 'var(--color-red-400)',
+      '500': 'var(--color-red-500)',
+      '600': 'var(--color-red-600)',
+      '700': 'var(--color-red-700)',
+      '800': 'var(--color-red-800)',
+      '900': 'var(--color-red-900)',
+      '950': 'var(--color-red-950)',
+    }}
+  />
+  <ColorItem
+    title="Oranges"
+    subtitle="Warning"
+    colors={{
+      '50': 'var(--color-orange-50)',
+      '100': 'var(--color-orange-100)',
+      '200': 'var(--color-orange-200)',
+      '300': 'var(--color-orange-300)',
+      '400': 'var(--color-orange-400)',
+      '500': 'var(--color-orange-500)',
+      '600': 'var(--color-orange-600)',
+      '700': 'var(--color-orange-700)',
+      '800': 'var(--color-orange-800)',
+      '900': 'var(--color-orange-900)',
+      '950': 'var(--color-orange-950)',
+    }}
+  />
+  <ColorItem
+    title="Grays"
+    subtitle="Neutres & Textes"
+    colors={{
+      '50': 'var(--color-gray-50)',
+      '100': 'var(--color-gray-100)',
+      '200': 'var(--color-gray-200)',
+      '300': 'var(--color-gray-300)',
+      '400': 'var(--color-gray-400)',
+      '500': 'var(--color-gray-500)',
+      '600': 'var(--color-gray-600)',
+      '700': 'var(--color-gray-700)',
+      '800': 'var(--color-gray-800)',
+      '900': 'var(--color-gray-900)',
+      '950': 'var(--color-gray-950)',
+    }}
+  />
+</ColorPalette>
+
+---
+
+## 3. Comportement Dark Mode 🌑
+
+Notre système gère le mode sombre via l'attribut `[data-theme="dark"]`.
+Le changement est **sémantique** et non purement inversé :
+
+* **Backgrounds :** Les fonds blancs deviennent `gray-950` ou `gray-900`.
+* **Textes :** Les textes sombres passent à `gray-50` ou `gray-300`.
+* **Couleurs Primaires :**
+    * En Light : On utilise des tons soutenus (`green-800`) pour le contraste sur fond blanc.
+    * En Dark : On utilise des tons plus lumineux (`green-500`) pour ressortir sur fond noir.
+
+> **Testez-le en condition réelle :** Pour visualiser le rendu du Dark Mode, rendez-vous sur les stories des composants (ex: **Molecules/Card** ou **Atoms/Button**) et changez le thème via la barre d'outils en haut de l'écran.
+
+---
+
+### Do's & Don'ts
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '18px', fontWeight: 'bold' }}>✅ À faire</p>
+    <ul>
+      <li>Utiliser les variables sémantiques : <code>background: var(--color-background-secondary)</code>.</li>
+      <li>Vérifier le contraste sur le Dark Mode.</li>
+    </ul>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '18px', fontWeight: 'bold' }}>❌ À ne pas faire</p>
+    <ul>
+      <li>Ne pas utiliser les primitives (ex: <code>green-500</code>) directement dans un composant, car cela casse le Dark Mode.</li>
+      <li>Ne pas hardcoder de valeurs HEX.</li>
+    </ul>
+  </div>
+
+</div>
