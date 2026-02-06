@@ -51,7 +51,6 @@ vue-app/src/components/
 ### Installation
 
 Clonez le dépôt et installez les dépendances.
-*Note : Le `package.json` à la racine contient un script `postinstall` qui installera automatiquement les dépendances du dossier `vue-app`.*
 
 ```bash
 # Cloner le projet
@@ -60,7 +59,12 @@ git clone https://github.com/Mart1n-S/my-design-tokens.git
 # Aller dans le dossier racine
 cd my-design-tokens
 
-# Installer toutes les dépendances (racine + vue-app)
+# Installer toutes les dépendances (racine)
+npm install
+
+cd vue-app
+
+# Installer les dépendances de l'application Vue
 npm install
 
 ```
@@ -70,7 +74,7 @@ npm install
 Une fois l'installation terminée, déplacez-vous dans le dossier de l'application pour lancer l'environnement de développement (Vite) :
 
 ```bash
-# Entrer dans le dossier de l'application
+# Entrer dans le dossier de l'application si vous n'y êtes pas déjà
 cd vue-app
 
 # Lancer le serveur de développement
