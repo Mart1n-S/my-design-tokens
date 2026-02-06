@@ -5,7 +5,6 @@ import BaseIcon from "../Icon/BaseIcon.vue";
 const meta = {
   title: "Atoms/BaseBadge",
   component: BaseBadge,
-  tags: ["autodocs"],
   argTypes: {
     // --- 1. PROPS STANDARDS ---
     variant: {

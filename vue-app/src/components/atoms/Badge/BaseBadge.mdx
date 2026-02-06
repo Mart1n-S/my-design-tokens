@@ -1,0 +1,138 @@
+import { Canvas, Meta, Controls, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as BadgeStories from './BaseBadge.stories';
+
+<Meta of={BadgeStories} />
+
+# BaseBadge 🏷️
+
+Le composant `BaseBadge` est un indicateur visuel compact. Il est utilisé pour afficher des métadonnées, des statuts (ex: "Payé") ou des compteurs (ex: "3").  
+Ce composant n'est **pas interactif** (ce n'est pas un bouton).
+
+---
+
+### Playground
+
+Utilisez le contrôleur ci-dessous pour tester les couleurs, formes et tailles.
+
+<Canvas of={BadgeStories.Playground} />
+<Controls of={BadgeStories.Playground} />
+
+---
+
+### Variantes (Couleurs)
+
+Les couleurs ont une signification sémantique forte qu'il convient de respecter :
+* **Neutral** : Brouillon, inactif, défaut.
+* **Success** : Validé, complété, positif.
+* **Warning** : Attention, en attente.
+* **Error** : Échec, critique, rejeté.
+* **Info** : Informatif, nouveauté.
+
+<Canvas of={BadgeStories.Variantes} />
+
+---
+
+### Formes & Tailles
+
+* **Rounded** : Standard, pour les statuts textuels.
+* **Pill** : Arrondi complet, idéal pour les chiffres ou les tags courts.
+
+<Canvas of={BadgeStories.Shapes} />
+<Canvas of={BadgeStories.Sizes} />
+
+---
+
+### Composition avec Icône
+
+Le badge dispose d'un slot `#icon` pour ajouter une icône vectorielle à gauche du texte. Cela renforce la signification du statut (ex: coche verte pour succès).
+
+<Canvas of={BadgeStories.CompositionAvecIcone} />
+
+---
+
+### API (Props)
+
+<ArgTypes of={BadgeStories} />
+
+---
+
+### Do's & Don'ts
+
+#### 1. Usage Sémantique
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Utiliser pour qualifier un objet (ex: Facture "Payée").</li>
+      <li>Utiliser la couleur adaptée au sens (Vert = Positif).</li>
+      <li>Utiliser la variante <code>neutral</code> par défaut.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseBadge variant="success">Payé</BaseBadge>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas utiliser comme un bouton interactif (pas de hover, pas de clic).</li>
+      <li>Ne pas utiliser de couleurs "Warning" (orange) juste parce que c'est joli.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseBadge @click="doSomething">Cliquez-moi</BaseBadge>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+#### 2. Contenu & Forme
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Garder le texte très court (1 ou 2 mots max).</li>
+      <li>Utiliser la forme <code>pill</code> pour les compteurs numériques.</li>
+      <li>Utiliser des majuscules ou titre (Capitalize) pour la lisibilité.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseBadge shape="pill" variant="error">
+  3
+</BaseBadge>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas mettre une phrase complète dans un badge.</li>
+      <li>Ne pas imbriquer d'autres composants complexes (inputs, boutons) dedans.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseBadge>Ceci est un statut beaucoup trop long...</BaseBadge>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+---
+
+### Accessibilité
+
+* **Contraste** : Les couleurs de texte et de fond sont calculées via les tokens pour garantir un ratio de contraste suffisant (WCAG AA).
+* **Rôle** : Ce composant est purement informatif. Si le statut est critique, assurez-vous qu'il est accompagné d'une icône pour les utilisateurs daltoniens (ne pas se fier qu'à la couleur).
