@@ -4,95 +4,180 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Design System Vue 3 🎨
 
-Bienvenue dans la documentation du Design System.  
-Ce projet scolaire regroupe des composants **Vue 3** créés avec **TypeScript** et **Vite**.
+Bienvenue dans la documentation du **Design System**.
+
+Ce projet scolaire regroupe une collection de composants UI réutilisables, construits avec **Vue 3**, **TypeScript** et **Vite**.
+
+Cette documentation permet d’explorer les composants de manière interactive, de tester leurs props et de vérifier leur accessibilité.
 
 ---
 
 ## 💎 Principes
 
-- **Atomicité** ⚛️ : Architecture Atomic Design (Atomes, Molécules).
-- **Style** 🎨 : Design Tokens gérés.
-- **Cohérence** ♾️ : Expérience uniforme
-- **Qualité** ✅ : Typage strict et accessibilité (A11y).
+Notre Design System repose sur **quatre piliers fondamentaux** :
+
+- **Atomicité ⚛️**  
+  Architecture basée sur l’Atomic Design (*Atomes, Molécules*).
+
+- **Style 🎨**  
+  Identité visuelle pilotée exclusivement par des **Design Tokens**.
+
+- **Cohérence ♾️**  
+  Expérience utilisateur uniforme sur l’ensemble de l’application.
+
+- **Qualité ✅**  
+  Code strictement typé, testé et accessible (A11y).
 
 ---
 
 ## 🚀 Démarrage du projet
 
-Ce projet n'est pas publié sur npm. Voici comment le lancer localement pour le développement ou l'évaluation :
+Le projet est structuré en **monorepo**.  
+Suivez les étapes ci-dessous pour travailler dessus localement.
 
-1. **Installation des dépendances**
+---
+
+### 0. Cloner le dépôt GitHub
+
+Commencez par cloner le dépôt officiel du projet :
+
 ```bash
+git clone https://github.com/Mart1n-S/my-design-tokens.git
+````
+
+```bash
+cd my-design-tokens
+```
+
+---
+
+### 1. Installation & setup
+
+À la racine du projet (`my-design-tokens/`) :
+
+```bash
+# Installation des dépendances (racine + vue-app)
 npm install
 
-```
-
-2. **Génération des Design Tokens**
-```bash
+# Génération des variables CSS depuis les Design Tokens
 npm run build:tokens
-
 ```
 
-3. **Lancer Storybook** (Documentation)
+> ℹ️ Un script `postinstall` est présent à la racine pour installer automatiquement les dépendances de `vue-app`.
+
+---
+
+### 2. Lancer l’environnement
+
+Dans le dossier de l’application :
+
 ```bash
+cd vue-app
+```
+
+```bash
+# Storybook (documentation) — http://localhost:6006
 npm run storybook
 
-```
-
-
-4. **Lancer l'App de démo** (App.vue)
-```bash
+# Application de démonstration (Vite) — http://localhost:5173
 npm run dev
-
 ```
 
-5. **Lancer les tests**
-Il faut que le storybook soit préalablement lancé
-```bash
-npm run test-storybook
+#### 📚 Deux façons d’explorer les composants
 
+* **Storybook (`localhost:6006`)**
+  → Source de vérité du Design System
+  → Documentation technique, contrôles interactifs, tests d’accessibilité, Do & Don’t
+
+* **Application Vite (`localhost:5173`)**
+  → Vue d’ensemble de **tous les composants et de leur documentation**
+  → Présentation centralisée expliquée dans `App.vue`
+  → Idéal pour visualiser les composants dans un contexte applicatif réel
+
+---
+
+### 🎨 Thèmes Light & Dark
+
+Le Design System supporte nativement les **thèmes clair et sombre**.
+
+* La gestion des thèmes repose entièrement sur les **Design Tokens**
+* Les variables CSS sont générées automatiquement pour chaque thème
+* Le changement de thème est global et cohérent sur tous les composants
+
+> 💡 Les fichiers de thèmes sont générés dans `vue-app/src/styles`
+> (`variables.css`, `variables-dark.css`)
+
+---
+
+### 3. Lancer les tests
+
+Toujours dans `vue-app` :
+
+```bash
+# Tests unitaires (Vitest)
+npm run test
+```
+
+```bash
+# Tests d’interactions Storybook
+# ⚠️ Storybook doit être lancé dans un autre terminal
+npm run test-storybook
 ```
 
 ---
 
 ## 💻 Utilisation dans le projet
 
-Pour utiliser les composants dans l'application (`App.vue`), importez-les directement depuis leur dossier :
+Les composants sont importés directement depuis leur dossier atomique.
+
+### Exemple d’utilisation
 
 ```vue
 <script setup lang="ts">
 // Import via chemin relatif ou alias
 import BaseButton from './components/atoms/Button/BaseButton.vue';
 import BaseIcon from './components/atoms/Icon/BaseIcon.vue';
+
+const handleClick = () => {
+  console.log('Action confirmée');
+};
 </script>
 
 <template>
   <div class="container">
-
-    <BaseButton variant="primary">
-        <template #icon-left>
-            <BaseIcon name="settings" />
-        </template>
-        Settings
+    <BaseButton variant="primary" @click="handleClick">
+      <template #icon-left>
+        <BaseIcon name="settings" />
+      </template>
+      Paramètres
     </BaseButton>
-
   </div>
 </template>
-
 ```
 
 ---
 
 ## 📂 Structure
 
-* **Atoms** : `vue-app/src/components/atoms` (Boutons, Inputs...)
-* **Molecules** : `vue-app/src/components/molecules` (Cartes, Modales...)
-* **Tokens (Source)** : `/tokens` (Fichiers JSON éditables)
-* **Tokens (Build)** : `vue-app/src/styles` (Variables CSS + Objets TypeScript)
-*Offre la flexibilité d'utiliser les tokens via des variables CSS (`var(--...)`) pour le style, ou via des imports TypeScript pour la logique script.*
+* **Atoms** : `vue-app/src/components/atoms`
+  Boutons, Inputs, Icônes…
+
+* **Molecules** : `vue-app/src/components/molecules`
+  Cartes, Modales, Champs de formulaire…
+
+* **Tokens (Source)** : `/tokens`
+  Fichiers JSON éditables
+
+* **Tokens (Build)** : `vue-app/src/styles`
+  Variables CSS + objets TypeScript générés automatiquement
+
+> 💡 Les Design Tokens peuvent être utilisés :
+>
+> * via les variables CSS (`var(--color-primary)`) pour le style,
+> * via TypeScript pour la logique applicative.
+
 ---
 
 <div style={{ marginTop: '40px', paddingTop: '20px', borderTop: '1px solid #eaeaea', color: '#666', fontSize: '0.85rem' }}>
-Vue 3 / Vite / Storybook / TypeScript
+Construit avec Vue 3 • Vite • Storybook • TypeScript
 </div>

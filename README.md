@@ -26,7 +26,7 @@ Le projet est structuré pour être évolutif et maintenable.
 
 ### 1. Design Tokens
 Nous n'utilisons pas de valeurs "en dur" (hex codes, pixels) dans les composants. Tout est centralisé via des **Tokens** (variables CSS) générés automatiquement.
-* **Localisation** : `vue-app/src/styles/variables.css`,`vue-app/src/styles/variables-dark.css` (ou `vue-app/src/styles/tokens.ts`)
+* **Localisation** : `vue-app/src/styles/variables.css`, `vue-app/src/styles/variables-dark.css` (ou `vue-app/src/styles/tokens.ts`)
 * **Usage** : Couleurs, Espacements, Typographie, Ombres, Radius.
 
 ### 2. Atomic Design
@@ -44,10 +44,12 @@ vue-app/src/components/
 ## 🚀 Installation & Setup
 
 ### Prérequis
+
 * Node.js (v20+ recommandé)
 * NPM
 
 ### Installation
+
 Clonez le dépôt et installez les dépendances.
 *Note : Le `package.json` à la racine contient un script `postinstall` qui installera automatiquement les dépendances du dossier `vue-app`.*
 
@@ -89,6 +91,7 @@ La documentation est conçue pour être exhaustive et pratique :
 * **Playground (Contrôles)** : Chaque composant dispose d'un tableau interactif pour tester ses différentes **props** et voir le rendu en temps réel.
 * **Guides d'utilisation** : Des sections **"Do & Don't"** expliquent le contexte d'utilisation idéal de chaque composant.
 * **Accessibilité (A11y)** : Des audits automatiques et des notes spécifiques garantissent que chaque composant est inclusif.
+
 Pour lancer Storybook en local depuis le dossier `vue-app` :
 
 ```bash
@@ -96,8 +99,23 @@ npm run storybook
 
 ```
 
-L'interface sera accessible sur :
-http://localhost:6006
+L'interface sera accessible sur : http://localhost:6006
+
+---
+
+### 📚 Deux façons d’explorer les composants
+
+Une fois le projet lancé, vous disposez de deux interfaces complémentaires :
+
+1. **Storybook** (`http://localhost:6006`)
+* *Source de vérité du Design System.*
+* Documentation technique, contrôles interactifs, tests d’accessibilité, règles "Do & Don’t".
+
+
+2. **Application Vite** (`http://localhost:5173`)
+* *Vue d’ensemble.*
+* Présentation centralisée de tous les composants expliquée dans `App.vue`.
+* Idéal pour visualiser les composants dans un contexte applicatif réel.
 
 ---
 
@@ -131,6 +149,77 @@ npm run test-storybook
 
 ---
 
+## 🌗 Thèmes Light & Dark
+
+Le Design System supporte nativement les **thèmes clair et sombre**.
+
+* La gestion des thèmes repose entièrement sur les **Design Tokens**.
+* Les variables CSS sont générées automatiquement pour chaque thème.
+* Le changement de thème est global et cohérent sur tous les composants.
+
+💡 *Les fichiers de thèmes sont générés dans `vue-app/src/styles` (`variables.css`, `variables-dark.css`).*
+
+---
+
+## 🎨 Personnalisation du Thème (Design Tokens)
+
+Le style de l'application n'est pas codé en dur, il est généré à partir de fichiers JSON situés dans le dossier `tokens/` à la racine du projet.
+
+Pour modifier l'apparence (couleurs, espacements, typographie) :
+
+1. **Modifier les fichiers sources** :
+Allez dans le dossier `tokens/` et modifiez les fichiers JSON souhaités :
+* `tokens/color/base.json` : Pour changer les palettes de couleurs.
+* `tokens/spacing.json` : Pour ajuster les marges et paddings.
+* `tokens/typography.json` : Pour changer les polices et tailles.
+
+
+2. **Générer les variables CSS** :
+Une fois vos modifications terminées, vous devez recompiler les tokens pour qu'ils soient pris en compte par l'application Vue. Lancez cette commande depuis la **racine** du projet :
+```bash
+npm run build:tokens
+
+```
+
+
+*Cela va mettre à jour les variables CSS dans le dossier de l'application.*
+
+---
+
+## 🚀 Déploiement Manuel sur votre propre Chromatic
+
+Si vous souhaitez forker ce projet et le déployer sur votre propre compte Chromatic (hors CI/CD), suivez ces étapes :
+
+1. **Créer un projet** : Connectez-vous sur [Chromatic.com](https://www.chromatic.com/) avec votre compte GitHub et créez un nouveau projet pour obtenir un `projectToken`.
+2. **Configuration locale** :
+Dans le dossier `vue-app`, dupliquez le fichier d'exemple pour créer votre configuration locale :
+```bash
+cd vue-app
+cp .env.example .env
+
+```
+
+
+3. **Ajout du Token** :
+Ouvrez le fichier `.env` nouvellement créé et remplacez la variable par votre propre token :
+```env
+CHROMATIC_PROJECT_TOKEN=votre-token-chromatic-ici
+
+```
+
+
+4. **Déployer** :
+Lancez la commande de déploiement manuel :
+```bash
+npm run chromatic
+
+```
+
+
+*Cette commande va construire votre Storybook et l'envoyer sur votre dashboard Chromatic.*
+
+---
+
 ## ⚙️ CI/CD & Déploiement
 
 Ce projet dispose d'un pipeline d'intégration et de déploiement continu (CI/CD) géré par **GitHub Actions**.
@@ -139,11 +228,13 @@ Ce projet dispose d'un pipeline d'intégration et de déploiement continu (CI/CD
 
 À chaque `push` ou `pull_request` sur la branche `main`, les étapes suivantes sont exécutées :
 
-1.  **Installation** : Récupération du code et installation des dépendances (`npm ci`).
-2.  **Préparation Tests** : Installation des navigateurs Playwright (nécessaires pour Vitest en mode browser).
-3.  **Tests Unitaires** : Exécution de `npm run test`.
-    * 🛑 *Si les tests échouent, le déploiement est bloqué.*
-4.  **Déploiement Chromatic** : Si les tests passent, Storybook est construit et déployé sur Chromatic pour la validation visuelle.
+1. **Installation** : Récupération du code et installation des dépendances (`npm ci`).
+2. **Préparation Tests** : Installation des navigateurs Playwright (nécessaires pour Vitest en mode browser).
+3. **Tests Unitaires** : Exécution de `npm run test`.
+* 🛑 *Si les tests échouent, le déploiement est bloqué.*
+
+
+4. **Déploiement Chromatic** : Si les tests passent, Storybook est construit et déployé sur Chromatic pour la validation visuelle.
 
 ### 🔍 Chromatic
 
@@ -156,21 +247,30 @@ Ce projet dispose d'un pipeline d'intégration et de déploiement continu (CI/CD
 
 ## 📂 Structure du Projet
 
-Voici un aperçu de l'arborescence :
+L'architecture sépare la définition du design (Tokens) de son implémentation technique (Vue App).
 
 ```text
-vue-app/
-├── .github/workflows/   # Configuration CI/CD
-├── src/
-│   ├── components/      # Architecture Atomic Design
-│   │   ├── atoms/
-│   │   └── molecules/
-│   ├── styles/          # Tokens et CSS global
-│   ├── types/           # Définitions TypeScript
-│   ├── App.vue
-│   └── main.ts
-├── .storybook/          # Config Storybook
-├── package.json
-└── vite.config.ts
+my-design-tokens/             # Racine du projet
+├── .github/workflows/        # ⚙️ Configuration CI/CD
+├── tokens/                   # 🎨 Source des Design Tokens (Fichiers JSON)
+│   ├── color/                # Palettes de couleurs
+│   ├── spacing.json          # Espacements
+│   ├── radius.json           # Arrondis
+│   └── typography.json       # Typographie
+├── config.js                 # Configuration du générateur (Style Dictionary)
+├── package.json              # Scripts racine (ex: build:tokens)
+└── vue-app/                  # Bibliothèque de composants Vue 3
+    ├── .storybook/           # Configuration Storybook
+    ├── src/
+    │   ├── components/       # ⚛️ Architecture Atomic Design
+    │   │   ├── atoms/        # (Boutons, Inputs, Badges...)
+    │   │   └── molecules/    # (Cartes, Champs formulaires...)
+    │   ├── stories/          # Pages de documentation globale
+    │   │   ├── Introduction.mdx
+    │   │   └── ...
+    │   ├── styles/           # CSS généré automatiquement (Ne pas modifier ici)
+    │   └── types/            # Définitions TypeScript
+    ├── vite.config.ts
+    └── package.json
 
 ```
