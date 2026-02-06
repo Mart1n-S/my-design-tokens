@@ -62,6 +62,7 @@ cd my-design-tokens
 # Installer toutes les dépendances (racine)
 npm install
 
+# Aller dans le dossier de l'application Vue
 cd vue-app
 
 # Installer les dépendances de l'application Vue
