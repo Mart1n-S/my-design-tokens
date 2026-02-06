@@ -15,7 +15,6 @@ const iconList = [
 const meta = {
   title: "Molecules/StatCard",
   component: StatCard,
-  tags: ["autodocs"],
   argTypes: {
     // --- PROPS ---
     label: {

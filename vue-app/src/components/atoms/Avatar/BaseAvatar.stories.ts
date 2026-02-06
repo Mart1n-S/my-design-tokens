@@ -9,7 +9,6 @@ const BROKEN_URL = "https://broken-image-link.com/404.jpg";
 const meta = {
   title: "Atoms/BaseAvatar",
   component: BaseAvatar,
-  tags: ["autodocs"],
   argTypes: {
     // --- PROPS ---
     src: {

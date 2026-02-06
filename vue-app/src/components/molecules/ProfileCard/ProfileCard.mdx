@@ -1,0 +1,154 @@
+import { Canvas, Meta, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ProfileStories from './ProfileCard.stories';
+
+<Meta of={ProfileStories} />
+
+# ProfileCard 📇
+
+La molécule `ProfileCard` affiche une vue synthétique d'un utilisateur ou d'un contact.  
+Elle compose les atomes `BaseAvatar`, `BaseBadge` et `BaseButton` pour présenter l'identité, le rôle et une action principale.
+
+---
+
+### Playground
+
+Utilisez le contrôleur pour tester l'assemblage des différents atomes (taille avatar, couleur badge, etc.).
+
+<Canvas of={ProfileStories.Playground} />
+<Controls of={ProfileStories.Playground} />
+
+---
+
+### Layouts & Comportement
+
+#### 1. Standard (Responsive)
+Par défaut, le composant est "fluide" :
+* **Mobile** : Affichage en colonne centrée.
+* **Desktop** : Affichage en ligne (row) avec les infos à gauche et l'action à droite.
+
+<Canvas of={ProfileStories.Standard} />
+
+#### 2. Centré (Card Style)
+La prop `centered` force l'affichage en colonne, même sur les grands écrans. C'est idéal pour les grilles de contacts ("Trombinoscopes") ou les cartes étroites.
+
+<Canvas of={ProfileStories.CenteredCard} />
+
+---
+
+### Personnalisation
+
+Le composant expose les props de ses enfants (taille de l'avatar, variante du badge...) pour permettre une hiérarchie visuelle variée (ex: Mise en avant d'un directeur).
+
+<Canvas of={ProfileStories.CustomSizes} />
+
+---
+
+### Minimal (Fallbacks)
+
+Le composant est robuste :
+* Si `avatarSrc` est vide, l'avatar affiche les initiales ou une icône par défaut.
+* Si `role` est vide, le badge ne s'affiche pas.
+
+<Canvas of={ProfileStories.Minimal} />
+
+---
+
+### API (Props & Events)
+
+<ArgTypes of={ProfileStories} />
+
+---
+
+### Do's & Don'ts
+
+#### 1. Mise en page (Layout)
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Utiliser la variante <code>centered</code> lorsque vous affichez une liste d'utilisateurs dans une grille (Grid).</li>
+      <li>Utiliser le mode standard pour les en-têtes de liste ou les cartes larges.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple (Grille) :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<div class="grid-layout">
+  <ProfileCard 
+    v-for="user in users" 
+    :key="user.id" 
+    centered 
+    :name="user.name" 
+  />
+</div>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas forcer le mode standard dans un conteneur très étroit (l'avatar et le texte vont se chevaucher).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<aside style="width: 200px">
+   <ProfileCard :centered="false" /> 
+</aside>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+#### 2. Contenu
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Utiliser <code>jobTitle</code> pour une description courte (Poste, Département).</li>
+      <li>Utiliser <code>role</code> (Badge) pour un statut système (Admin, Premium, Invité).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<ProfileCard 
+  name="Alice" 
+  job-title="Développeuse Front-end"
+  role="Admin"
+  role-variant="success"
+/>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas mettre une biographie complète dans <code>jobTitle</code> (ça casse le design).</li>
+      <li>Ne pas utiliser ce composant pour afficher autre chose qu'une personne.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<ProfileCard 
+  name="Alice" 
+  job-title="Passionnée de code depuis 10 ans, j'aime le JS, le CSS, le café et les chats..." 
+/>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+---
+
+### Accessibilité
+
+* **Images** : Si `avatarAlt` n'est pas fourni, le composant utilise intelligemment le `name` pour générer un texte alternatif cohérent.
+* **Navigation** : Le bouton d'action est un élément interactif natif, accessible au clavier via `Tab`.
+* **Structure** : Le nom de l'utilisateur est généralement balisé (ex: `<h3>` ou `<strong>`) pour faciliter la navigation par titres.

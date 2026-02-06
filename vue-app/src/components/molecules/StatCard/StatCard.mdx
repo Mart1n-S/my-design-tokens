@@ -1,0 +1,127 @@
+import { Canvas, Meta, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as StatStories from './StatCard.stories';
+
+<Meta of={StatStories} />
+
+# StatCard 📊
+
+La molécule `StatCard` sert à afficher un indicateur de performance clé (KPI).  
+Elle met en avant une valeur principale, accompagnée d'un contexte (icône) et d'une indication de tendance (évolution par rapport à une période précédente).
+
+---
+
+### Playground
+
+Utilisez le contrôleur pour tester l'affichage des différents états (avec ou sans tendance, différents types de sémantique).
+
+<Canvas of={StatStories.Playground} />
+<Controls of={StatStories.Playground} />
+
+---
+
+### Exemple d'intégration (Dashboard)
+
+Les `StatCard` sont conçues pour fonctionner en grille. Elles s'adaptent à la largeur de leur conteneur.
+Voici un exemple typique de tableau de bord mélangeant des données financières, d'engagement et techniques.
+
+<Canvas of={StatStories.DashboardGrid} />
+
+---
+
+### API (Props)
+
+<ArgTypes of={StatStories} />
+
+---
+
+### Do's & Don'ts
+
+#### 1. Données & Formatage
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Formater les nombres pour qu'ils soient lisibles (séparateur de milliers, arrondis).</li>
+      <li>Garder le label court et précis (1 à 3 mots).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<StatCard 
+  label="Chiffre d'Affaires" 
+  value="12,5 k€" 
+/>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas afficher de données brutes avec trop de décimales.</li>
+      <li>Ne pas utiliser ce composant pour afficher du texte long (ce n'est pas une carte de contenu).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<StatCard 
+  label="CA" 
+  value="12543.987654 €" 
+/>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+#### 2. Sémantique & Couleurs
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Adapter la couleur de la tendance (`trendType`) au contexte métier.</li>
+      <li>Exemple : Une hausse de bugs est négative (Rouge/Error), une baisse de churn est positive (Vert/Success).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple (Contexte inversé) :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<StatCard 
+  label="Bugs Critiques" 
+  trend="+12%" 
+  trend-type="error" 
+/>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas utiliser systématiquement le vert pour une hausse (ex: Hausse des dépenses).</li>
+      <li>Ne pas utiliser d'icône décorative qui n'a aucun rapport avec le label.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<StatCard 
+  label="Pertes" 
+  trend="+500€" 
+  trend-type="success" 
+/>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+---
+
+### Accessibilité
+
+* **Icônes** : L'icône principale est considérée comme décorative (`aria-hidden="true"`) car le label explique déjà le contenu.
+* **Lecture** : Le composant est structuré pour que le label soit lu avant la valeur par les lecteurs d'écran.
+* **Contraste** : Les badges de tendance utilisent des couleurs conformes aux ratios de contraste AA sur le fond de la carte.
