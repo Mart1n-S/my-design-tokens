@@ -1,0 +1,146 @@
+import { Canvas, Meta, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ReviewStories from './ReviewCard.stories';
+
+<Meta of={ReviewStories} />
+
+# ReviewCard ✍️
+
+La molécule `ReviewCard` est un formulaire clé en main pour la saisie de commentaires, d'avis clients ou de messages.  
+Elle intègre automatiquement l'identité de l'utilisateur (Avatar), la zone de saisie avec validation, et le bouton d'action.
+
+---
+
+### Playground
+
+Testez le flux de saisie : le bouton "Envoyer" reste désactivé tant que le champ est vide.
+
+<Canvas of={ReviewStories.Playground} />
+<Controls of={ReviewStories.Playground} />
+
+---
+
+### Cas d'usages
+
+#### 1. Standard (Commentaires)
+Configuration typique pour un blog ou un produit.
+* La gestion de l'état `loading` désactive le champ et affiche un spinner sur le bouton pendant la soumission.
+
+<Canvas of={ReviewStories.Standard} />
+
+#### 2. Sans Photo (Fallback)
+Si l'utilisateur n'a pas d'avatar, le composant utilise intelligemment les initiales de `userName` (via `BaseAvatar`).
+
+<Canvas of={ReviewStories.SansPhoto} />
+
+#### 3. Avec Limite (Compteur)
+Pour les formats courts (Tweets, SMS, feedback rapide), activez `show-count` et `max-length`. Le compteur s'affiche et le champ bloque la saisie au-delà de la limite.
+
+<Canvas of={ReviewStories.AvecLimite} />
+
+---
+
+### États Visuels
+
+Le composant gère sa propre logique de validation simple :
+1.  **Vide** : Le bouton est `disabled`.
+2.  **Saisi** : Le bouton devient actif (`primary`).
+3.  **Loading** : Tout le formulaire est figé (`readonly` / `disabled`).
+
+<Canvas of={ReviewStories.EtatsVisuels} />
+
+---
+
+### API (Props & Events)
+
+<ArgTypes of={ReviewStories} />
+
+---
+
+### Do's & Don'ts
+
+#### 1. UX & Interaction
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Utiliser la prop <code>loading</code> dès que l'événement <code>@submit</code> est déclenché pour éviter les doubles soumissions.</li>
+      <li>Personnaliser le <code>placeholder</code> pour inciter à la discussion.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<ReviewCard 
+  :loading="isSending"
+  @submit="sendData"
+  placeholder="Posez votre question..."
+/>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas utiliser ce composant pour un formulaire de contact complexe (Ce n'est pas fait pour collecter Email + Sujet).</li>
+      <li>Ne pas masquer l'avatar si l'utilisateur est connecté.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<ReviewCard 
+  label="Contactez-nous (Email + Message)" 
+  placeholder="Entrez votre email puis votre message"
+/>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+#### 2. Validation
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Utiliser <code>max-length</code> pour éviter les romans si l'espace d'affichage est restreint.</li>
+      <li>Le bouton est désactivé nativement si le champ est vide, inutile de gérer ça manuellement.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<ReviewCard 
+  show-count 
+  :max-length="160" 
+/>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas valider le contenu côté client de manière complexe (Regex lourde, filtre anti-spam JS...).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<ReviewCard 
+  @input="runHeavyAntiSpamScript($event)" 
+/>`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+---
+
+### Accessibilité
+
+* **Labeling** : Le champ de texte (Textarea) est associé visuellement à un label, mais aussi techniquement via `id` et `for`.
+* **Focus** : Après la soumission, si le champ est vidé, le focus reste géré naturellement par le navigateur. Si vous masquez le formulaire après envoi, gérez le focus manuellement.
+* **Bouton** : Le bouton d'envoi est désactivé (`disabled`) quand le champ est vide, ce qui le retire de la navigation Tab pour éviter la confusion.

@@ -5,7 +5,6 @@ import ReviewCard from "./ReviewCard.vue";
 const meta: Meta<any> = {
   title: "Molecules/ReviewCard",
   component: ReviewCard,
-  tags: ["autodocs"],
   argTypes: {
     // --- V-MODEL ---
     modelValue: {

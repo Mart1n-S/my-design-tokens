@@ -4,7 +4,6 @@ import ProfileCard from "./ProfileCard.vue";
 const meta = {
   title: "Molecules/ProfileCard",
   component: ProfileCard,
-  tags: ["autodocs"],
   argTypes: {
     // --- CONTENU PRINCIPAL ---
     name: {
