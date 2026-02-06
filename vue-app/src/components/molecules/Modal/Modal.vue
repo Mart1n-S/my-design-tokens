@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref, watch, nextTick } from 'vue';
 import type { ModalProps } from '../../../types';
 import BaseButton from '../../atoms/Button/BaseButton.vue';
 
@@ -14,8 +14,9 @@ const emit = defineEmits<{
     (e: 'close'): void;
 }>();
 
-// --- A11Y : Génération d'un ID unique pour lier le titre à la modale ---
+// --- Références & A11Y ---
 const titleId = `modal-title-${Math.random().toString(36).substr(2, 9)}`;
+const modalRef = ref<HTMLElement | null>(null);
 
 const handleClose = () => {
     emit('close');
@@ -28,6 +29,18 @@ const handleKeydown = (e: KeyboardEvent) => {
     }
 };
 
+// --- Focus Management ---
+// Dès que la modale s'ouvre, on force le focus sur le conteneur
+// pour permettre la navigation clavier immédiate (Tab)
+watch(() => props.isOpen, async (isOpened) => {
+    if (isOpened) {
+        await nextTick();
+        if (modalRef.value) {
+            modalRef.value.focus();
+        }
+    }
+});
+
 onMounted(() => document.addEventListener('keydown', handleKeydown));
 onUnmounted(() => document.removeEventListener('keydown', handleKeydown));
 </script>
@@ -38,7 +51,8 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown));
         <transition name="fade">
             <div v-if="isOpen" class="modal-backdrop" :class="{ 'modal-backdrop--inline': inline }" @click="handleClose"
                 role="dialog" aria-modal="true" :aria-labelledby="titleId">
-                <div class="modal-container" :class="[`modal--${size}`]" @click.stop>
+
+                <div ref="modalRef" class="modal-container" :class="[`modal--${size}`]" @click.stop tabindex="-1">
 
                     <div class="modal__header">
                         <h3 :id="titleId" class="modal__title">{{ title }}</h3>
@@ -96,6 +110,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown));
     flex-direction: column;
     overflow: hidden;
     transition: transform 0.3s ease, opacity 0.3s ease;
+    outline: none;
 }
 
 .modal-backdrop--inline .modal-container {
