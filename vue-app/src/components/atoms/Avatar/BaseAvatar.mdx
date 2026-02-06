@@ -1,0 +1,149 @@
+import { Canvas, Meta, Controls, ArgTypes, Story } from '@storybook/addon-docs/blocks';
+import * as AvatarStories from './BaseAvatar.stories';
+
+<Meta of={AvatarStories} />
+
+# BaseAvatar 👤
+
+L'atome `BaseAvatar` représente visuellement un utilisateur ou une entité (organisation, bot).  
+Il gère automatiquement l'affichage de l'image, le rognage circulaire, et fournit un mécanisme de secours (fallback) robuste si l'image est manquante ou invalide.
+
+---
+
+### Playground
+
+Utilisez le contrôleur pour tester le comportement avec ou sans image.
+
+<Canvas of={AvatarStories.Playground} />
+<Controls of={AvatarStories.Playground} />
+
+---
+
+### Tailles
+
+L'avatar est disponible en 4 tailles standardisées via les tokens :
+
+* **sm** : Pour les tableaux denses ou les sous-éléments.
+* **md** : Taille standard (listes, commentaires).
+* **lg** : En-têtes de cartes ou menus.
+* **xl** : Pages de profil.
+
+<Canvas of={AvatarStories.Sizes} />
+
+---
+
+### Fallbacks & Robustesse
+
+Le composant est conçu pour ne jamais afficher une image brisée ("broken image").
+
+1.  **Initials (Prop)** : Si fourni, affiche ces lettres.
+2.  **Auto-Initials** : Si l'image charge mal, le composant génère les initiales à partir de la prop `alt`.
+3.  **Défaut** : Si rien n'est fourni, un "?" ou une icône générique s'affiche.
+
+<Canvas of={AvatarStories.FallbackInitials} />
+
+**Test de lien mort (404) :**
+Ci-dessous, l'URL de l'image est invalide. Le composant le détecte et affiche le fallback "ERR".
+
+<Canvas of={AvatarStories.BrokenImage} />
+
+---
+
+### Avatar Décoratif
+
+Si l'avatar est purement esthétique (par exemple, si le nom de l'utilisateur est écrit juste à côté en texte), il peut être marqué comme `decorative`. Il sera alors ignoré par les lecteurs d'écran pour éviter la redondance.
+
+<Canvas of={AvatarStories.Decorative} />
+
+---
+
+### API (Props)
+
+<ArgTypes of={AvatarStories} />
+
+---
+
+### Do's & Don'ts
+
+#### 1. Gestion des Images
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Utiliser des images carrées si possible (le composant applique un <code>object-fit: cover</code>, mais attention au cadrage).</li>
+      <li>Fournir des initiales explicites (prop <code>initials</code>) si le calcul automatique depuis le nom est hasardeux.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseAvatar 
+  src="photo.jpg" 
+  alt="Jean Dupont" 
+  initials="JD" 
+/>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne pas utiliser d'images transparentes (PNG) conçues pour un fond clair si votre app a un Dark Mode (le fond de l'avatar peut varier).</li>
+      <li>Ne pas forcer la taille via CSS (utiliser la prop <code>size</code>).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseAvatar style="width: 200px" />`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+#### 2. Accessibilité & Contexte
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+  
+  <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#166534', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>✅ À faire (Do)</p>
+    <ul>
+      <li>Toujours remplir la prop <code>alt</code> avec le nom complet de l'utilisateur.</li>
+      <li>Utiliser <code>decorative</code> si le nom est déjà affiché en texte juste à côté.</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Bon exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<div class="user-card">
+  <BaseAvatar src="..." alt="Jean" decorative />
+  <span>Jean Dupont</span>
+</div>`}
+        </pre>
+    </div>
+  </div>
+
+  <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '15px', borderRadius: '8px' }}>
+    <p style={{ color: '#991b1b', marginTop: 0, fontSize: '24px', fontWeight: 'bold' }}>❌ À ne pas faire (Don't)</p>
+    <ul>
+      <li>Ne jamais laisser <code>alt</code> vide si l'avatar est seul (l'utilisateur aveugle ne saura pas qui c'est).</li>
+      <li>Ne pas mettre "Avatar" ou "Image de profil" dans le alt (c'est implicite).</li>
+    </ul>
+    <div style={{ marginTop: '10px' }}>
+        <strong>Mauvais exemple :</strong>
+        <pre style={{ background: '#fff', padding: '10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '12px' }}>
+{`<BaseAvatar alt="Image de profil" />`}
+        </pre>
+    </div>
+  </div>
+
+</div>
+
+---
+
+### Accessibilité
+
+* **Alt Text** : La prop `alt` est obligatoire (sauf si `decorative` est true).
+* **Contraste** : Les couleurs de fond des initiales sont choisies pour garantir un contraste suffisant avec le texte.
+* **Decorative** : L'attribut `aria-hidden="true"` est appliqué automatiquement quand `decorative={true}`.
